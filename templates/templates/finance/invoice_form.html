@@ -1,0 +1,120 @@
+
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+employees list
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Add Salary Payment</h4>
+            <div class="card-header-action">
+            <span class="badge {% if fee.closed %} badge-danger {% else %} badge-success {% endif %}"><i class="fa fa-circle"></i></span>
+            <!-- <a href="" class="btn btn-sm btn-primary">Add Payment</a> -->
+              
+              <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add Payment
+              </button> -->
+            </div>
+        </div>
+        <div class="card-body">
+            <form id="" method="post" class="">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <label for="id_student">Student</label>
+                    <select name="student" id="id_student" class="form-control select2" required>
+                      <option value="">Select Student</option>
+                      {% for student in students %}
+                        <option value="{{student.id}}">{{student}}</option>
+                      {% endfor %}
+                    </select>
+
+                    <label for="id_fee">Tuition Fee</label>
+                    <select name="fee" id="id_fee" class="form-control select2" required>
+                      <option value="">Select Tuition Fee</option>
+                      {% for fee in fees %}
+                        <option value="{{fee.id}}">{{fee}}</option>
+                      {% endfor %}
+                    </select>
+
+                    <label for="id_other_fee">Other Fees</label>
+                    <select name="other_fee" id="id_other_fee" class="form-control select2" multiple="">
+                      
+                      {% for fee in other_fees %}
+                        <option value="{{fee.id}}">{{fee}}</option>
+                      {% endfor %}
+                    </select>
+
+                    <label for="id_issue_discount">Issue Discount</label>
+                    <input type="checkbox" name="issue_discount" id="id_issue_discount" class="">
+
+                    <label for="id_percentage">Discount Percentage</label>
+                    <input type="number" name="percentage" class="form-control">
+                    
+                    {{form}}
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button class="btn btn-primary" type="submit" name="add-onother">Save and add onother</button>
+                    <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+                    <a href="../{{school_id}}" type="button" class="btn btn-secondary">Back</a>
+                </div>
+            </form>
+
+
+            
+            <!-- <form id="" method="post" class="">
+              {% csrf_token %}
+              <div class="modal-body">
+                <label for="student">Employee:</label>
+                <select name="employee" id="id_employee" class="form-control select2" required>
+                  <option value="">-----------</option>
+                  {% for employee in employees %}
+                    <option value="{{employee.id}}">{{employee}}</option>
+                  {% endfor %}
+                </select>
+                <div id="cont" class="container mt-2">
+                    
+                </div>
+                {{ form }}
+              </div>
+              <div class="modal-footer bg-whitesmoke br">
+                <button class="btn btn-primary" type="submit" name="add-onother">Save and add onother</button>
+                <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+                <a href="../{{school_id}}" type="button" class="btn btn-secondary">Back</a>
+              </div>
+            </form> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+  $('#id_employee').on('change', function(){
+    $.ajax({
+            type:'POST',
+            url:'{% url "finance:payroll_add" school_id %}',
+            data: {
+                employee:$('#id_employee').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        
+            },
+            success: function(data){
+              $('#id_salary').val(`${data.salary}`);
+              $('#id_allowances').val(`${data.allowance}`);
+              $('#id_dedactions').val(`${data.deductions}`);
+            },
+    });
+  });
+
+</script>
+{% endblock %}

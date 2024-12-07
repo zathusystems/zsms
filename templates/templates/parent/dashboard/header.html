@@ -1,0 +1,187 @@
+{% load static %}
+{% load timeago_filters %}
+   <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar sticky">
+        <div class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a></li>
+            <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                <i data-feather="maximize"></i>
+              </a></li>
+            <li>
+              <form class="form-inline mr-auto">
+                <div class="search-element">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
+                  <button class="btn" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </div>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown dropdown-list-toggle">
+            <a href="#" data-toggle="dropdown"
+              class="nav-link nav-link-lg message-toggle"><i data-feather="mail"></i>
+              <span class="badge headerBadge1">
+                {{counter}} </span> 
+            </a>
+            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+              <div class="dropdown-header">
+                Messages
+                <div class="float-right">
+                  <a href="#">Mark All As Read</a>
+                </div>
+              </div>
+              <div class="dropdown-list-content dropdown-list-message">
+                {% for chat in counter_chats %}
+                {% if chat.chat_messages.all %}
+                    {% if chat.unseen_msgs %}
+                        {% if chat.unseen_msgs.receiver == request.user %}
+                          <a href="{% url 'chat:inbox' chat.unseen_msgs.sender.id chat.id %}" class="dropdown-item bg-light"> 
+                        {% else %}
+                          <a href="{% url 'chat:inbox' chat.unseen_msgs.receiver.id chat.id %}" class="dropdown-item">
+                        {% endif %}
+                            <span class="dropdown-item-avatar text-white"> 
+                              <div class="image-container">
+                                <img src="assets/img/users/user-1.png" alt="avatar" class="rounded-circle">
+                                <i class="material-icons {% if chat.unseen_msgs.receiver.is_online %} online {% else %} offline {% endif %}">fiber_manual_record</i>
+
+                              </div> 
+                            </span> 
+                            <span class="dropdown-item-desc"> 
+                              <span class="message-user">
+                                {% if chat.unseen_msgs.receiver == request.user %}
+                                  <b>{{chat.unseen_msgs.sender.first_name}}
+                                  {{chat.unseen_msgs.sender.last_name}}</b> 
+                                {% else %}
+                                  <b>{{chat.unseen_msgs.receiver.first_name}}
+                                  {{chat.unseen_msgs.receiver.last_name}}</b> 
+                                {% endif %}
+                              </span>
+                              <span class="time messege-text">
+                                {% if chat.unseen_msgs.receiver == request.user %}
+                                {% else %}
+                                    {% if chat.unseen_msgs.seen %}
+                                        <i style="font-weight: 8px; font-size: 8px; color: rgb(0, 183, 255);" class="fas fa-check-double"></i> 
+                                    {% else %}
+                                        <i style="font-weight: 8px; font-size: 8px;" class="fas fa-check"></i> 
+                                    {% endif %}
+                                {% endif %} 
+                                <b>{{chat.unseen_msgs.content|truncatechars:25}}</b> </span>
+                                <span class="time">{{chat.unseen_msgs.timestamp|timeago}} ago</span>
+                            </span>
+                            {% if chat.unseen_msgs.receiver == request.user %}
+                            <span style="font-size: 12px;" class=" ">
+                              <div class="badge badge-sm bg-danger text-white">{{chat.unseen_count}}</div>
+                            </span>
+                            {% endif %}
+                          </a>
+                    {% else %}
+                      {% for user in chat.users.all %}
+                        {% if user != request.user %}
+                            <a href="{% url 'chat:inbox' user.id chat.id %}" class="dropdown-item"> <span class="dropdown-item-avatar
+                              text-white"> 
+                              <div class="image-container">
+                                <img src="assets/img/users/user-1.png" alt="avatar" class="rounded-circle">
+                                <i class="material-icons {% if user.is_online %} online {% else %} offline {% endif %}">fiber_manual_record</i>
+
+                              </div> 
+                              
+                            </span> 
+                              <span class="dropdown-item-desc"> 
+                                <span class="message-user">
+                                    {{user.first_name}} {{user.last_name}}
+                                </span>
+                                
+                                <span class="time messege-text">
+                                  {% if chat.chat_messages.last.receiver == request.user %}
+                                  {% else %}
+                                      {% if chat.chat_messages.last.seen %}
+                                          <i style="font-weight: 8px; font-size: 8px; color: rgb(0, 183, 255);" class="fas fa-check-double"></i> 
+                                      {% else %}
+                                          <i style="font-weight: 8px; font-size: 8px;" class="fas fa-check"></i> 
+                                      {% endif %}
+                                  {% endif %} 
+                                  {{chat.chat_messages.last.content|truncatechars:25}} <small>{{chat.chat_messages.last.timestamp|timeago}} ago</small>
+                                </span>
+                                <span class="time">{{chat.chat_messages.last.timestamp|timeago}} ago</span>
+                              </span>
+                              
+                            </a>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+              </div>
+              <div class="dropdown-footer text-center">
+                <a href="{% url 'chat:chat' %}">View All <i class="fas fa-chevron-right"></i></a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown dropdown-list-toggle">
+            <!-- <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
+              <i data-feather="bell" class="bell"></i>
+              <span class="badge headerBadge1">
+                {{n_counter}} 
+              </span> 
+            </a> -->
+            <a href="#" data-toggle="dropdown"
+              class="nav-link nav-link-lg notification-toggle message-toggle">
+              <i data-feather="bell" class="bell"></i>
+              <span class="badge headerBadge1">
+                {{n_counter}} 
+              </span> 
+            </a>
+            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+              <div class="dropdown-header">
+                Notifications
+                <div class="float-right">
+                  <a href="#">Mark All As Read</a>
+                </div>
+              </div>
+              <div class="dropdown-list-content dropdown-list-icons">
+                {% for notif in notifs %}
+                <a href="#" class="dropdown-item {% if notif.seen %} dropdown-item-read {% else %} dropdown-item-unread {% endif %}"> <span
+                    class="dropdown-item-icon text-white bg-primary"> <i class="fas
+												fa-bell"></i>
+                  </span> <span class="dropdown-item-desc"> {{notif.message|safe|truncatewords:8}} 
+                    <span class="time">{{notif.created_at|timeago}} ago</span>
+                  </span>
+                </a> 
+                {% endfor %}
+              </div>
+              <!-- <div class="dropdown-footer text-center">
+                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+              </div> -->
+            </div>
+          </li>
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{% static 'assets/img/user.png' %}"
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+            <div class="dropdown-menu dropdown-menu-right pullDown">
+              
+              
+                  <div class="dropdown-title"> 
+                    <a href="{% url 'parent:children' %}" class="btn btn-primary btn-sm"><i class="fas fa-sign-out-alt"></i> My Children </a></div>
+                
+              <a href="{% url 'parent:profile' %}" class="dropdown-item has-icon"> <i class="far
+										fa-user"></i> Profile
+              </a> 
+              <a href="{% url 'accounts:school_p' %}" class="dropdown-item has-icon"> <i class="fas fa-sync"></i>
+                School Dashboard
+              </a> 
+              <!-- <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
+                Settings
+              </a> -->
+              <div class="dropdown-divider"></div>
+              <a href="{% url 'accounts:logout' %}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>

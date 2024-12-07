@@ -1,0 +1,311 @@
+{% extends 'templates/landing_page/base/base.html' %}
+
+{% block content %}
+
+    <!-- immer banner start -->
+    <section class="inner-banner pt-80 pb-95" style="background-image: url('img/banner/inner-banner.jpg');" data-overlay="7">
+        <div class="container">
+            <div class="row z-5 align-items-center">
+                <div class="col-md-8 text-center text-md-left">
+                    <h1 class="f-700 green">FAQ</h1>
+                    <span class="green-line bg-green d-none d-md-inline-block"></span>
+                </div>
+                <div class="col-md-4 text-center text-md-right">
+                    <nav aria-label="breadcrumb" class="banner-breadcump">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="#"><i class="fas fa-home fs-12 mr-5"></i>Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">FAQ</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- blog details area start -->
+    <section class="service-details pt-100 pb-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-7">
+                    <div class="faq-outer">
+                        <!-- FAQ Group 1 -->
+                        <h4 class="line-right green f-700 fs-24">School Owner/Admin</h4>
+                        <div class="faq-box bodered-faq mt-15 mb-50">
+                            <div id="accordion1">
+                                <div class="card">
+                                    <div class="card-header" id="heading1" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1" role="button">
+                                        <h5 class="mb-0">
+                                            How do I set up my school's profile on the platform?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordion1">
+                                        <div class="card-body">
+                                            To set up your school’s profile, go to the **Admin Dashboard**, click on **School Settings**, and fill in the required details such as name, address, contact information, and logo. Save changes to complete the setup.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading2" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2" role="button">
+                                        <h5 class="mb-0">
+                                            Can I add multiple admins for my school?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion1">
+                                        <div class="card-body">
+                                            Yes, you can. Navigate to **User Management**, select **Add User**, and assign the “Admin” role to the new user. They will receive an email to set up their credentials.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading3" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3" role="button">
+                                        <h5 class="mb-0">
+                                            How do I manage fees and payments?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion1">
+                                        <div class="card-body">
+                                            Use the **Finance Management** feature to create fee structures, send invoices, and track payments. You can also set up reminders for unpaid fees and generate financial reports.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading4" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4" role="button">
+                                        <h5 class="mb-0">
+                                            Can I customize the roles and permissions for staff members?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion1">
+                                        <div class="card-body">
+                                            Absolutely! Go to **User Roles** under **Settings**, where you can define custom permissions for each role to control access to specific features.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading5" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5" role="button">
+                                        <h5 class="mb-0">
+                                            How do I add or remove students from the system?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion1">
+                                        <div class="card-body">
+                                            Use the **Student Management** feature to add new students manually or through a bulk upload. To remove a student, navigate to their profile and select **Deactivate**.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FAQ Group 1 End -->
+                    
+                        <!-- FAQ Group 2 -->
+                        <h4 class="line-right green f-700 fs-24">Teachers</h4>
+                        <div class="faq-box bodered-faq mt-15 mb-50">
+                            <div id="accordion2">
+                                <div class="card">
+                                    <div class="card-header" id="heading6" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6" role="button">
+                                        <h5 class="mb-0">
+                                            How can I mark attendance for my class?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse6" class="collapse show" aria-labelledby="heading6" data-parent="#accordion2">
+                                        <div class="card-body">
+                                            Go to **Class Management**, select your class, and click on the **Attendance** tab. You can mark students as present, absent, or late. Save changes to update the records.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading7" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7" role="button">
+                                        <h5 class="mb-0">
+                                            How do I communicate with parents?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordion2">
+                                        <div class="card-body">
+                                            Use the **Messaging** feature in your dashboard to send individual or group messages to parents. You can also attach files, like student reports or announcements.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading8" data-toggle="collapse" data-target="#collapse8" aria-expanded="false" aria-controls="collapse8" role="button">
+                                        <h5 class="mb-0">
+                                            Can I create and assign homework through the system?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse8" class="collapse" aria-labelledby="heading8" data-parent="#accordion2">
+                                        <div class="card-body">
+                                            Yes! Navigate to **Homework Planner**, select the class, and assign tasks with deadlines. Students and parents will be notified automatically.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading9" data-toggle="collapse" data-target="#collapse9" aria-expanded="false" aria-controls="collapse9" role="button">
+                                        <h5 class="mb-0">
+                                            How do I access a student's academic performance?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordion2">
+                                        <div class="card-body">
+                                            Go to the **Student Records** section, search for the student’s name, and view their grades, attendance, and teacher notes in one place.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FAQ Group 2 End -->
+                    
+                        <!-- FAQ Group 3 -->
+                        <h4 class="line-right green f-700 fs-24">Parents</h4>
+                        <div class="faq-box bodered-faq mt-15 mb-50">
+                            <div id="accordion3">
+                                <div class="card">
+                                    <div class="card-header" id="heading10" data-toggle="collapse" data-target="#collapse10" aria-expanded="true" aria-controls="collapse10" role="button">
+                                        <h5 class="mb-0">
+                                            How can I view my child’s attendance records?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse10" class="collapse show" aria-labelledby="heading10" data-parent="#accordion3">
+                                        <div class="card-body">
+                                            Log in to the **Parents’ Portal**, go to the **Attendance** section, and select your child’s name. You’ll see daily, weekly, and monthly attendance summaries.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading11" data-toggle="collapse" data-target="#collapse11" aria-expanded="false" aria-controls="collapse11" role="button">
+                                        <h5 class="mb-0">
+                                            How do I update my contact information?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse11" class="collapse" aria-labelledby="heading11" data-parent="#accordion3">
+                                        <div class="card-body">
+                                            Go to the **Account Settings** in your portal and update your email address, phone number, or other contact details. Remember to save your changes.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading12" data-toggle="collapse" data-target="#collapse12" aria-expanded="false" aria-controls="collapse12" role="button">
+                                        <h5 class="mb-0">
+                                            Can I communicate with my child’s teacher through the platform?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse12" class="collapse" aria-labelledby="heading12" data-parent="#accordion3">
+                                        <div class="card-body">
+                                            Yes, the **Messaging** feature allows you to send direct messages to your child’s teacher for quick communication.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="heading13" data-toggle="collapse" data-target="#collapse13" aria-expanded="false" aria-controls="collapse13" role="button">
+                                        <h5 class="mb-0">
+                                            How can I check upcoming school events?
+                                        </h5>
+                                    </div>
+                                    <div id="collapse13" class="collapse" aria-labelledby="heading13" data-parent="#accordion3">
+                                        <div class="card-body">
+                                            Visit the **Events Calendar** in your portal to view details about upcoming school activities, parent-teacher meetings, and holidays.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FAQ Group 3 End -->
+                    </div>
+                    
+                </div>
+                <!-- right-part -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="right-box bg-light-white mb-30">
+                        <div class="right-box-head">
+                            <h4>Search</h4>
+                        </div>
+                        <div class="right-box-content">
+                            <form action="#" class="relative mt-10 mb-10">
+                                <input type="text" class="form-control input-white search-white" id="search2" placeholder="Search here..">
+                                <i class="fas fa-search transform-v-center green"></i>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="right-box bg-light-white mb-30">
+                        <div class="right-box-head">
+                            <h4>Need Help?</h4>
+                        </div>
+                        <div class="right-box-content">
+                            <ul class="mt-10 mb-10">
+                                <li>
+                                    <div class="d-flex">
+                                        <div class="icon-round-box">
+                                            <div class="icon-round-box-icon">
+                                                <i class="fas fa-phone-volume green"></i>
+                                            </div>
+                                        </div>
+                                        <div class="icon-round-box-text">
+                                            <p><span>Phone:</span> (+123) 456-789</p>
+                                            <p><span>Mob:</span> (+123) 987-654</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex">
+                                        <div class="icon-round-box">
+                                            <div class="icon-round-box-icon">
+                                                <i class="far fa-envelope green"></i>
+                                            </div>
+                                        </div>
+                                        <div class="icon-round-box-text">
+                                            <p>Info@example.com</p>
+                                            <p>suspport@example.com</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex">
+                                        <div class="icon-round-box">
+                                            <div class="icon-round-box-icon">
+                                                <i class="fas fa-map-marker-alt green"></i>
+                                            </div>
+                                        </div>
+                                        <div class="icon-round-box-text">
+                                            <p>4221 Melrose Street,Yakima, Washington</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="right-box bg-light-white mb-30">
+                        <div class="right-box-head">
+                            <h4>Follow Us</h4>
+                        </div>
+                        <div class="right-box-content">
+                            <div class="social-profile mt-10 mb-10">
+                                <a href="#" class="social-profile-box">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-profile-box">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-profile-box">
+                                    <i class="fab fa-google-plus-g"></i>
+                                </a>
+                                <a href="#" class="social-profile-box">
+                                    <i class="fab fa-google-plus-g"></i>
+                                </a>
+                                <a href="#" class="social-profile-box">
+                                    <i class="fab fa-pinterest-p"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right-box ad-banner bg-light-white mb-30">
+                        <a href="#" class="d-block ">
+                            <img src="img/service/ad-banner.jpg" class="w-100" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog details area end -->
+
+{% endblock %}

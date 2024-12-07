@@ -1,0 +1,262 @@
+{% extends 'templates/parent/dashboard/base.html' %}
+{% load timeago_filters %}
+{% block title %}
+
+{% endblock %}
+
+{% block style %}
+<style>
+  .image-container {
+    position: relative;
+    /* display: block; */
+}
+
+/* Style the image to fit within the container */
+.image-container img {
+    width: 100%; /* Adjust width as needed */
+    height: auto; /* Adjust height as needed */
+    display: block;
+}
+
+/* Position the icon on top of the image */
+.image-container .material-icons {
+    position: absolute;
+    top: 2px; /* Adjust as needed */
+    left: 2%;
+    transform: translateX(-50%);
+    font-size: 15px; 
+    /* color: #fff; Icon color */
+}
+.image-container .mti2 {
+    position: absolute;
+    top: 1px; /* Adjust as needed */
+    left: 1%;
+    transform: translateX(-50%);
+    font-size: 15px; 
+    /* color: #fff; Icon color */
+}
+
+@media (max-width: 768px) {
+    .hide-sm {
+        display: none;
+    }
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="card hide-sm">
+            <div class="body">
+              <div id="plist" class="people-list">
+                <div class="chat-search">
+                  <input type="text" class="form-control" placeholder="Search..." />
+                </div>
+                <div class="m-b-20">
+                  <div id="chat-scroll">
+                    <ul class="chat-list list-unstyled m-b-0">
+                    {% for cha in chats %}
+                    {% if cha.chat_messages.all %}
+                        {% if cha.unseen_msgs.all %}
+                        
+                                {% if chat.unseen_msgs.receiver == request.user %}
+                                <li class="clearfix bg-light">
+                                    <a class="text-muted bg-light" href="{% url 'chat:inbox' chat.unseen_msgs.sender.id chat.id %}">
+                                {% else %}
+                                <li class="clearfix">
+                                    <a class="text-muted" href="{% url 'chat:inbox' chat.unseen_msgs.receiver.id chat.id %}">
+                                {% endif %}
+                                    
+                                <div class="image-container">
+                                  <img src="assets/img/users/user-1.png" alt="avatar">
+                                  <i class="material-icons {% if user.is_online %} online {% else %} offline {% endif %}">fiber_manual_record</i>
+                                </div>  
+                                    <div class="about">
+                                    <div class="name">
+                                      {% if cha.unseen_msgs.receiver == request.user %}
+                                        <b>{{cha.unseen_msgs.sender.first_name}}
+                                        {{cha.unseen_msgs.sender.last_name}}</b> 
+                                      {% else %}
+                                        <b>{{cha.unseen_msgs.receiver.first_name}}
+                                        {{cha.unseen_msgs.receiver.last_name}}</b>  
+                                      {% endif %} 
+                                      
+                                    </div>
+                                    <div class="status">
+                                        {% if cha.unseen_msgs.receiver == request.user %} <i class="material-icons {% if request.user.is_online %} online {% else %} offline {% endif %}">fiber_manual_record</i>
+                                        
+                                        {% else %}
+                                            {% if cha.unseen_msgs.seen %}
+                                                <i style="font-weight: 8px; font-size: 8px; color: rgb(0, 183, 255);" class="fas fa-check-double"></i> 
+                                            {% else %}
+                                                <i style="font-weight: 8px; font-size: 8px;" class="fas fa-check"></i> 
+                                            {% endif %}
+                                        {% endif %} 
+                                        <b>{{cha.unseen_msgs.content|truncatechars:12}}</b> 
+                                        <span class="time">{{chat.unseen_msgs.last.timestamp|timeago}} ago</span> 
+                                    </div>
+                                    </div>
+                                    </a>
+                                </li>
+                        
+                        
+                        {% else %}
+                            {% for user in cha.users.all %}
+                                {% if user != request.user %}
+                                    <li class="clearfix">
+                                        
+                                      <a class="text-muted" href="{% url 'chat:inbox' user.id cha.id %}">
+                                      <div class="image-container">
+                                        <img src="assets/img/users/user-1.png" alt="avatar">
+                                        <i class="material-icons {% if user.is_online %} online {% else %} offline {% endif %}">fiber_manual_record</i>
+
+                                      </div>  
+                                    <div class="about">
+                                    <div class="name">
+                                        
+                                            {{user.first_name}} {{user.last_name}}
+                                    </div>
+                                    <div class="status">
+                                {% if cha.chat_messages.last.receiver == request.user %}
+                                {% else %}
+                                    {% if cha.chat_messages.last.seen %}
+                                        <i style="font-weight: 8px; font-size: 8px; color: rgb(0, 183, 255);" class="fas fa-check-double"></i> 
+                                    {% else %}
+                                        <i style="font-weight: 8px; font-size: 8px;" class="fas fa-check"></i> 
+                                    {% endif %}
+                                  {% endif %} 
+                                  <b>{{cha.chat_messages.last.content|truncatechars:12}}</b>  
+                                  <span class="time">{{cha.chat_messages.last.timestamp|timeago}} ago</span> 
+                                  
+                                    </div>
+                                    </div>
+                                    </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                      <!-- <li class="clearfix">
+                        <img src="assets/img/users/user-5.png" alt="avatar">
+                        <div class="about">
+                          <div class="name">Joseph Jones</div>
+                          <div class="status">
+                            <i class="material-icons offline">fiber_manual_record</i>
+                            left 30 mins ago </div>
+                        </div>
+                      </li> -->
+                     
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+          <div class="card">
+            <div class="chat">
+              {% for user in chat.users.all %}
+              {% if user != request.user %}
+              <div class="chat-header clearfix">
+                <div class="image-container">
+                  <img src="assets/img/users/user-1.png" alt="avatar">
+                  <i class="material-icons mti2 {% if user.is_online %} online {% else %} offline {% endif %}">fiber_manual_record</i>
+                </div> 
+               
+                <div class="chat-about">
+                  <div class="chat-with">
+                   
+                            {{user.first_name}} {{user.last_name}}
+                       
+                  </div>
+                  <div class="chat-num-messages">
+                  {% if user.is_online %} 
+                    Online
+                  {% else %} 
+                    Seen {{user.last_seen|timeago}} ago
+                  {% endif %}
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div class="chat-box" id="mychatbox">
+                <div class="card-body chat-content" tabindex="2" style="overflow: hidden; outline: none;">
+                 {% for datestamp in datestamps %}
+                  <center>
+                    <small>{{datestamp.date}}</small>
+                  </center>
+                  {% for msg in datestamp.messages.all %}
+                    
+                    {% if msg.sender == request.user %}
+                    <div class="chat-item chat-right" style="">
+                        <img src="assets/img/users/user-1.png">
+                        <div class="chat-details">
+                            <div class="chat-text">{{msg.content}}</div>
+                            <div class="chat-time">
+                             
+                                    {% if msg.seen %}
+                                        <i style="font-weight: 8px; font-size: 8px; color: rgb(0, 183, 255);" class="fas fa-check-double"></i> 
+                                    {% else %}
+                                        <i style="font-weight: 8px; font-size: 8px;" class="fas fa-check"></i> 
+                                    {% endif %}
+                                
+                              {{msg.timestamp.time}}
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="chat-item chat-left" style="">
+                        <img src="assets/img/users/user-5.png">
+                        <div class="chat-details">
+                            <div class="chat-text">{{msg.content}}</div>
+                            <div class="chat-time">{{msg.timestamp.time}}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+              {% endfor %}
+              </div>
+              <div class="card-footer chat-form">
+                  <form id="chat-form" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="content" class="form-control" placeholder="Type a message">
+                    <button class="btn btn-primary" type="submit">
+                      <i class="far fa-paper-plane"></i>
+                    </button>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+if ($("#chat-scroll").length) {
+  $("#chat-scroll").css({
+    height: 450
+  }).niceScroll();
+}
+
+if ($(".chat-content").length) {
+  $(".chat-content").niceScroll({
+    cursoropacitymin: .3,
+    cursoropacitymax: .8,
+  });
+  $('.chat-content').getNiceScroll(0).doScrollTop($('.chat-content').height());
+}
+</script>
+{% endblock %}
+

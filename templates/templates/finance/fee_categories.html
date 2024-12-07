@@ -1,0 +1,162 @@
+
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+employees list
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+
+  <ul class="nav nav-tabs" id="myTab2" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab"
+        aria-controls="home" aria-selected="true">Fees Categories</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab"
+        aria-controls="profile" aria-selected="false">Additional fees</a>
+    </li>
+    
+  </ul>
+  <div class="tab-content tab-bordered" id="myTab3Content">
+    <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+      
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Tuition Fee Categories</h4>
+            <div class="card-header-action">
+              <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add Category
+              </button>
+            </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" style="width:100%;">
+              <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.title }}</td>
+                    <td>{{ category.description }}</td>
+                    <td><a href="{% url 'finance:fee_list' category.id school_id %}" class="btn btn-primary"><i class="fas fa-hand-holding-usd"></i></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+      
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Additional Fee Structure</h4>
+            <div class="card-header-action">
+              <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+                Add Fee
+              </button>
+            </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" style="width:100%;">
+              <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>amount</th>
+                    <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for fee in other_fees %}
+                <tr>
+                    <td>{{ fee.fee_title }}</td>
+                    <td>{{ fee.fee_amount }} {{fee.period}}</td>
+                    <td><a href="{% url 'finance:other_fee_payments' fee.id school_id %}" class="btn btn-primary"><i class="fas fa-hand-holding-usd"></i>Payments</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Fee Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+            <label for="id_title">Category Title</label>
+            <input id="id_title" type="text" name="title" class="form-control" required>
+            <label for="id_description">Category Description</label>
+            <textarea id="id_description" type="text" name="description" class="form-control" required></textarea>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" name="cate" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Fee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+            {{form}}
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" name="other" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+
+
+</script>
+{% endblock %}

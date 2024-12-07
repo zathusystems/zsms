@@ -1,0 +1,223 @@
+<div class="row ">
+    <div class="container">
+      {% if teacher_requests %}
+      <div class="alert alert-info alert-fade">
+        {{teacher_requests.count}} teacher request(s) to join your school
+
+        <a href="{% url 'teacher:teacher_requests'  school_id %}" class="text-right btn btn-sm btn-primary">View</a>
+      </div>
+      {% endif %}
+    </div>
+
+
+    <div class="container">
+      {% if institution.subscription %}
+          {% if sub.is_active %}
+            {% if sub.is_trial %}
+              {% if sub.remaining_trial_days < 10 %}
+              <div class="alert alert-warning alert-fade">
+                Only {{sub.remaining_trial_days}} trial day(s) remaining 
+                <a href="{% url 'subs:subscription_plans' school_id %}" class="text-right btn btn-sm btn-primary">Upgrade</a>
+              </div>
+              {% endif %}
+            {% elif sub.plan.name == 'Free' %}
+            <div class="alert alert-warning alert-fade">
+              You are currently in a <b>Free plan</b> Upgrate now and enjoy cool features
+              <a href="{% url 'subs:subscription_plans' school_id %}" class="text-right btn btn-sm btn-primary">Upgrade</a>
+            </div>
+            {% else %}
+              {% if sub.remaining_days < 10 %}
+              <div class="alert alert-warning alert-fade">
+                Only {{sub.remaining_days}} day(s) remaining 
+                <a href="{% url 'subs:subscription_plans' school_id %}" class="text-right btn btn-sm btn-primary">Upgrade</a>
+              </div>
+              {% endif %}
+            {% endif %}
+          {% else %}
+            <div class="alert alert-danger alert-fade">
+              Your subscription expired! please renew now to continue enjoying our cool features 
+              <a href="{% url 'subs:subscribe_to_plan' sub.plan.id school_id 'paid' %}" class="text-right btn btn-sm btn-primary">Renew Now</a>
+            </div>
+          {% endif %}
+      {% else %}
+          <div class="alert alert-info alert-fade">
+            Upgrate to premium and get full access to our amaizing feature
+            <a href="{% url 'subs:subscription_plans' school_id %}" class="text-right btn btn-sm btn-primary">Upgrade</a>
+          </div>
+      {% endif %}
+    </div>
+
+    <div class="col-xl-3 col-lg-6">
+      
+      <div class="card">
+        <div class="card-body card-type-3">
+          
+
+          <div class="row">
+            <div class="col">
+              <h6 class="text-muted mb-0">Revenue</h6>
+              <!-- <small>Total</small><span class="font-weight-bold mb-0">MK{{overall_income}}</span> <br> -->
+              <small class="font-weight-bold mb-0">MK</small><span class="font-weight-bold mb-0">{{total_balance}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="card-circle bg-secondary text-white">
+                <i class="fas fa-dollar-sign" style="font-size: 25px;"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-muted text-sm">
+            <!-- <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 5.4%</span> -->
+            <span class="text-nowrap">Current balance</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-xl-3 col-lg-6">
+      <div class="card">
+        <div class="card-body card-type-3">
+          <div class="row">
+            <div class="col">
+              <h6 class="text-muted mb-0">Fees Income</h6>
+              <small class="font-weight-bold mb-0">MK</small><span class="font-weight-bold mb-0">{{total_fees_this_month}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="card-circle bg-success text-white">
+                <i class="fas fa-hand-holding-usd" style="font-size: 25px;"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-muted text-sm">
+            <!-- <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 5.4%</span> -->
+            <span class="text-nowrap">This month</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6">
+      <div class="card">
+        <div class="card-body card-type-3">
+          <div class="row">
+            <div class="col">
+              <h6 class="text-muted mb-0">Other Income</h6>
+              <span class="font-weight-bold mb-0">MK{{total_other_income_month}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="card-circle bg-secondary text-white">
+                <i class="fas fa-dollar-sign" style="font-size: 25px;"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-muted text-sm">
+            <!-- <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 5.4%</span> -->
+            <span class="text-nowrap">This month</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6">
+      <div class="card">
+        <div class="card-body card-type-3">
+          <div class="row">
+            <div class="col">
+              <h6 class="text-muted mb-0">Expenses</h6>
+              <span class="font-weight-bold mb-0">MK{{total_expense_month}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="card-circle bg-secondary text-white">
+                <i class="fas fa-dollar-sign" style="font-size: 25px;"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-muted text-sm">
+            <!-- <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 5.4%</span> -->
+            <span class="text-nowrap">This month</span>
+          </p>
+        </div>
+      </div>
+    </div>
+      <div class="col-xl-3 col-lg-6">
+        <div class="card">
+          <div class="card-body card-type-3">
+            <div class="row">
+              <div class="col">
+                <h6 class="text-muted mb-0">Students</h6>
+                <span class="font-weight-bold mb-0">{{students.count}}</span>
+              </div>
+              <div class="col-auto">
+                <div class="card-circle l-bg-orange text-white">
+                  <i class="fas fa-user-graduate" style="font-size: 25px;"></i>
+                </div>
+              </div>
+            </div>
+            <p class="mt-3 mb-0 text-muted text-sm">
+              <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
+              <span class="text-nowrap">Since last month</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+        <div class="card">
+          <div class="card-body card-type-3">
+            <div class="row">
+              <div class="col">
+                <h6 class="text-muted mb-0">Teachers</h6>
+                <span class="font-weight-bold mb-0">{{teachers.count}}</span>
+              </div>
+              <div class="col-auto">
+                <div class="card-circle l-bg-cyan text-white">
+                  <i class="fas fa-user-tie" style="font-size: 25px;"></i>
+                </div>
+              </div>
+            </div>
+            <p class="mt-3 mb-0 text-muted text-sm">
+              <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 7.8%</span>
+              <span class="text-nowrap">Since last month</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+        <div class="card">
+          <div class="card-body card-type-3">
+            <div class="row">
+              <div class="col">
+                <h6 class="text-muted mb-0">Class Rooms</h6>
+                <span class="font-weight-bold mb-0">{{classes.count}}</span>
+              </div>
+              <div class="col-auto">
+                <div class="card-circle l-bg-green text-white">
+                  <i class="fas fa-university" style="font-size: 25px;"></i>
+                </div>
+              </div>
+            </div>
+            <p class="mt-3 mb-0 text-muted text-sm">
+              <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 15%</span>
+              <span class="text-nowrap">Since last month</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+        <div class="card">
+          <div class="card-body card-type-3">
+            <div class="row">
+              <div class="col">
+                <h6 class="text-muted mb-0">Employees</h6>
+                <span class="font-weight-bold mb-0">{{employees.count}}</span>
+              </div>
+              <div class="col-auto">
+                <div class="card-circle l-bg-purple text-white">
+                  <i class="fas fa-id-card" style="font-size: 25px;"></i>
+                </div>
+              </div>
+            </div>
+            <p class="mt-3 mb-0 text-muted text-sm">
+              <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 5.4%</span>
+              <span class="text-nowrap">Since last month</span>
+            </p>
+          </div>
+        </div>
+      </div>
+  </div>

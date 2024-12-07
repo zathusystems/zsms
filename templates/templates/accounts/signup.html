@@ -1,0 +1,239 @@
+{% extends 'templates/accounts/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block tittle %}
+    signup
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+      
+      <div class="text-center mb-3">
+        <p class="mb-0 text-white" >Powored by Zathu systems</p>
+        <div class="login-brand mb-2 mt-1">
+          School Management Online
+        </div>
+      </div>
+      <div class="card card-primary">
+        <div class="row m-0">
+          <div class="col-12 col-md-12 col-lg-6 p-0">
+            <div class="card-header text-center">
+              <h4>Sign Up</h4>
+            </div>
+            <div class="card-body">
+              <div id="alert-box"></div>
+                <div class="mt-1 mb-2 text-muted text-left">
+                  Already have an account? <a href="{% url 'accounts:login' %}">Sign In</a>
+                </div>
+                <form id="login_form" method="POST">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="form-group col-6">
+                      
+                        {% render_field form.first_name class='form-control' name='first_name' type='text' placeholder='Your first name' required='true' %}
+
+                    </div>
+                    <div class="form-group col-6">
+                      
+                      {% render_field form.last_name class='form-control' name='last_name' type='text' placeholder='Your last name' required='true' %}
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                   
+                    {% render_field form.email class='form-control' name='email' type='email' placeholder='Enter your email' required='true' %}
+
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+                  
+                    <div class="form-group">
+                      
+                      {% render_field form.password1 class='form-control pwstrength' name='password1' type='password' placeholder='Enter Password' required='true' data-indicator="pwindicator" %}
+
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      
+                      {% render_field form.password2 class='form-control' name='password1' type='password' placeholder='Confirm Password' required='true' %}
+
+                    </div>
+                  
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                      <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
+                    </div>
+                  </div>
+                  <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      SIGN UP
+                    </button>
+                  </div>
+                </form>
+            </div>
+          </div>
+          <div class="col-12 col-md-12 col-lg-6 p-0">
+            <div style="background-image: url('{% static "assets/img/sms_images/img0.jpg" %}'); height: 100%; margin: 0; padding: 0;background-size: cover;background-position: center;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="simple-footer">
+        Copyright &copy; School Management Online {% now 'Y' %}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+
+
+<div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4>Register</h4>
+              </div>
+              <div class="card-body">
+                <div id="alert-box"></div>
+                <form id="login_form" method="POST">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="form-group col-6">
+                      
+                        {% render_field form.first_name class='form-control' name='first_name' type='text' placeholder='Your first name' required='true' %}
+
+                    </div>
+                    <div class="form-group col-6">
+                      
+                      {% render_field form.last_name class='form-control' name='last_name' type='text' placeholder='Your last name' required='true' %}
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                   
+                    {% render_field form.email class='form-control' name='email' type='email' placeholder='Enter your email' required='true' %}
+
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+                  
+                    <div class="form-group">
+                      
+                      {% render_field form.password1 class='form-control pwstrength' name='password1' type='password' placeholder='Enter Password' required='true' data-indicator="pwindicator" %}
+
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      
+                      {% render_field form.password2 class='form-control' name='password1' type='password' placeholder='Confirm Password' required='true' %}
+
+                    </div>
+                  
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                      <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
+                    </div>
+                  </div>
+                  <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      SIGN UP
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div class="mb-4 text-muted text-center">
+                Already Registered? <a href="auth-login.html">Login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+
+   $(document).on('submit', '#login_form', function(e){
+       e.preventDefault()
+       $.ajax({
+           type:'POST',
+           url:'{% url "accounts:signup" %}',
+           data: {
+               email:$('#id_email').val(),
+               first_name:$('#id_first_name').val(),
+               last_name:$('#id_last_name').val(),
+               password1:$('#id_password1').val(),
+               password2:$('#id_password2').val(),
+               csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+               fun: function(){
+                $('.loader-div>i').addClass('fa fa-gear fa-spin')
+
+                $("#login_btn").replaceWith(
+                    `
+                   <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block disabled" tabindex="4" disabled="true">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> SIGNING UP...
+                    </button>
+                  </div>
+                    `
+                  );
+               }
+           },
+           success: function(status){
+         
+
+              if(status.status == 'succeed'){
+                $(location).prop('href', '{% url "accounts:profile_select" %}')
+              }
+              if(status.status == 'failed'){
+              
+                //iziToast.error({
+                //    title: 'Oops!',
+                //    message: status.error_msg,
+                //    position: 'topRight'
+                //});
+                
+                $("#login_btn").replaceWith(
+                  `<div id="login_btn" class="forgot-link control">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      SIGN UP
+                    </button>
+                  </div>
+                `
+                );
+                swal('Account Creation Failed', `${status.error_msg}`, 'error');
+               
+                
+              }
+
+           },
+           error: function(status){
+  
+             $("#login_btn").replaceWith(
+                  `<div id="login_btn" class="forgot-link control">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      SIGN UP
+                    </button>
+                  </div>
+                `
+                );
+                swal('Account Creation Failed', `${status.error_msg}`, 'error');
+           }
+       });
+   });
+     </script>
+{% endblock %}

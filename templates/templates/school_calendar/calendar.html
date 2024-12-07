@@ -1,0 +1,181 @@
+
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+employees list
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Academic period list</h4>
+            <div class="card-header-action">
+              <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+               <i data-feather="plus-circle"></i>
+              </button>
+            </div>
+        </div>   
+        <div class="card-body">
+            <div class="container">
+            {% for calendar in academic_years %}
+                <div class="list-group">
+                  <a href="{% url 'school_calendar:calendar_detail' calendar.id school_id %}" class="list-group-item list-group-item-action flex-column align-items-start {% if calendar.closed %}{% else%}active{% endif %}">
+                    <div class="d-flex w-100 justify-content-between">
+                     <h5 class="mb-1"><i class="fas fa-calendar"></i> {{calendar.year}} - Term {{calendar.terms.count}}</h5>
+                     <strong><small class="">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <!-- <a href="" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a> -->
+                            
+                            {% if calendar.closed %}
+                            {% else %}
+                              <input type="text" name="calendar_id" value="{{calendar.id}}" hidden> 
+                              <!-- <a href="" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a> -->
+                              <button type="submit" name="close" class="btn btn-sm btn-danger"><i class="fas fa-times-circle"></i></button>
+                            {% endif %}
+                        </form>
+                        
+                    </small></strong>
+                    </div>
+                    <p class="mb-1">From {{calendar.start_date}} to {{calendar.end_date}}</p>
+                    <small class="text-muted">Adden on {{calendar.date}}</small> 
+                  </a>
+                </div>
+            {% endfor %}
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Academic year Calendar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% if showform %}
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+            
+              {{academic_form}}
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+      {% else %}
+      <div class="modal-body">
+        <p>Looks like you still have an active Academic year</p>
+        <p>Close it first</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+  $('#id_employee').on('change', function(){
+    $.ajax({
+            type:'POST',
+            url:'',
+            data: {
+                employee:$('#id_employee').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        
+            },
+            success: function(data){
+              $('#id_salary').val(`${data.salary}`);
+            },
+    });
+  });
+
+  
+var today = new Date();
+year = today.getFullYear();
+month = today.getMonth();
+day = today.getDate();
+var calendar = $('#myEvent').fullCalendar({
+  height: 'auto',
+  defaultView: 'month',
+  editable: true,
+  selectable: true,
+  header: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'month,agendaWeek,agendaDay,listMonth'
+  },
+  events: [{
+    title: "mjaja nambo",
+    start: new Date(year, month, day, 11, 30),
+    end: new Date(year, month, 20, 12, 00),
+    backgroundColor: "#00bcd4"
+  }, {
+    title: "Priya Sarma",
+    start: new Date(year, month, day, 13, 30),
+    end: new Date(year, month, day, 14, 00),
+    backgroundColor: "#fe9701"
+  }, {
+    title: "John Doe",
+    start: new Date(year, month, day, 17, 30),
+    end: new Date(year, month, day, 18, 00),
+    backgroundColor: "#F3565D"
+  }, {
+    title: "Sarah Smith",
+    start: new Date(year, month, day, 19, 00),
+    end: new Date(year, month, day, 19, 30),
+    backgroundColor: "#1bbc9b"
+  }, {
+    title: "Airi Satou",
+    start: new Date(year, month, day + 1, 19, 00),
+    end: new Date(year, month, day + 1, 19, 30),
+    backgroundColor: "#DC35A9",
+  }, {
+    title: "Angelica Ramos",
+    start: new Date(year, month, day + 1, 21, 00),
+    end: new Date(year, month, day + 1, 21, 30),
+    backgroundColor: "#fe9701",
+  }, {
+    title: "Palak Jani",
+    start: new Date(year, month, day + 3, 11, 30),
+    end: new Date(year, month, day + 3, 12, 00),
+    backgroundColor: "#00bcd4"
+  }, {
+    title: "Priya Sarma",
+    start: new Date(year, month, day + 5, 2, 30),
+    end: new Date(year, month, day + 5, 3, 00),
+    backgroundColor: "#9b59b6"
+  }, {
+    title: "John Doe",
+    start: new Date(year, month, day + 7, 17, 30),
+    end: new Date(year, month, day + 7, 18, 00),
+    backgroundColor: "#F3565D"
+  }, {
+    title: "Mark Hay",
+    start: new Date(year, month, day + 5, 9, 30),
+    end: new Date(year, month, day + 5, 10, 00),
+    backgroundColor: "#F3565D"
+  }]
+});
+
+
+</script>
+{% endblock %}

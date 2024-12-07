@@ -1,0 +1,102 @@
+{% extends 'templates/main/base.html' %}
+{% load widget_tweaks %}
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="section-body">
+  <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+              <h4 class="d-inline"> {{class_room|title}} - {{subject|title}} Attendance({{attendance.date.date}})</h4>
+              <!-- <div class="card-header-action">
+                <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Students Attendance
+                </button>
+              </div> -->
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Status</th>
+                    <th>Reason</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for d in attendance.attendance_status.all %}
+                  <tr>
+                      <td>
+                          {{d.student}} 
+                      </td>
+                      
+                      <td>
+                        {% if d.status == 'attended' %}
+                            <span class="badge badge-success round">{{d.status|title}}</span>
+                        {% elif d.status == 'absent' %}
+                            <span class="badge badge-danger round">{{d.status|title}}</span>
+                        {% elif d.status == 'late' %}
+                            <span class="badge badge-warning round">{{d.status|title}}</span>
+                        {% endif %}
+                      </td>
+
+                      <td>
+                        {% if d.reason %} {{d.reason}} {% endif %}
+                      </td>
+                      
+                      <td><a href="{% url 'student:student' d.student.id school_id %}" class="btn btn-primary">view</a></td>
+  
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Student</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+
+              {{form.as_table}}
+              
+              {{form2.as_table}}
+          
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

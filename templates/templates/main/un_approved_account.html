@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- empty-state.html  21 Nov 2019 03:54:38 GMT -->
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Otika - Admin Dashboard Template</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/components.css' %}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      
+      <!-- Main Content -->
+     
+        <section class="section">
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Pending Approval</h4>
+                    <div class="card-header-action">
+                      <a href="{% url 'accounts:logout' %}" class="btn btn-primary">
+                        Log Out
+                      </a>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="empty-state" data-height="400">
+                      <div class="empty-state-icon">
+                        <i class="fas fa-question"></i>
+                      </div>
+                      <h2>Welocome To ZSMS</h2>
+                      <p class="lead">
+                        Your account is pennding approval from adminstration of your school <b>({{institution}})</b>. <br> please be patient while admins review your account.
+                      </p>
+                      <p class="lead">
+                        For fast approval, contact your school adminstration
+                      </p>
+                      <!-- <a href="#" class="btn btn-primary mt-4">Create new One</a> -->
+                      <a href="#" class="mt-4 bb">Read Documantation</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+        
+      
+    
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="assets/js/app.min.js"></script>
+  <!-- JS Libraies -->
+  <!-- Page Specific JS File -->
+  <!-- Template JS File -->
+  <script src="assets/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="assets/js/custom.js"></script>
+</body>
+
+
+<!-- empty-state.html  21 Nov 2019 03:54:38 GMT -->
+</html>

@@ -1,0 +1,256 @@
+{% extends 'templates/accounts/base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block tittle %}
+    login 
+{% endblock %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+      <div class="text-center mb-3">
+        <p class="mb-0 text-white" >Powored by Zathu systems</p>
+        <div class="login-brand mb-2 mt-1">
+          School Management Online 
+        </div>
+      </div>
+      <div class="card card-primary">
+        <div class="row m-0">
+          <div class="col-12 col-md-12 col-lg-6 p-0">
+            <div class="card-header text-center">
+              <h4>Sign In</h4>
+            </div>
+            <div class="card-body">
+              <div id="alert-box"></div>
+                <div class="mt-1 mb-2 text-muted text-left">
+                  Dont have an account? <a href="{% url 'accounts:signup' %}">Sign Up</a>
+                </div>
+                <form method="POST" id="login_form" action="#" class="needs-validation" novalidate="">
+                  {% csrf_token %}
+
+                  <div class="form-group floating-addon">
+                    <label>Email Address</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="far fa-envelope"></i>
+                        </div>
+                      </div>
+                      {% render_field form.username class='form-control' name='email' type='email' tabindex='1' placeholder='Enter Email' required='true' %}
+                      <div class="invalid-feedback">
+                        please fill in your email address
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group floating-addon">
+                    <div class="d-block">
+                      
+                      <div class="float-right">
+                        <a href="auth-forgot-password.html" class="text-small">
+                          Forgot Password?
+                        </a>
+                      </div>
+                    </div>
+                    <label>Your Password</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="far fa-envelope"></i>
+                        </div>
+                      </div>
+                      {% render_field form.password class='form-control' name='password' type='password' tabindex='2' placeholder='Enter Password' required='true' %}
+                      <div class="invalid-feedback">
+                        please fill in your password
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                      <label class="custom-control-label" for="remember-me">Remember Me</label>
+                    </div>
+                  </div>
+                  <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      <span>LOGIN</span> <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </form>
+            </div>
+          </div>
+          <div class="col-12 col-md-12 col-lg-6 p-0">
+            <div style="background-image: url('{% static "assets/img/sms_images/img0.jpg" %}'); height: 100%; margin: 0; padding: 0;background-size: cover;background-position: center;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="simple-footer">
+        Copyright &copy; School Management Online {% now 'Y' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--     
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4>Login</h4>
+              </div>
+              
+              <div class="card-body">
+                <div id="alert-box"></div>
+                <div class="mt-1 mb-2 text-muted text-left">
+                  Dont have an account? <a href="{% url 'accounts:signup' %}">Sign Up</a>
+                </div>
+                <form method="POST" id="login_form" action="#" class="needs-validation" novalidate="">
+                  {% csrf_token %}
+                  
+                  <div class="form-group">
+                  
+
+                    <label for="">Email Address</label>
+                    {% render_field form.username class='form-control' name='email' type='email' tabindex='1' placeholder='Enter Email' required='true' %}
+
+                    <div class="invalid-feedback">
+                      Please fill in your email
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="d-block">
+                      
+                      <div class="float-right">
+                        <a href="auth-forgot-password.html" class="text-small">
+                          Forgot Password?
+                        </a>
+                      </div>
+                    </div>
+                    <label for="">Your Password</label>
+                    {% render_field form.password class='form-control' name='password' type='password' tabindex='2' placeholder='Enter Password' required='true' %}
+
+                    <div class="invalid-feedback">
+                      please fill in your password
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                      <label class="custom-control-label" for="remember-me">Remember Me</label>
+                    </div>
+                  </div>
+                  <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      <span>LOGIN</span> <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </form>
+
+               
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div> -->
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+      $(document).on('submit', '#login_form', function(e){
+        e.preventDefault();
+        alertBox.innerHTML=''
+        console.log($('#id_username').val(), $('#id_password').val())
+        $.ajax({
+            type:'POST',
+            url:'{% url "accounts:login" %}',
+            data: {
+                email:$('#id_username').val(),
+                password:$('#id_password').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                fun: function(){
+                  $('.loader-div>i').addClass('fa fa-gear fa-spin')
+
+                  $("#login_btn").replaceWith(
+                    `
+                  <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block disabled" tabindex="4" disabled="true">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> LOGING IN 
+                    </button>
+                  </div>
+                    `
+                  );
+
+                }
+            },
+            success: function(status){
+              console.log(status.status)
+
+              if(status.status == 'loggedin'){
+                console.log(status.next)
+                if(status.next){
+                  $(location).prop('href', `${status.next}`)
+                  $('.loader-div>i').removeClass('fa fa-gear fa-spin')
+
+                }
+                else{
+                  $(location).prop('href', '{% url "accounts:school_p" %}')
+                  $('.loader-div>i').removeClass('fa fa-gear fa-spin')
+
+                }
+                
+              }
+              if(status.status == 'failed'){
+                // $('#login_form').reset()
+                
+            
+                     //iziToast.error({
+                     //  title: 'Login Failed!',
+                     //  message: 'Please check your email, password and try again',
+                     //  position: 'topRight'
+                     //});
+                     swal('Login Failed', 'Check your email and password', 'error');
+                 
+                  
+
+                  $("#login_btn").replaceWith(
+                    `
+                  <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      <span>LOGIN</span> <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                    `
+                  );
+              }
+              
+
+            },
+            error: function(data){
+              $("#login_btn").replaceWith(
+                    `
+                  <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      <span>LOGIN</span> <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                    `
+                );
+                swal('An Error Occured', 'There was a problem at our end, please try aganin', 'error');
+            }
+        });
+    });
+</script>
+{% endblock %}

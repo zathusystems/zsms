@@ -1,0 +1,97 @@
+{% extends 'templates/main/base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+          <h4 class="d-inline">Teacher Details</h4>
+            <div class="card-header-action">
+              <a href="{% url 'chat:init2' teacher.user.id school_id %}" class="btn btn-primary">
+                Message
+              </a>
+            </div>
+    </div>
+   
+    <div class="card-body">
+      <div class="section-title mt-0"></div>
+      <form id="" method="post" class="">
+        {% csrf_token %}
+        <div class="modal-body">
+
+            {{form.as_table}}
+            <div class="p-15 border-bottom">
+              
+            </div>
+          
+            <br> <br>
+            <h5>Set permissions for this user</h5>
+            <div class="p-15 border-bottom">
+              <div class="theme-setting-options">
+                <label class="m-b-0">
+                  {% render_field permision_form.is_supper_admin class="custom-switch-input" name='is_supper_admin' type='checkbox' %}
+                  <span class="custom-switch-indicator"></span>
+                  <span class="control-label p-l-10">Is supper admin</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="p-15 border-bottom">
+              <div class="theme-setting-options">
+                <label class="m-b-0">
+                  {% render_field permision_form.is_admin class="custom-switch-input" name='is_admin' type='checkbox' %}
+                  <span class="custom-switch-indicator"></span>
+                  <span class="control-label p-l-10">Is admin</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="p-15 border-bottom">
+              <div class="theme-setting-options">
+                <label class="m-b-0">
+                  {% render_field permision_form.can_manage_employees class="custom-switch-input" name='can_manage_employees' type='checkbox' %}
+                  <span class="custom-switch-indicator"></span>
+                  <span class="control-label p-l-10">Can manage employees</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="p-15 border-bottom">
+              <div class="theme-setting-options">
+                <label class="m-b-0">
+                  {% render_field permision_form.can_manage_finances class="custom-switch-input" name='can_manage_finances' type='checkbox' %}
+                  <span class="custom-switch-indicator"></span>
+                  <span class="control-label p-l-10">Can manage finances</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="p-15 border-bottom">
+              <div class="theme-setting-options">
+                <label class="m-b-0">
+                  {% render_field permision_form.can_manage_library class="custom-switch-input" name='can_manage_library' type='checkbox' %}
+                  <span class="custom-switch-indicator"></span>
+                  <span class="control-label p-l-10">Can manage library</span>
+                </label>
+              </div>
+            </div>
+              
+              
+              
+              
+              
+              
+            
+        </div>
+        <div id="login_btn" class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+               SAVE CHANGES
+            </button>
+        </div>
+    </form>
+    </div>
+</div>
+{% endblock %}

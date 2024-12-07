@@ -1,0 +1,128 @@
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Parent Details</h4>
+            <div class="card-header-action">
+              <a href="{% url 'chat:init2' parent.user.id school_id %}" class="btn btn-primary">
+                Chat <i class="fas fa-comment"></i>
+              </a>
+              
+            </div>
+        </div>
+        <div class="card-body">
+            Parent Name: {{parent.user.first_name}} {{parent.user.last_name}}| {{parent.title}} {{parent.user.last_name}}<br>
+            Phone:       {{parent.phone}} <br>
+            Address: {{parent.address}}
+            
+            <div class="table-responsive">
+              <table class="table table-striped table-hover" id="" style="width:100%;">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <!-- <th></th> -->
+                    <!-- <th>ID #</th> -->
+                    <!-- <th>Students</th> -->
+                    <th>Accessbility</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for parent_access in parent.parent_access.all %}
+                  {% if parent_access.school == institution %}
+                  <tr>
+                    <td>{{parent_access.student}}</td>
+                    <!-- <td>{{parent_access.school}}</td> -->
+                    <td>  
+                        {% if parent_access.approved %}
+                          <span class="badge badge-success badge-rounded">Accessible</span>
+                        {% else %}
+                          <span class="badge badge-warning badge-rounded">Pending</span>
+                        {% endif %}
+                        <br>
+                    </td>
+                  
+                    <!-- <td>
+                      {% if parent_access.approved %}
+                        <span class="badge badge-success badge-rounded">Approved</span>
+                      {% else %}
+                        <span class="badge badge-warning badge-rounded">Pending</span>
+                      {% endif %}
+                    </td> -->
+                    <td>
+                      
+                          <form action="" method="post">
+                              {% csrf_token %}
+                              <input type="hidden" name="access_id" value="{{parent_access.id}}">
+                              {% if parent_access.approved %}
+                                {% if is_admin %}
+                                <button class="btn btn-primary" type="submit" name="unapprove">freez</button>
+                                {% endif %}
+                                <a href="{% url 'student:student' parent_access.student.id school_id %}" class="btn btn-info">View Student</a>
+                              {% else %}
+                                {% if is_admin %}
+                                <button class="btn btn-primary" type="submit" name="approve">Approve</button>
+                                {% endif %}
+                                <a href="{% url 'student:student' parent_access.student.id school_id %}" class="btn btn-info">View Student</a>
+                              {% endif %}
+                          </form>
+      
+                    </td>
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Student</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form class="card-header-form" method="post" action="{% url 'parent:search_id' %}">
+        {% csrf_token %}
+        <div class="input-group">
+          <input type="text" name="id_number" class="form-control" placeholder="Student_id number" required>
+          
+        </div>
+      </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+       
+</script>
+{% endblock %}
+

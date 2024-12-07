@@ -1,0 +1,60 @@
+{% extends 'templates/main/base.html' %}
+{% load static %}
+{% block content %}
+
+{% if is_admin %}
+    {% include 'templates/main/dashboards/admin_head.html' %}
+{% endif %}
+{% if is_class_teacher %}
+    {% include 'templates/main/dashboards/class_teacher_head.html' %} 
+{% endif %}
+{% if is_teacher %}
+    {% include 'templates/main/dashboards/teacher_head.html' %}
+{% endif %}
+{% if is_hr %}
+    {% if not is_admin %}
+        {% include 'templates/main/dashboards/hr_head.html' %}
+    {% endif %}
+{% endif %}
+{% if is_accountant %}
+    {% if not is_admin %}
+        {% include 'templates/main/dashboards/accountant_head.html' %}
+    {% endif %}
+{% endif %}
+{% if is_librarian %}
+    {% if not is_admin %}
+        {% include 'templates/main/dashboards/librarian_head.html' %}
+    {% endif %}
+{% endif %}
+
+
+
+{% include 'templates/main/dashboards/for_all.html' %}
+
+{% if is_admin %}
+    {% include 'templates/main/dashboards/admin.html' %}
+{% endif %}
+{% if is_class_teacher %}
+    {% include 'templates/main/dashboards/class_teacher.html' %} 
+{% endif %}
+{% if is_teacher %}
+    {% include 'templates/main/dashboards/teacher.html' %}
+{% endif %}
+{% if is_hr %}
+    {% if not is_admin %}
+        {% include 'templates/main/dashboards/hr.html' %}
+    {% endif %}
+{% endif %}
+{% if is_accountant %}
+    {% if not is_admin %}
+        {% include 'templates/main/dashboards/accountant.html' %}
+    {% endif %}
+{% endif %}
+{% if is_librarian %}
+    {% if not is_admin %}
+        {% include 'templates/main/dashboards/librarian.html' %}
+    {% endif %}
+{% endif %}
+
+
+{% endblock %}

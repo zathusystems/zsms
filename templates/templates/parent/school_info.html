@@ -1,0 +1,246 @@
+{% extends 'templates/parent/dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<section class="section">
+  <div class="section-body">
+    <div class="row mt-sm-4">
+      <div class="col-12 col-md-12 col-lg-4">
+        <div class="card author-box">
+          <div class="card-body">
+            <div class="author-box-center">
+              <img alt="image" src="{% static 'assets/img/users/user-1.png' %}" class="rounded-circle author-box-picture">
+              <div class="clearfix"></div>
+              <div class="author-box-name">
+                <a href="#">{{school}}</a>
+              </div>
+              <!-- <div class="author-box-job">Student of {{student.school}}</div>
+              {% for n in student.class_students.all %}
+              {{n.class_name}}
+              {% endfor %} -->
+            </div>
+          </div>
+          <!-- <div class="card-footer">
+            <div class="btn-group">
+              <a href="" class="btn btn-sm btn-primary">Attendance</a>
+              <a href="" class="btn btn-sm btn-info">Exams</a>
+              <a href="#" class="btn btn-sm btn-warning">Asignments</a>
+              <a href="" class="btn btn-sm btn-secondary">Library</a>
+            </div>
+          </div> -->
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h4>School Information</h4>
+          </div>
+          <div class="card-body">
+            <div class="py-4">
+              <p class="clearfix">
+                <span class="float-left">
+                  School Name
+                </span>
+                <span class="float-right text-muted">
+                  {{school}}
+                </span>
+              </p>
+
+              <p class="clearfix">
+                <span class="float-left">
+                  Principal
+                </span>
+                <span class="float-right badge badge-info badge-pill p-1">
+                  {{school.name_of_principal}}
+                </span>
+              </p>
+              <p class="clearfix">
+                <span class="float-left">
+                  Head teacher
+                </span>
+                <span class="float-right badge badge-info badge-pill p-1">
+                  {{school.name_of_head}}
+                </span>
+              </p>
+
+              <p class="clearfix">
+                <span class="float-left">
+                  Date Joined
+                </span>
+                <span class="float-right text-muted">
+                  <a href="#">{{school.created_at.date}}</a>
+                </span>
+              </p>
+              <p class="clearfix">
+                <span class="float-left">
+                  Country
+                </span>
+                <span class="float-right text-muted">
+                  <a href="#">{{school.country}}</a>
+                </span>
+              </p>
+            </div>
+              <p class="clearfix">
+                <span class="float-left">
+                  City
+                </span>
+                <span class="float-right text-muted">
+                  {{school.city}}
+                </span>
+              </p>
+              <p class="clearfix">
+                <span class="float-left">
+                  Phone
+                </span>
+                <span class="float-right text-muted">
+                  {{school.phone}}
+                </span>
+              </p>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-8">
+        <div class="card">
+          <div class="card-header">
+            <h4>Staff Members</h4>
+          </div>
+          <div class="card-body">
+        
+            <p class="clearfix">
+              <span class="float-left">
+                Head Teacher 
+              </span>
+              <span class="float-right text-muted">
+                <span class="badge badge-success">{{school.name_of_head}}</span>
+              </span>
+            </p>
+            <p class="clearfix">
+              <span class="float-left">
+                Principal 
+              </span>
+              <span class="float-right text-muted">
+                <span class="badge badge-warning">{{school.name_of_principal}}</span>
+              </span>
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover" style="width:100%;">
+                <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Subjects teach</th>
+                      <th>Role</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{school.user.first_name}} {{school.user.last_name}}</td>
+                    <td></td>
+                    <td>Admin/Owner</td>
+                    <td><a href="{% url 'chat:init' school.user.id %}" class="btn btn-primary">Message</a></td>
+                  </tr>
+                  {% for teacher in school.instructors.all %}
+                  
+                  <tr>
+                      <td>
+                        {% if teacher.gender == 'male' %}
+                          Mr 
+                        {% else %}
+                          Mrs
+                        {% endif %}
+                        {{teacher.last_name }}
+                        {% if teacher.is_class_teacher %} <br>
+                         Teacher For  <span class="badge badge-info badge-pill">{{teacher.assigned_class.first}}</span>
+                        {% endif %}
+                      </td>
+                      <td>
+                        {% for subject in teacher.subjects_taught.all %}
+                          <span class="badge badge-success badge-pill">{{subject.title}}</span>
+                        {% endfor %}
+                      </td>
+                      <td>
+                        {{teacher.role}}
+                      </td>
+                      <td>
+                        <a href="{% url 'chat:init' teacher.user.id %}" class="btn btn-primary">Message</a>
+                      </td>
+                  </tr>
+                  
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h4>Current Tuituin Fee Structure</h4>
+          </div>
+          <div class="card-body">
+            
+            <div class="table-responsive">
+              <table class="table table-striped table-hover" style="width:100%;">
+                <thead>
+                  <tr>
+                      <th>Category</th>
+                      <th>Fee Amount</th>
+                      <!-- <th>Action</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for cate in school.fee_categories.all %}
+                  <tr>
+                      <td>{{ cate.title }}</td>
+                      <td>
+                       
+                        {{cate.fees.first.fee_amount}}
+                      </td>
+                      <!-- <td><a href="" class="btn btn-sm btn-primary">view all</a></td> -->
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h4>Other Fee Structure</h4>
+          </div>
+          <div class="card-body">
+            
+            <div class="table-responsive">
+              <table class="table table-striped table-hover" style="width:100%;">
+                <thead>
+                  <tr>
+                      <th>Fees Title</th>
+                      <th>Fee Amount</th>
+                      <!-- <th>Action</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for fee in school.other_fees.all %}
+                  <tr>
+                      <td>{{ fee.fee_title }}</td>
+                      <td>
+                       
+                        {{fee.fee_amount}} {{fee.period}}
+                      </td>
+                      <!-- <td><a href="" class="btn btn-sm btn-primary">view all</a></td> -->
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+<br> <br>
+{% endblock %}

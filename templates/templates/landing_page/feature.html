@@ -1,0 +1,203 @@
+{% extends 'templates/landing_page/base/base.html' %}
+
+{% block content %}
+
+   <!-- immer banner start -->
+   <section class="inner-banner pt-80 pb-95" style="background-image: url('img/banner/inner-banner.jpg');" data-overlay="7">
+    <div class="container">
+        <div class="row z-5 align-items-center">
+            <div class="col-md-8 text-center text-md-left">
+                <h1 class="f-700 green">System Feature</h1>
+                <span class="green-line bg-green d-none d-md-inline-block"></span>
+            </div>
+            <div class="col-md-4 text-center text-md-right">
+                <nav aria-label="breadcrumb" class="banner-breadcump">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'landing_page:landing' %}">
+                            <i class="fas fa-home fs-12 mr-5"></i>Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'landing_page:landing' %}">
+                            <i class="fas fa-home fs-12 mr-5"></i>Features</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Feature Details</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- immer banner end -->
+
+ <!-- Service start -->
+  
+  <section class="service-page pt-95 pb-70 bg-white">
+    <div class="container">
+ 
+
+        <div class="row">
+            <div class="col-xl-8 col-lg-7">
+                <!-- left part -->
+                <div class="left-part">
+                    <div class="service-img">
+                        <img src="img/service/service-detail.jpg" alt="">
+                    </div>
+                    <div class="sercice-content">
+                        <h1 class="f-700 mt-30 mb-10">{{feature|title}}</h1>
+                        <p class="big-p blue">{{feature.description1}}</p>
+                        <!-- <div class="block-quote bg-light-white mb-20">
+                            <p class="blue fs-18 lh-19 mb-0">Duis facilisis augue sed ultricies ullamcorper. Donec sit amet turpis ut tortor sollicitudin ultrices. Proin molestie tristique enim tortor sollicitudin augue.</p>
+                        </div> -->
+                        <p class="big-p blue">{{feature.description2}}</p>
+                        <p class="big-p blue">{{feature.description3}}</p>
+                        <div class="hr-1 bg-light-white mb-15"></div>
+                        
+                       
+                        <!-- <div class="faq-box bodered-faq mt-30 mb-40">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" role="button">
+                                        <h5 class="mb-0">
+              Lorem ipsum dolor sit amet, consectetur?
+                  </h5>
+                                    </div>
+
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header  collapsed" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" role="button">
+                                        <h5 class="mb-0">
+              Aenean lobortis feugiat mauris at? 
+                  </h5>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                        <div class="card-body">
+                                            Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" role="button">
+                                        <h5 class="mb-0">
+              Nulla porttitor risus id mauris viverra?
+                  </h5>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        
+
+                        <!-- <div class="hr-1 bg-light-white mt-30 mb-30"></div> -->
+
+                        <!-- <div class="row align-items-center">
+                            <div class="col-xl-6 text-center text-md-left">
+                                <a href="#" class="btn btn-square-border download-btn">Download brochure
+                <i class="fas fa-download ml-15"></i>
+              </a>
+                            </div>
+                            <div class="col-xl-6 text-center text-md-left text-xl-right">
+                                <div class="share-btn">
+                                    <ul class="social-icons round-border transition-4 mb-md-60">
+                                        <li>
+                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fab fa-twitter"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                        </li>
+                                    </ul>
+                                    <a href="#" class="btn circle-btn bg-green z-5"><i class="fas fa-share-alt"></i></a>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-5">
+                <!-- <div class="right-box bg-light-white mb-30">
+                    <div class="right-box-head">
+                        <h4>Search</h4>
+                    </div>
+                    <div class="right-box-content">
+                        <form action="#" class="relative mt-10 mb-10">
+                            <input type="text" class="form-control input-white search-white" id="search2" placeholder="Search here..">
+                            <i class="fas fa-search transform-v-center green"></i>
+                        </form>
+                    </div>
+                </div> -->
+
+                <div class="right-box bg-light-white mb-30">
+                    <div class="right-box-head">
+                        <h4>Other System Features</h4>
+                    </div>
+                    <div class="right-box-content">
+                        <ul class="mt-15 mb-10">
+                            {% for feat in features %}
+                            {% if feat != feature %}
+                            <li>
+                                <a href="{% url 'landing_page:s_feature' feat.id %}" class="other-dervices d-flex align-items-center">
+                                    <div class="icon">
+                                        <img src="img/service/2.png" alt="">
+                                    </div>
+                                    <div class="icon-text">
+                                        <h6>{{feat|title}}</h6>
+                                        <p>{{feat.description2|truncatewords:5}}</p>
+                                    </div>
+                                </a>
+                            </li>
+                            {% endif %}
+                           {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- <div class="right-box bg-light-white mb-30">
+                    <div class="right-box-head">
+                        <h4>Follow Us</h4>
+                    </div>
+                    <div class="right-box-content">
+                        <div class="social-profile mt-10 mb-10">
+                            <a href="#" class="social-profile-box">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-profile-box">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-profile-box">
+                                <i class="fab fa-google-plus-g"></i>
+                            </a>
+                            <a href="#" class="social-profile-box">
+                                <i class="fab fa-google-plus-g"></i>
+                            </a>
+                            <a href="#" class="social-profile-box">
+                                <i class="fab fa-pinterest-p"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="right-box ad-banner bg-light-white mb-30">
+                    <a href="#" class="d-block ">
+                        <img src="img/service/ad-banner.jpg" class="w-100" alt="">
+                    </a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

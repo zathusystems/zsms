@@ -1,0 +1,122 @@
+
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+employees list
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Student Enroll</h4>
+            <div class="card-header-action">
+            <span class="badge {% if fee.closed %} badge-danger {% else %} badge-success {% endif %}"><i class="fa fa-circle"></i></span>
+            <!-- <a href="" class="btn btn-sm btn-primary">Add Payment</a> -->
+              
+              <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add Payment
+              </button> -->
+            </div>
+        </div>
+        <div class="card-body">
+            <form id="" method="post" class="">
+                {% csrf_token %}
+                <label for="class">Class Room:</label>
+                <div class="input-group">
+                    <select name="class" id="class" class="form-control select2 input-item" required>
+                      <option value="">-----------</option>
+                      {% for class in classes %}
+                        <option value="{{class.id}}">{{class.class_name}}</option>
+                      {% endfor %}
+                    </select>
+                    <button class="input-item btn btn-primary" type="button">Add</button>
+                  </div>
+                  
+                  {{form.as_table}} 
+                  
+                  <label for="class">Expected Tuition Fee:</label>
+                  <div class="input-group">
+                    <select name="fee_category_id" id="id_fee" class="form-control select2" required>
+                      <option value="">-----------</option>
+                      {% for fee_category in fee_categories %}
+                        <option value="{{fee_category.id}}">{{fee_category.fees.last}}</option>
+                      {% endfor %}
+                    </select>
+                    <button class="input-item btn btn-primary" type="button">Add</button>
+                  </div>
+
+                  <label for="class">Other Fees:</label>
+                  <div class="input-group">
+                    <select name="other_fee_id" id="id_fee" class="form-control select2" multiple required>
+                      {% for other_fee in other_fees %}
+                        <option value="{{other_fee.id}}">{{other_fee}}</option>
+                      {% endfor %}
+                    </select>
+                    <button class="input-item btn btn-primary" type="button">Add</button>
+                  </div>
+                  {{form2.as_table}}
+              
+                <div class="modal-footer bg-whitesmoke br">
+                    <button class="btn btn-primary" type="submit" name="add-onother">Save and add onother</button>
+                    <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+                    <a href="../{{school_id}}" type="button" class="btn btn-secondary">Back</a>
+                </div>
+            </form>
+
+
+            
+            <!-- <form id="" method="post" class="">
+              {% csrf_token %}
+              <div class="modal-body">
+                <label for="student">Employee:</label>
+                <select name="employee" id="id_employee" class="form-control select2" required>
+                  <option value="">-----------</option>
+                  {% for employee in employees %}
+                    <option value="{{employee.id}}">{{employee}}</option>
+                  {% endfor %}
+                </select>
+                <div id="cont" class="container mt-2">
+                    
+                </div>
+                {{ form }}
+              </div>
+              <div class="modal-footer bg-whitesmoke br">
+                <button class="btn btn-primary" type="submit" name="add-onother">Save and add onother</button>
+                <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+                <a href="../{{school_id}}" type="button" class="btn btn-secondary">Back</a>
+              </div>
+            </form> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+  $('#id_employee').on('change', function(){
+    $.ajax({
+            type:'POST',
+            url:'{% url "finance:payroll_add" school_id %}',
+            data: {
+                employee:$('#id_employee').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        
+            },
+            success: function(data){
+              $('#id_salary').val(`${data.salary}`);
+              $('#id_allowances').val(`${data.allowance}`);
+              $('#id_dedactions').val(`${data.deductions}`);
+            },
+    });
+  });
+
+</script>
+{% endblock %}

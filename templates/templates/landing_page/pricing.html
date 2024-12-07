@@ -1,0 +1,157 @@
+    {% extends 'templates/landing_page/base/base.html' %}
+    {% load static %}
+
+    {% block content %}
+    <!-- immer banner start -->
+    <section class="inner-banner pt-80 pb-95" style="background-image: url('img/banner/inner-banner.jpg');" data-overlay="7">
+        <div class="container">
+            <div class="row z-5 align-items-center">
+                <div class="col-md-8 text-center text-md-left">
+                    <h1 class="f-700 green">Pricing</h1>
+                    <span class="green-line bg-green d-none d-md-inline-block"></span>
+                </div>
+                <div class="col-md-4 text-center text-md-right">
+                    <nav aria-label="breadcrumb" class="banner-breadcump">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="{% url 'landing_page:landing' %}"><i class="fas fa-home fs-12 mr-5"></i>Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Pricing</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    
+<!-- Pricing area start -->
+<section class="pricong-area bg-light-white pt-95 pb-100">
+    <div class="container">
+        <div class="row mb-60 align-items-end">
+            <div class="col-lg-7 text-center text-lg-left">
+                <div class="fancy-head left-al">
+                    <h5 class="line-head mb-15">
+              <span class="line before d-lg-none"></span>
+                Our Pricing
+              <span class="line after"></span>
+            </h5>
+                    <h1>Our Pricing Plans</h1>
+                </div>
+            </div>
+            <div class="col-lg-5 mt-md-25">
+                <ul class="nav nav-pills price-tabs align-items-center mb-15 justify-content-center float-lg-right">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#monthly">MONTHLY</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#yearly">YEARLY</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row price-2-row">
+            <div class="col-xl-12">
+                <div class="tab-content">
+                    <div id="monthly" class=" tab-pane  active">
+                        <div class="row justify-content-md-center align-items-center">
+                            
+
+                            {% for plan in plans %}
+                            <div class="col-lg-4 col-md-6 mb-sm-30">
+                                <div class="price-each-2 relative text-center {% if forloop.counter == 2 %} img-lined active shadow-1 {% endif %}">
+                                    <div class="price-head-2 mt-10 z-8">
+                                        <div class="price-icon-2 relative flex-center">
+                                            <img src="{% static 'assets_landing/img/price/price1.png' %}" alt="">
+                                        </div>
+                                        <h3 class="f-900 {% if forloop.counter == 2 %} white {% else %} green {% endif %} mt-30">MK{{plan.price}}</h3>
+                                        <h4 class="f-900 {% if forloop.counter == 2 %} white {% endif %} mb-15">{{plan.name}}</h4>
+                                    </div>
+                                    <div class="price-text z-8">
+                                        <ul class="{% if forloop.counter == 2 %} white {% endif %}">
+                                            {% for feature in features %}
+                                            <li {% if feature in plan.plan_features.all %} {% else %} class="line-threw" {% endif %}>{{feature.feature}}</li>
+                                            {% endfor %}
+
+                                            <!-- <li>Exam Management</li>
+                                            <li>Classroom Management</li>
+                                            <li>Timetable Management</li>
+                                            <li>Student Attendance Tracking</li>
+                                            <li class="line-threw">unlimited students</li>
+                                            <li class="line-threw">Unlimited Users</li>
+                                            <li class="line-threw">Employee Management</li>
+                                            <li class="line-threw">Employee Attendance Tracking</li>
+                                            <li class="line-threw">Leave Management</li>
+                                            <li class="line-threw">Payroll Management</li>
+                                            <li class="line-threw">Financial Management</li>
+                                            <li class="line-threw">Fee collection</li>
+                                            <li class="line-threw">Income and Expenses Tracking</li>
+                                            <li class="line-threw">Library Management</li> -->
+                                        </ul>
+                                    </div>
+                                    
+                                    {% if plan.name == 'Free' %}
+                                        <a href="{% url 'accounts:school_p' %}" class="btn {% if forloop.counter == 2 %} btn-round-blue {% else %} btn-round {% endif %} mb-5 wide mt-25 z-8">Get Started</a>
+                                    {% else %}
+                                        <a href="{% url 'accounts:school_p' %}" class="btn {% if forloop.counter == 2 %} btn-round-blue {% else %} btn-round {% endif %} mb-5 wide mt-25 z-8">Free Trial</a>
+                                    {% endif %}
+                                    
+                                    <!-- <span class="price-tag fs-11">
+                                        BEST VALUE
+                                      </span> -->
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div id="yearly" class=" tab-pane fade">
+                        <div class="row justify-content-md-center align-items-center">
+                            {% for plan in plans %}
+                            <div class="col-lg-4 col-md-6 mb-sm-30">
+                                <div class="price-each-2 relative text-center {% if forloop.counter == 2 %} img-lined active shadow-1 {% endif %}">
+                                    <div class="price-head-2 mt-10 z-8">
+                                        <div class="price-icon-2 relative flex-center">
+                                            <img src="{% static 'assets_landing/img/price/price1.png' %}" alt="">
+                                        </div>
+                                        <h3 class="f-900 {% if forloop.counter == 2 %} white {% else %} green {% endif %} mt-30">MK{{plan.yearly_price}}</h3>
+                                        <h4 class="f-900 {% if forloop.counter == 2 %} white {% endif %} mb-15">{{plan.name}}</h4>
+                                    </div>
+                                    <div class="price-text z-8">
+                                        <ul class="{% if forloop.counter == 2 %} white {% endif %}">
+                                            {% for feature in features %}
+                                            <li {% if feature in plan.plan_features.all %} {% else %} class="line-threw" {% endif %}>{{feature.feature}}</li>
+                                            {% endfor %}
+
+                                            <!-- <li>Exam Management</li>
+                                            <li>Classroom Management</li>
+                                            <li>Timetable Management</li>
+                                            <li>Student Attendance Tracking</li>
+                                            <li class="line-threw">unlimited students</li>
+                                            <li class="line-threw">Unlimited Users</li>
+                                            <li class="line-threw">Employee Management</li>
+                                            <li class="line-threw">Employee Attendance Tracking</li>
+                                            <li class="line-threw">Leave Management</li>
+                                            <li class="line-threw">Payroll Management</li>
+                                            <li class="line-threw">Financial Management</li>
+                                            <li class="line-threw">Fee collection</li>
+                                            <li class="line-threw">Income and Expenses Tracking</li>
+                                            <li class="line-threw">Library Management</li> -->
+                                        </ul>
+                                    </div>
+                                    <a href="#" class="btn {% if forloop.counter == 2 %} btn-round-blue {% else %} btn-round {% endif %} mb-5 wide mt-25 z-8">Buy Now</a>
+                                    <!-- <span class="price-tag fs-11">
+                                        BEST VALUE
+                                      </span> -->
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Pricing area end -->
+ {% endblock %}

@@ -1,0 +1,139 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- gmaps-geolocation.html  21 Nov 2019 04:04:55 GMT -->
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>switch profile | school-management.online</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/components.css' %}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href='{% static "assets/img/favicon.ico" %}' />
+  <link rel="stylesheet" href="{% static 'assets/bundles/jquery-selectric/selectric.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/datatables/datatables.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/prism/prism.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-timepicker/css/bootstrap-timepicker.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/select2/dist/css/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
+
+
+
+</head>
+
+<body>
+  <!-- <div class="loader"></div> -->
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+
+      
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4 class="d-inline">Create Parent Profile</h4>
+                <div class="card-header-action">
+                  <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Create New
+                  </button> -->
+                </div>
+              </div>
+              
+                <div class="card-body">
+               
+                    <form id="" method="post" class="">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                        {{form.as_table}}
+                            
+                        </div>
+                        <div class="modal-footer bg-whitesmoke br">
+                          <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+
+  
+      <!--footer-->
+      {% include 'templates/main/footer.html' %}
+     
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="{% static 'assets/js/app.min.js' %}"></script>
+  <!-- JS Libraies -->
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyB55Np3_WsZwUQ9NS7DP-HnneleZLYZDNw&amp;sensor=true"></script>
+  <script src="{% static 'assets/bundles/gmaps.js' %}"></script>
+  <!-- Page Specific JS File -->
+  <script src="{% static 'assets/js/page/gmaps-geolocation.js' %}"></script>
+  <!-- Template JS File -->
+  <script src="{% static 'assets/js/scripts.js' %}"></script>
+  <!-- Custom JS File -->
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/datatables.min.js' %}"></script>
+  <!-- Page Specific JS File -->
+  <script src="{% static 'assets/js/page/datatables.js' %}"></script>
+  <script src="{% static 'assets/bundles/prism/prism.js' %}"></script>
+  <script src="{% static 'assets/js/page/forms-advanced-forms.js' %}"></script>
+  <script src="{% static 'assets/bundles/jquery-selectric/jquery.selectric.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/select2/dist/js/select2.full.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-timepicker/js/bootstrap-timepicker.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' %}"></script>
+
+
+  <script src="{% static 'assets/bundles/datatables/export-tables/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/buttons.flash.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/jszip.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/pdfmake.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/vfs_fonts.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/buttons.print.min.js' %}"></script>
+  <script src="{% static 'assets/js/page/widget-data.js' %}"></script>
+
+  <script>
+    $('#id_edu_offer').on('change', function(){
+      const edu=$('#id_edu_offer').val();
+      console.log(edu)
+      if(edu=='secondary education'){
+        $('#registrar_div').css({'display':'none'})
+        $('#principal_div').css({'display':'block'})
+        $('#head_div').css({'display':'block'})
+      } else {
+        $('#registrar_div').css({'display':'block'})
+        $('#principal_div').css({'display':'none'})
+        $('#head_div').css({'display':'none'})
+      };
+
+    });
+  </script>
+  
+  {% block scripts %}
+
+  {% endblock %}
+
+
+
+</body>
+
+
+<!-- gmaps-geolocation.html  21 Nov 2019 04:04:56 GMT -->
+</html>
+
+
+

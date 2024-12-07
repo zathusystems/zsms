@@ -1,0 +1,103 @@
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+exam rusults {{term}}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline"> {{exam_subject.subject}} {{exam_subject.title}} {{student.first_name}} Exam Results {{academic_year}} {{term}}</h4>
+            <div class="card-header-action">
+              <div class="btn-group">
+                <!-- <a href="#" class="btn btn-primary"><i class="fas fa-angle-left"></i>Generate Report Card</a>  -->
+               
+              </div>
+            </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" style="width:100%;">
+              <thead>
+                <tr>
+                  <!-- <th>Student</th> -->
+                  <th>Subject</th>
+                  <th>Date</th>
+                  <th>Marks</th>
+                  <th>Highest</th>
+                  <th>Lowest</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for result in examresults %}
+                <tr>
+                    <!-- <td>{{result.student}}</td> -->
+                    <td>{{result.subject.subject.title}}</td>
+                    <td>{{result.subject.exam_date}} <br> {{result.academic_year}}-{{result.term}}</td>
+                    <td>{{result.marks_obtained}}/{{result.subject.total_marks}}</td>
+                    <td>{{result.highest}}</td>
+                    <td>{{result.lowest}}</td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Schedule an Exam for {{academic_year}}, {{term}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+            <label for="id_student">Student</label>
+            <select class="form-control select2" name="student" id="id_student" style="width: 100%;" required>
+              <option value="">Select Student</option>
+              {% for student in students %}
+                {% if student.class_students.first in exam.classes.all %}
+                  
+                    
+                    <!-- <option value="">{{result.student}} / {{student}}</option> -->
+                      {% if student in result_students %}
+                      {% else %}
+                        <option value="{{student.id}}">{{student}}</option>
+                      {% endif %}
+                   
+                  
+                {% endif %}
+              {% endfor %}
+            </select>
+              {{form}}
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

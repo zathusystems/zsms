@@ -1,0 +1,585 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- gmaps-geolocation.html  21 Nov 2019 04:04:55 GMT -->
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>{% block title %} {% endblock %} | school-management.online</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/components.css' %}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href='{% static "assets/img/favicon.ico" %}' />
+  <link rel="stylesheet" href="{% static 'assets/bundles/jquery-selectric/selectric.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/datatables/datatables.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/prism/prism.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-timepicker/css/bootstrap-timepicker.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/select2/dist/css/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
+
+  <link rel="stylesheet" href="{% static 'assets/bundles/fullcalendar/fullcalendar.min.css' %}">
+  {% block style %} {% endblock %}
+  <style>
+  
+    .calculator {
+        background: #fff;
+        border-radius: 0px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 5px;
+        /* width: 400px; */
+    }
+    .calculator .display {
+        font-size: 28px;
+        background: #eef1f5;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        text-align: right;
+        border: none;
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .calculator .buttons {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 7px;
+    }
+    .calculator .button {
+        font-size: 14px;
+        padding: 11px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: #007bff;
+        color: #fff;
+        text-align: center;
+    }
+    .calculator .button:hover {
+        background: #0056b3;
+    }
+    .calculator .button.operator {
+        background: #28a745;
+    }
+    .calculator .button.operator:hover {
+        background: #218838;
+    }
+    .calculator .button.clear {
+        background: #dc3545;
+    }
+    .calculator .button.clear:hover {
+        background: #c82333;
+    }
+    .calculator .button.memory {
+        background: #ffc107;
+    }
+    .calculator .button.memory:hover {
+        background: #e0a800;
+    }
+    .side2{
+      top: 28px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <div class="loader"></div> -->
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      
+      
+      <!--nav bar area-->
+      {% include 'templates/main/header.html' %}
+      
+      
+      <!--side bar-->
+      {% include 'templates/main/sidebar.html' %}
+      
+  
+      <!-- Main Content -->
+      <div class="main-content">
+        
+        {% block content %}
+        
+        {% endblock %}
+        <!-- <div class="settingSidebar side2" >
+          <a href="javascript:void(0)" id='st-btn' class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+          <div class="settingSidebar-body ps-container ps-theme-default" id="settings-div">
+            <div class=" fade show active">
+              <div class="setting-panel-header">Setting Panel
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Select Layout</h6>
+                <div class="selectgroup layout-color w-50">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                    <span class="selectgroup-button">Light</span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                    <span class="selectgroup-button">Dark</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                <div class="selectgroup selectgroup-pills sidebar-color">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Color Theme</h6>
+                <div class="theme-setting-options">
+                  <ul class="choose-theme list-unstyled mb-0">
+                    <li title="white" class="active">
+                      <div class="white"></div>
+                    </li>
+                    <li title="cyan">
+                      <div class="cyan"></div>
+                    </li>
+                    <li title="black">
+                      <div class="black"></div>
+                    </li>
+                    <li title="purple">
+                      <div class="purple"></div>
+                    </li>
+                    <li title="orange">
+                      <div class="orange"></div>
+                    </li>
+                    <li title="green">
+                      <div class="green"></div>
+                    </li>
+                    <li title="red">
+                      <div class="red"></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="mini_sidebar_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Mini Sidebar</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="sticky_header_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Sticky Header</span>
+                  </label>
+                </div>
+              </div>
+              <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                  <i class="fas fa-undo"></i> Restore Default
+                </a>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" id='cl-btn' class="settingPanelToggle"> 
+            <i class="fa fa-arrow-alt-circle-left" style="font-size: 18px;"></i>
+          </a>
+          <div class="settingSidebar-body ps-container ps-theme-default" id='calculator-div'>
+            <div class=" fade show active">
+
+
+
+
+
+
+              
+                  <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab"
+                        aria-controls="home" aria-selected="true">Calculator</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab"
+                        aria-controls="profile" aria-selected="false">Setting Panel</a>
+                    </li>
+                    
+                  </ul>
+                  <div class="tab-content tab-bordered" id="myTab3Content">
+                    <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+                      
+                      <!-- <div class="setting-panel-header">Calculator
+                      </div> -->
+                      <div class="calculator">
+                        <input type="text" class="display" id="display" readonly>
+                        <div class="buttons">
+                            <button class="button memory" data-value="MC">MC</button>
+                            <button class="button memory" data-value="MR">MR</button>
+                            <button class="button memory" data-value="M+">M+</button>
+                            <button class="button memory" data-value="M-">M-</button>
+                            <button class="button clear" data-value="clear">C</button>
+                            <button class="button" data-value="7">7</button>
+                            <button class="button" data-value="8">8</button>
+                            <button class="button" data-value="9">9</button>
+                            <button class="button operator" data-value="/">÷</button>
+                            <button class="button operator" data-value="%">%</button>
+                            <button class="button" data-value="4">4</button>
+                            <button class="button" data-value="5">5</button>
+                            <button class="button" data-value="6">6</button>
+                            <button class="button operator" data-value="*">×</button>
+                            <button class="button operator" data-value="sqrt">√</button>
+                            <button class="button" data-value="1">1</button>
+                            <button class="button" data-value="2">2</button>
+                            <button class="button" data-value="3">3</button>
+                            <button class="button operator" data-value="-">-</button>
+                            <button class="button operator" data-value="^">x²</button>
+                            <button class="button" data-value="0">0</button>
+                            <button class="button" data-value=".">.</button>
+                            <button class="button operator" data-value="=" style="grid-column: span 2;">=</button>
+                            <button class="button operator" data-value="+">+</button>
+                        </div>
+                    </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+                      
+                      <!-- <div class="setting-panel-header">Setting Panel
+                      </div> -->
+                      <div class="p-15 border-bottom">
+                        <h6 class="font-medium m-b-10">Select Layout</h6>
+                        <div class="selectgroup layout-color w-50">
+                          <label class="selectgroup-item">
+                            <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                            <span class="selectgroup-button">Light</span>
+                          </label>
+                          <label class="selectgroup-item">
+                            <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                            <span class="selectgroup-button">Dark</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="p-15 border-bottom">
+                        <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                        <div class="selectgroup selectgroup-pills sidebar-color">
+                          <label class="selectgroup-item">
+                            <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                            <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                              data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                          </label>
+                          <label class="selectgroup-item">
+                            <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                            <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                              data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="p-15 border-bottom">
+                        <h6 class="font-medium m-b-10">Color Theme</h6>
+                        <div class="theme-setting-options">
+                          <ul class="choose-theme list-unstyled mb-0">
+                            <li title="white" class="active">
+                              <div class="white"></div>
+                            </li>
+                            <li title="cyan">
+                              <div class="cyan"></div>
+                            </li>
+                            <li title="black">
+                              <div class="black"></div>
+                            </li>
+                            <li title="purple">
+                              <div class="purple"></div>
+                            </li>
+                            <li title="orange">
+                              <div class="orange"></div>
+                            </li>
+                            <li title="green">
+                              <div class="green"></div>
+                            </li>
+                            <li title="red">
+                              <div class="red"></div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="p-15 border-bottom">
+                        <div class="theme-setting-options">
+                          <label class="m-b-0">
+                            <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                              id="mini_sidebar_setting">
+                            <span class="custom-switch-indicator"></span>
+                            <span class="control-label p-l-10">Mini Sidebar</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="p-15 border-bottom">
+                        <div class="theme-setting-options">
+                          <label class="m-b-0">
+                            <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                              id="sticky_header_setting">
+                            <span class="custom-switch-indicator"></span>
+                            <span class="control-label p-l-10">Sticky Header</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                        <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                          <i class="fas fa-undo"></i> Restore Default
+                        </a>
+                      </div>
+
+                    </div>
+                    
+                  </div>
+                
+            
+
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!--footer-->
+      {% include 'templates/main/footer.html' %}
+     
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="{% static 'assets/js/app.min.js' %}"></script>
+  <!-- JS Libraies -->
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyB55Np3_WsZwUQ9NS7DP-HnneleZLYZDNw&amp;sensor=true"></script>
+  <script src="{% static 'assets/bundles/gmaps.js' %}"></script>
+  <!-- Page Specific JS File -->
+  <script src="{% static 'assets/js/page/gmaps-geolocation.js' %}"></script>
+  <!-- Template JS File -->
+  <script src="{% static 'assets/js/scripts.js' %}"></script>
+  <!-- Custom JS File -->
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/datatables.min.js' %}"></script>
+  <!-- Page Specific JS File -->
+  <script src="{% static 'assets/js/page/datatables.js' %}"></script>
+  <script src="{% static 'assets/bundles/prism/prism.js' %}"></script>
+  <script src="{% static 'assets/js/page/forms-advanced-forms.js' %}"></script>
+  <script src="{% static 'assets/bundles/jquery-selectric/jquery.selectric.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/select2/dist/js/select2.full.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-timepicker/js/bootstrap-timepicker.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' %}"></script>
+
+
+  <script src="{% static 'assets/bundles/datatables/export-tables/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/buttons.flash.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/jszip.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/pdfmake.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/vfs_fonts.js' %}"></script>
+  <script src="{% static 'assets/bundles/datatables/export-tables/buttons.print.min.js' %}"></script>
+  <script src="{% static 'assets/js/page/widget-data.js' %}"></script>
+
+  <!-- JS Libraies -->
+  <script src="{% static 'assets/bundles/fullcalendar/fullcalendar.min.js' %}"></script>
+  <!-- Page Specific JS File -->
+  <!-- <script src="{% static 'assets/js/page/calendar.js' %}"></script> -->
+  <script>
+
+      $(document).ready(function () {
+            let display = $("#display");
+            let equation = "";
+            let memory = localStorage.getItem("calculatorMemory") ? parseFloat(localStorage.getItem("calculatorMemory")) : 0;
+
+            $(".button").on("click", function () {
+                let value = $(this).data("value");
+
+                if (value === "clear") {
+                    equation = "";
+                    display.val("");
+                } else if (value === "=") {
+                    try {
+                        equation = eval(equation).toString();
+                        display.val(equation);
+                    } catch {
+                        display.val("Error");
+                        equation = "";
+                    }
+                } else if (value === "sqrt") {
+                    equation = Math.sqrt(eval(equation)).toString();
+                    display.val(equation);
+                } else if (value === "^") {
+                    equation = Math.pow(eval(equation), 2).toString();
+                    display.val(equation);
+                } else if (value === "%") {
+                    equation = (eval(equation) / 100).toString();
+                    display.val(equation);
+                } else if (value === "MC") {
+                    memory = 0;
+                    localStorage.setItem("calculatorMemory", memory);
+                    alert("Memory Cleared");
+                } else if (value === "MR") {
+                    equation += memory;
+                    display.val(equation);
+                    // display.val(memory.toString());
+                    // equation = memory.toString();
+                } else if (value === "M+") {
+                    memory += parseFloat(eval(equation) || 0);
+                    localStorage.setItem("calculatorMemory", memory);
+                    alert(`Memory Added: ${memory}`);
+                } else if (value === "M-") {
+                    memory -= parseFloat(eval(equation) || 0);
+                    localStorage.setItem("calculatorMemory", memory);
+                    alert(`Memory Subtracted: ${memory}`);
+                } else {
+                    equation += value;
+                    display.val(equation.replace(/\*/g, '×').replace(/\//g, '÷'));
+                }
+            });
+        });
+
+
+$(document).ready(function () {
+  // Function to save to localStorage
+  function saveSetting(key, value) {
+    localStorage.setItem(key, value);
+  }
+
+  // Function to load from localStorage
+  function loadSetting(key) {
+    return localStorage.getItem(key);
+  }
+
+  // Apply stored settings
+  function applySettings() {
+    // Layout
+    const savedLayout = loadSetting("layout");
+    if (savedLayout) {
+      $(`.select-layout[value="${savedLayout}"]`).prop("checked", true);
+      
+    
+      if (savedLayout == '1'){
+        $("body").removeClass();
+        $("body").addClass("light");
+        $("body").addClass("light-sidebar");
+        $("body").addClass("theme-white");
+
+        $(".choose-theme li").removeClass("active");
+        $(".choose-theme li[title|='white']").addClass("active");
+        $(".selectgroup-input[value|='1']").prop("checked", true);
+      } else {
+        $("body").removeClass();
+        $("body").addClass("dark");
+        $("body").addClass("dark-sidebar");
+        $("body").addClass("theme-black");
+
+        $(".choose-theme li").removeClass("active");
+        $(".choose-theme li[title|='black']").addClass("active");
+        $(".selectgroup-input[value|='2']").prop("checked", true);
+      }
+
+
+    }
+
+    // Sidebar
+    const savedSidebar = loadSetting("sidebar");
+    if (savedSidebar) {
+      $(`.select-sidebar[value="${savedSidebar}"]`).prop("checked", true);
+      if (savedSidebar == '1') {
+        $("body").removeClass("dark-sidebar");
+        $("body").addClass("light-sidebar");
+      } else {
+        $("body").removeClass("light-sidebar");
+        $("body").addClass("dark-sidebar");
+      }
+    }
+
+    // Theme
+    const savedTheme = loadSetting("theme");
+    if (savedTheme) {
+      var bodytag = $("body"),
+      prevTheme = $(".choose-theme li.active").attr("title");
+
+      $(".choose-theme li").removeClass("active"),
+      $(`.choose-theme li[title="${savedTheme}"]`).addClass("active");
+      $(".choose-theme li.active").data("theme");
+
+      bodytag.removeClass("theme-" + prevTheme);
+      bodytag.addClass("theme-" + savedTheme);
+    }
+
+    // Mini Sidebar
+    // const miniSidebar = loadSetting("mini_sidebar");
+    // if (miniSidebar === "true") {
+    //   $("#mini_sidebar_setting").prop("checked", true);
+    // }
+
+    // Sticky Header
+    const stickyHeader = loadSetting("sticky_header");
+    if (stickyHeader === "true") {
+      $("#sticky_header_setting").prop("checked", true);
+    }
+  }
+
+  // Save settings on change
+  $(".select-layout").on("change", function () {
+    saveSetting("layout", $(this).val());
+  });
+
+  $(".select-sidebar").on("change", function () {
+    saveSetting("sidebar", $(this).val());
+  });
+
+  $(".choose-theme li").on("click", function () {
+    const selectedTheme = $(this).attr("title");
+    $(".choose-theme li").removeClass("active");
+    $(this).addClass("active");
+    saveSetting("theme", selectedTheme);
+  });
+
+  // $("#mini_sidebar_setting").on("change", function () {
+  //   saveSetting("mini_sidebar", $(this).prop("checked"));
+  // });
+
+  $("#sticky_header_setting").on("change", function () {
+    saveSetting("sticky_header", $(this).prop("checked"));
+  });
+
+  // Restore default settings
+  $(".btn-restore-theme").on("click", function () {
+    localStorage.clear();
+    location.reload(); // Reload to apply default settings
+  });
+
+  // Apply settings on page load
+  applySettings();
+});
+
+  </script>
+  {% block scripts %}
+
+  {% endblock %}
+
+
+
+</body>
+
+
+<!-- gmaps-geolocation.html  21 Nov 2019 04:04:56 GMT -->
+</html>

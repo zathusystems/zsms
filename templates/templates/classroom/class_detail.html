@@ -1,0 +1,382 @@
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<div class="text-left">
+  <h3>{{class.class_name|title}}</h3>
+</div>
+<ul class="nav nav-tabs" id="myTab2" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab"
+      aria-controls="home" aria-selected="true">Students</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab"
+      aria-controls="profile" aria-selected="false">Class Info</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="attendance-tab2" data-toggle="tab" href="#attendance" role="tab"
+      aria-controls="attendance" aria-selected="false">Attendance</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="timetable-tab2" data-toggle="tab" href="#timetable" role="tab"
+      aria-controls="timetable" aria-selected="false">TimeTable</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="assignments-tab2" data-toggle="tab" href="#assignments" role="tab"
+      aria-controls="assignments" aria-selected="false">Assignments</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="exams-tab2" data-toggle="tab" href="#exams" role="tab"
+      aria-controls="exams" aria-selected="false">Exams</a>
+  </li>
+</ul>
+<div class="tab-content tab-bordered" id="myTab3Content">
+  <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+    
+    <div class="card">
+      <div class="card-header">
+        <h4 class="d-inline">Sudents List</h4>
+        <div class="card-header-action">
+          <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Students
+          </button> -->
+          <a href="{% url 'student:students' school_id %}" class="btn btn-primary">View all students</a>
+        </div>
+      </div>
+     
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>ID #</th>
+                <th>Phone</th>
+                <th>Date Enrolled</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for student in class.students.all %}
+              <tr>
+                <td>{{student.first_name}} {{student.last_name}}</td>
+                <td>{{student.gender}}</td>
+                <td>{{student.id_number}}</td>
+                <td>{{student.phone}}</td>
+                <td>
+                  {% for n in student.enrollement.all %}
+                    {{n.start_date}} <br>
+                    <span class="badge badge-success badge-rounded">{{n.status}}</span>
+                  {% endfor %}
+                </td>
+                <td><a href="{% url 'student:student' student.id school_id %}" class="btn btn-primary">View</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <br>
+      </div>
+    </div>
+   
+  </div>
+  <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+
+    <div class="card">
+      <div class="card-header">
+        <h4 class="d-inline">Class Details</h4>
+        <div class="card-header-action">
+          <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Students
+          </button> -->
+        </div>
+      </div>
+     
+      <div class="card-body">
+            <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+    
+              {{form.as_table}}
+    
+          </div>
+          <div id="login_btn" class="form-group">
+              <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                 SAVE CHANGES
+              </button>
+          </div>
+      </form>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="tab-pane fade" id="attendance" role="tabpanel" aria-labelledby="attendance-tab2">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="d-inline">Today's Attendance</h4>
+        <div class="card-header-action">
+          <a class="btn btn-primary" href="{% url 'timetable:inclass_time_table' class.timetable.first.id school_id %}">Mark Attendance</a>
+          <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Students
+          </button> -->
+        </div>
+      </div>
+     
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Subject/Course</th>
+                <th>Attended</th>
+                <th>not Attended</th>
+                <th>Late</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for attendance in attendance_list %}
+              <tr>
+                <td>{{attendance.date}}</td>
+                <td>{{attendance.subject}}</td>
+                <td>{{attendance.students_attended}}</td>
+                <td>{{attendance.students_absent}}</td>
+                <td>{{attendance.students_late}}</td>
+                <td><a href="{% url 'attendance:student_sub_attendance_list' attendance.id attendance.class_room.id attendance.subject.id school_id %}" class="btn btn-primary">View</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+
+  <div class="tab-pane fade" id="timetable" role="tabpanel" aria-labelledby="timetable-tab2">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="d-inline"> Timetable</h4>
+        <div class="card-header-action">
+          <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Subject
+          </button>
+        </div>
+      </div>
+     
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" style="width:100%;">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Subjects and time schedule</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <td>SUNDAY</td>
+                  {% for timetable in class.timetable.all %}
+                  {% for d in timetable.timetable_subjects.all %}
+                  {% if d.day == 'sunday' %}
+                  <td>  
+                        {{d.start_time}} - {{d.end_time}} <br>
+                        {{d.subject}} 
+                  </td>
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+              </tr>
+              <tr>
+                  <td>MONDAY</td>
+                  {% for timetable in class.timetable.all %}
+                  {% for d in timetable.timetable_subjects.all %}
+                  {% if d.day == 'monday' %}
+                  <td>
+                        {{d.start_time}} - {{d.end_time}} <br>
+                        {{d.subject}} 
+                  </td>
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+                </tr>
+    
+                <tr>
+                  <td>TUESDAY</td>
+                  {% for timetable in class.timetable.all %}
+                  {% for d in timetable.timetable_subjects.all %}
+                  {% if d.day == 'tuesday' %}
+                  <td>
+                        {{d.start_time}} - {{d.end_time}} <br>
+                        {{d.subject}} 
+                  </td>
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+                </tr>
+    
+                <tr>
+                  <td>WEDNESDAY</td>
+                  {% for timetable in class.timetable.all %}
+                  {% for d in timetable.timetable_subjects.all %}
+                  {% if d.day == 'wednesday' %}
+                  <td>
+                        {{d.start_time}} - {{d.end_time}} <br>
+                        {{d.subject}} 
+                  </td>
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+                </tr>
+                <tr>
+                  <td>THIRSDAY</td>
+                  {% for timetable in class.timetable.all %}
+                  {% for d in timetable.timetable_subjects.all %}
+                  {% if d.day == 'thirsday' %}
+                  <td>
+                        {{d.start_time}} - {{d.end_time}} <br>
+                        {{d.subject}} 
+                  </td>
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+                </tr>
+                <tr>
+                  <td>FRIDAY</td>
+                  {% for timetable in class.timetable.all %}
+                  {% for d in timetable.timetable_subjects.all %}
+                  {% if d.day == 'friday' %}
+                  <td>
+                        {{d.start_time}} - {{d.end_time}} <br>
+                        {{d.subject}} 
+                  </td>
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+                </tr>
+                <tr>
+                  <td>SATURDAY</td>
+                  {% for timetable in class.timetable.all %}
+                  {% for d in timetable.timetable_subjects.all %}
+                  {% if d.day == 'saturday' %}
+                  <td>
+                        {{d.start_time}} - {{d.end_time}} <br>
+                        {{d.subject}} 
+                  </td>
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+
+  <div class="tab-pane fade" id="assignments" role="tabpanel" aria-labelledby="assignments-tab2">
+    
+    <div class="card">
+      <div class="card-header">
+        <h4 class="d-inline">Assignments</h4>
+        <div class="card-header-action">
+          <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Students
+          </button> -->
+        </div>
+      </div>
+     
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+            <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Total Marks</th>
+                  <th>Due Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ass in assignments %}
+                <tr>
+                    <td>
+                      {{ass.subject}} <br>
+                      {{ass.title}}
+                    </td>
+                    
+                    <td>
+                      {{ass.total_marks}}
+                    </td>
+                    <td>
+                      {{ass.due_date}}
+                    </td>
+                    
+                    <td><a href="{% url 'teacher:ass_results' ass.id school_id %}" class="btn btn-primary">Results</a></td>
+
+                </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="tab-pane fade" id="exams" role="tabpanel" aria-labelledby="exams-tab2">
+    
+    <div class="card">
+      <div class="card-header">
+        <h4 class="d-inline">Exams</h4>
+        <div class="card-header-action">
+          <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Students
+          </button> -->
+        </div>
+      </div>
+     
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+            <thead>
+                <tr>
+                  <th>Academic Year</th>
+                  <th>Term/semister</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for exam in exams %}
+                <tr>
+                    <td>
+                      {{exam.academic_year}} <br>
+                    </td>
+                    
+                    <td>
+                      {{exam.term}}
+                    </td>
+                    <td><a href="{% url 'class_room:exam_subjects' exam.id class.id school_id %}" class="btn btn-primary">View</a></td>
+
+                </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+</div>
+
+{% endblock %}

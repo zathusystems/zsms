@@ -1,0 +1,151 @@
+
+  
+  <div class="row">
+    <div class="col-12 col-sm-12 col-lg-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">{{class}} Class schedules({{day|title}})</h4>
+            <div class="card-header-action">
+              <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Create Timetable
+              </button> -->
+            </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Subjects</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+  
+                        
+                        {% for timetable in class.timetable.all %} 
+                        {% for subject in timetable.timetable_subjects.all %} 
+             
+                          {% if subject.day == day %}
+                            <td>
+                              {{ subject.start_time }} - {{ subject.end_time }} <br>
+                              {{ subject.subject }}
+                            </td>
+                          {% endif %}
+                        {% endfor %}
+                        <td><a href="{% url 'timetable:time_table' timetable.id school_id %}" class="btn btn-outline-primary">
+                          View full
+                        </a></td>
+                        {% endfor %}
+                        
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+  
+        </div>
+      </div>
+  
+  
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">{{class}} Students Attendance</h4>
+            <!-- <div class="card-header-action">
+              <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Students Attendance
+              </button>
+            </div> -->
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Date</th>
+                  <th>Attended</th>
+                  <th>Absent</th>
+                  <th>Late</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for d in class_attendance_list %}
+                <tr>
+                    <td>
+                        {{d.subject}}
+                    </td>
+                    <td>
+                      {{d.date.date}} <br>
+                      {{d.date.time}}
+                    </td>
+                    <td>
+                        {{d.students_attended}}
+                    </td>
+                    <td>
+                      {{d.students_absent}}
+                    </td>
+                    <td>
+                      {{d.students_late}}
+                  </td>
+                    <td><a href="{% url 'attendance:student_sub_attendance_list' d.id d.class_room.id d.subject.id school_id %}" class="btn btn-primary">view</a></td>
+  
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+  
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">{{class}} Students List</h4>
+            <div class="card-header-action">
+              <a href="{% url 'student:students' school_id %}" class="btn btn-primary">View all students</a>
+  
+            </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" id="" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>ID #</th>
+                  <th>Date Enrolled</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for student in class_students %}
+                <tr>
+                  <td>{{student.first_name}} {{student.last_name}}</td>
+                  <td>{{student.gender}}</td>
+                  <td>{{student.id_number}}</td>
+                 
+                  <td>
+                    {% for n in student.enrollement.all %}
+                      {{n.start_date}} <br>
+                      <span class="badge badge-success badge-rounded">{{n.status}}</span>
+                    {% endfor %}
+                  </td>
+                  <td><a href="{% url 'student:student' student.id school_id %}" class="btn btn-primary">View</a> <a href="#" class="btn btn-danger">Del</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+      
+    </div>
+  </div>
+  

@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title> 
+    {% block tittle %}
+      
+    {% endblock %}
+  </title>
+  <!-- General CSS Files -->
+  <!-- <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-social/bootstrap-social.css' %}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'assets/bundles/izitoast/css/iziToast.min.css' %}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'assets/bundles/select2/dist/css/select2.min.css' %}"> -->
+
+ 
+  <!-- Template CSS -->
+  <!-- <link rel="stylesheet" href="{% static 'assets/css/style.css' %}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'assets/css/components.css' %}"> -->
+  <!-- Custom style CSS -->
+  <!-- <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href="{% static 'assets/img/favicon.ico' %}" /> -->
+
+
+  <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-daterangepicker/daterangepicker.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/select2/dist/css/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/jquery-selectric/selectric.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-timepicker/css/bootstrap-timepicker.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/components.css' %}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+  <style>
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          background-image: url('{% static "assets/img/sms_images/banner1.jpg" %}'); /* Replace with your image URL */
+          background-size: cover; /* Cover the entire page */
+          background-position: center; /* Center the image */
+          background-repeat: no-repeat; /* Prevent repeating the image */
+          background-attachment: fixed;
+        }
+  </style>
+</head>
+
+<body>
+  <!-- <div class="loader"></div> -->
+  <div class="loader-div">
+      <i class=""></i>
+  </div>
+  <div id="app">
+    <section class="section">
+      
+      {% block content %}
+      
+      {% endblock %}
+    </section>
+  </div>
+  <!-- General JS Scripts -->
+  <!-- <script src="{% static 'assets/js/app.min.js' %}"></script> -->
+  <!-- <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script> -->
+
+  <!-- JS Libraies -->
+  <!-- Page Specific JS File -->
+  <!-- Template JS File -->
+  <!-- <script src="{% static 'assets/js/scripts.js' %}"></script> -->
+  <!-- <script src="{% static 'assets/js/page/toastr.js' %}"></script> -->
+  <!-- <script src="{% static 'assets/bundles/izitoast/js/iziToast.min.js' %}"></script> -->
+
+   <!-- JS Libraies -->
+   <!-- <script src="{% static 'assets/bundles/sweetalert/sweetalert.min.js' %}"></script> -->
+   <!-- <script src="{% static 'assets/bundles/select2/dist/js/select2.full.min.js' %}"></script> -->
+   <!-- <script src="{% static 'assets/js/page/forms-advanced-forms.js' %}"></script> -->
+   <!-- Page Specific JS File -->
+   <!-- <script src="assets/js/page/sweetalert.js"></script> -->
+
+  <!-- Custom JS File -->
+  <!-- <script src="{% static 'assets/js/custom.js' %}"></script> -->
+
+
+
+
+  <!-- General JS Scripts -->
+  <script src="{% static 'assets/js/app.min.js' %}"></script>
+  <!-- JS Libraies -->
+  <script src="{% static 'assets/bundles/cleave-js/dist/cleave.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/cleave-js/dist/addons/cleave-phone.us.js' %}"></script>
+  <script src="{% static 'assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-timepicker/js/bootstrap-timepicker.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/select2/dist/js/select2.full.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/jquery-selectric/jquery.selectric.min.js' %}"></script>
+  <!-- Page Specific JS File -->
+  <script src="{% static 'assets/js/page/forms-advanced-forms.js' %}"></script>
+   <script src="{% static 'assets/bundles/sweetalert/sweetalert.min.js' %}"></script>
+   <script src="{% static 'assets/bundles/select2/dist/js/select2.full.min.js' %}"></script>
+  <!-- Template JS File -->
+  <script src="{% static 'assets/js/scripts.js' %}"></script>
+  <!-- Custom JS File -->
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+
+<script type="text/javascript">
+    const alertBox=document.getElementById('alert-box')
+    const handleAlerts=(type, text)=>{
+        alertBox.innerHTML=`
+                    <div class="alert ${type} alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>&times;</span>
+                        </button>
+                        
+                        ${text}
+                      </div>
+                    </div>
+                `
+    }
+  
+</script>
+{% block scripts %}
+{% endblock %}
+</body>
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+</html>

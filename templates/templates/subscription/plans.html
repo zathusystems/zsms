@@ -1,0 +1,56 @@
+{% extends 'templates/subscription/base.html' %}
+
+{% block content %}
+<div class="section-body">
+  <div class="text-center">
+  <h1>CHOOSE PLAN</h1>
+    
+  </div>
+    <div class="row">
+      {% for plan in plans %}
+      <div class="col-12 col-md-4 col-lg-4">
+        <div class="pricing">
+          <div class="pricing-title">
+            {{plan.name|title}}
+          </div>
+          <div class="pricing-padding">
+            <div class="pricing-price">
+              <div>MK{{plan.price}}</div>
+              <div>per month</div>
+            </div>
+            <div class="pricing-details">
+              {% for feature in features %}
+              <div class="pricing-item">
+                {% if plan in feature.plan.all %}
+                <div class="pricing-item-icon"><i class="fas fa-check"></i></div>
+                <div class="pricing-item-label">{{feature.feature|title}}</div>
+                {% else %}
+                <div class="pricing-item-icon bg-danger text-white"><i class="fas fa-times"></i></div>
+                <div class="pricing-item-label">{{feature.feature|title}}</div>
+                {% endif %}
+              </div>
+              {% endfor %}
+          </div>
+          {% if plan.name == 'Premium' %}
+            {% if institution.tried_subscription %}
+              <a class="btn btn-warning w-100" href="{% url 'subs:subscribe_to_plan' plan.id school_id 'paid' %}">Subscribe <i class="fas fa-arrow-right"></i></a>
+            {% else %}
+              <div class="btn-group w-100">
+                <a class="btn btn-primary" href="{% url 'subs:subscribe_to_plan' plan.id school_id 'trial' %}">Free Trial <i class="fas fa-arrow-right"></i></a>
+                <a class="btn btn-warning" href="{% url 'subs:subscribe_to_plan' plan.id school_id 'paid' %}">Subscribe <i class="fas fa-arrow-right"></i></a>
+              </div>
+            {% endif %}
+          {% elif plan.name == 'Free' %}
+          <a class="btn btn-warning w-100" href="{% url 'subs:subscribe_to_plan' plan.id school_id 'free' %}">Subscribe<i class="fas fa-arrow-right"></i></a>
+          {% else %}
+          <a class="btn btn-warning w-100" href="{% url 'subs:subscribe_to_plan' plan.id school_id 'paid' %}">Subscribe<i class="fas fa-arrow-right"></i></a>
+          <!-- <div class="pricing-cta">
+            <a href="{% url 'subs:subscribe_to_plan' plan.id school_id 'paid' %}">Subscribe <i class="fas fa-arrow-right"></i></a>
+          </div> -->
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endblock %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text to Speech Converter</title>
+</head>
+<body>
+    <h1>Convert Text to Speech</h1>
+    <form method="POST" action="{% url 'voice:text_to_speech' %}">
+        {% csrf_token %}
+        <label for="text">Enter text:</label><br>
+        <textarea name="text" rows="5" cols="40" placeholder="Type text here..."></textarea><br><br>
+
+        <label for="voice_option">Choose Voice:</label>
+        <select name="voice_option">
+            <option value="en-US-Wavenet-A">Wavenet A (Google)</option>
+            <option value="en-US-Wavenet-B">Wavenet B (Google)</option>
+            <option value="Joanna">Joanna (Amazon Polly)</option>
+        </select><br><br>
+
+        <label for="speed">Speech Speed:</label>
+        <input type="number" step="0.1" name="speed" value="1.0" min="0.5" max="2.0"><br><br>
+
+        <label for="pitch">Pitch:</label>
+        <input type="number" step="0.1" name="pitch" value="0.0" min="-20" max="20"><br><br>
+
+        <input type="submit" value="Convert to Speech">
+    </form>
+</body>
+</html>

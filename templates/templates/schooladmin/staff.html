@@ -1,0 +1,137 @@
+{% extends 'templates/main/base.html' %}
+{% load timeago_filters %}
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Staff Members</h4>
+            <div class="card-header-action">
+              <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Find My Child
+              </button> -->
+            </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" id="" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Permissins</th>
+                  <th>Active Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{super_admin.first_name|title}} {{super_admin.last_name|title}} <br> 
+                    <span class="badge badge-info">Super Admin</span> </td>
+                  <td>
+                    <span class="badge badge-success">Can Access And Manage Everything</span>
+                  </td>
+                  <td>
+                    {% if super_admin.is_online %} 
+                        <span class="badge badge-success">Online</span>
+                        {% else %}
+                        <span class="badge badge-secondary">Seen {{super_admin.last_seen|timeago}} ago</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if request.user == super_admin %}
+                    Me
+                    {% else %}
+                    <a href="{% url 'chat:init2' super_admin.id school_id %}" class="btn btn-primary"><i class="fas fa-comment"></i> Chat</a> 
+                    {% endif %}
+                  </td>
+                </tr>
+              
+                  {% for teacher in teachers %}
+                    <tr>
+                      <td>{{teacher.first_name|title}} {{teacher.last_name|title}} <br> 
+                        <span class="badge badge-info">{{teacher.role|title}}</span> </td>
+                      <td>
+                        {% if teacher.user.permissions.first.is_supper_admin %} 
+                        <span class="badge badge-success">Can Access And Manage Everything</span> <br> {% endif %}
+
+                        {% if teacher.user.permissions.first.is_admin %}
+                        <span class="badge badge-success">Can manage Schoo and other info</span> <br> {% endif %}
+
+                        {% if teacher.user.permissions.first.can_manage_employees %}
+                        <span class="badge badge-success">Can Access and manage Employees</span> <br>{% endif %}
+
+                        {% if teacher.user.permissions.first.can_manage_finances %}
+                        <span class="badge badge-success">Can Access and manage Finanances</span> <br> {% endif %}
+
+                        {% if teacher.user.permissions.first.can_manage_library %}
+                        <span class="badge badge-success">Can Access and manage library</span> {% endif %}
+                        
+                      </td>
+                      <td>
+                        {% if teacher.user.is_online %} 
+                        <span class="badge badge-success">Online</span>
+                        {% else %}
+                        <span class="badge badge-secondary">Seen {{teacher.user.last_seen|timeago}} ago</span>
+                        {% endif %}
+                      </td>
+                      <td>
+                        {% if teacher.user == request.user %}
+                        Me
+                        {% else %}
+                        <a href="{% url 'chat:init2' teacher.user.id school_id %}" class="btn btn-primary"><i class="fas fa-comment"></i> Chat</a> 
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Student</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form class="card-header-form" method="post" action="{% url 'parent:search_id' %}">
+        {% csrf_token %}
+        <div class="input-group">
+          <input type="text" name="id_number" class="form-control" placeholder="Student_id number" required>
+          
+        </div>
+      </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+       
+</script>
+{% endblock %}
+

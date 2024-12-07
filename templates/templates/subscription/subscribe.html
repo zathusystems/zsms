@@ -1,0 +1,154 @@
+{% extends 'templates/subscription/base.html' %}
+
+{% block content %}
+<div class="section-body">
+  
+    <div class="row">
+        
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                      <h4 class="d-inline">Subscription Confirmation</h4>
+                      <div class="card-header-action">
+                        <a href="{% url 'subs:subscription_plans' school_id %}" class="btn btn-primary">Change Plan</a>
+                      </div>
+                </div>
+
+                <div class="card-body">
+                       
+                       
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <label for="">Plan</label>
+                            <input class="form-control" type="text" readonly value="{{plan}} {% if sub %} Free {{sub}} {% endif %}">
+
+                            <label for="">Duration</label>
+                            <select class="form-control" name="period" id="period">
+                              <option value="monthly">30 Days</option>
+                              <option value="half_year">6 months</option>
+                              <option value="yearly">1 Year</option>
+                            </select> 
+
+                            <label for="">Price</label>
+                            <input id="price" class="form-control" type="text" readonly value="MK{{plan.price}}">
+
+                            <!-- <label for="">Payment Method</label>
+                            <select class="form-control" name="" id="">
+                              <option value="">---payment method---</option>
+                              <option value="">Airtel Mony</option>
+                              <option value="">TNM Mpamba</option>
+                              <option value="">Bank Deposit</option>
+                              <option value="">Card</option>
+                            </select> -->
+                            <button class="w-100 btn btn-warning mt-2" type="submit">Make Payment</button>
+                        </form>
+                </div>
+            </div>
+        </div>
+        
+      <div class="col-12 col-md-6 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              <h4>Plan Features</h4>
+            </div>
+            <div class="card-body">
+            <div id="accordion">
+                {% for feature in plan.plan_features.all %}
+                <div class="accordion">
+                  <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-{{feature.id}}" {% if forloop.counter == 1 %} aria-expanded="true" {% endif %}>
+                    <h4>{{feature.feature|title}} <i class="fas fa-angle-down"></i></h4>
+                  </div>
+                  <div class="accordion-body collapse {% if forloop.counter == 1 %} show {% endif %}" id="panel-body-{{feature.id}}" data-parent="#accordion">
+                    <p class="mb-0">
+                        {{feature.description}}
+                    </p>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+  $(document).on('change', '#period', function(e){
+      // d=$('#period').val();
+
+      // if (d=='monthly'){
+      //     $('#price').val('monthly')
+      // } else if(d=='yearly'){
+      //     $('#price').val('yearly')
+      // }
+      e.preventDefault()
+       $.ajax({
+           type:'POST',
+           url:'',
+           data: {
+               period:$('#period').val(),
+               csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+               fun: function(){
+                $('.loader-div>i').addClass('fa fa-gear fa-spin')
+
+                $("#login_btn").replaceWith(
+                    `
+                   <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block disabled" tabindex="4" disabled="true">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> SIGNING UP...
+                    </button>
+                  </div>
+                    `
+                  );
+               }
+           },
+           success: function(response){
+         
+              $('#price').val('MK'+response.price)
+              if(status.status == 'succeed'){
+                $(location).prop('href', '{% url "accounts:profile_select" %}')
+              }
+              if(status.status == 'failed'){
+              
+                //iziToast.error({
+                //    title: 'Oops!',
+                //    message: status.error_msg,
+                //    position: 'topRight'
+                //});
+                
+                $("#login_btn").replaceWith(
+                  `<div id="login_btn" class="forgot-link control">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      SIGN UP
+                    </button>
+                  </div>
+                `
+                );
+                swal('Account Creation Failed', `${status.error_msg}`, 'error');
+               
+                
+              }
+
+           },
+           error: function(status){
+  
+             $("#login_btn").replaceWith(
+                  `<div id="login_btn" class="forgot-link control">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      SIGN UP
+                    </button>
+                  </div>
+                `
+                );
+                swal('Account Creation Failed', `${status.error_msg}`, 'error');
+           }
+       });
+
+
+  });
+</script>
+{% endblock %}

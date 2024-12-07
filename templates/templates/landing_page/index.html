@@ -1,0 +1,855 @@
+ {% extends 'templates/landing_page/base/base.html' %}
+ 
+ {% load static %}
+ {% block content %}
+ <!-- Slider start -->
+ <section class="slider-area-2 relative">
+    <div class="owl-carousel slider-2">
+        <div class="item">
+            <div class="silder-img bg-cover" style="background-image: url('{% static "assets_landing/img/banner/home_banner.jpeg" %}');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-7 col-md-8">
+                            <div class="slider-content-3 z-10">
+                                <h5 class="line-head">
+                          1000+ Happy Clients
+                        <span class="line  after"></span> 
+                      </h5>
+                                <h1 class="banner-head-2 banner-head-3 black f-700 mt-15 mb-35 mt-xs-20 mb-xs-30">Welcome to
+                                    <span class="green">Zathu School Management System</span> a platform for managing multiple schools.</h1>
+                                <a href="{% url 'accounts:signup' %}" class="btn btn-square-border">Get Started<i class="fas fa-long-arrow-alt-right ml-20"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="silder-img bg-cover" style="background-image: url('{% static "assets_landing/img/banner/home_banner.jpeg" %}');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-7 col-md-8">
+                            <div class="slider-content-3 z-10">
+                                <h5 class="line-head">
+                          25 years of experience
+                        <span class="line  after"></span>
+                      </h5>   
+                                <h1 class="banner-head-2 banner-head-3 black f-700 mt-15 mb-35 mt-xs-20 mb-xs-30">
+                                    Effortlessly Manage all<span class="green"> your School's operations</span> 
+                                    from One
+                                    <span class="green">Centralized Platform</span>.</h1>
+                                    <a href="{% url 'accounts:signup' %}" class="btn btn-square-border">Get Started<i class="fas fa-long-arrow-alt-right ml-20"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slider-control type-3 z-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="dots-slider">
+
+                    </div>
+                </div>
+                <div class="col-lg-6 text-right d-none d-lg-block">
+                    <div class="nav-slider d-flex justify-content-end">
+                        <a href="#" class="slider-btn slides-left flex-center">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        <a href="#" class="slider-btn slides-right flex-center">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Slider end -->
+
+<!-- client logos start -->
+<!-- <section class="top-clients pt-30 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="client-count relative bg-green mb-sm-30">
+                    <h2 class="fs-40 white f-700 mb-15">
+        <span class="counter">1000</span>+
+                    </h2>
+                    <h3 class="fs-23 white f-700">Happy Clients</h3>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="owl-carousel owl-theme logos-slide">
+                    <div class="item">
+                        <div class="clients-top-each flex-center">
+                            <img src="img/clients/1_blk.png" alt="">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="clients-top-each flex-center">
+                            <img src="img/clients/2_blk.png" alt="">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="clients-top-each flex-center">
+                            <img src="img/clients/3_blk.png" alt="">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="clients-top-each flex-center">
+                            <img src="img/clients/4_blk.png" alt="">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="clients-top-each flex-center">
+                            <img src="img/clients/5_blk.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- client logos end -->
+
+<!-- About us start -->
+<section class="about-us-3 pt-100 pb-100 bg-light-white" style="background-image: url('{% static "assets_landing/img/bg/bg-abt.jpg" %}');" data-overlay="9">
+    <div class="container">
+        <div class="row align-items-xl-center z-5">
+            <div class="col-xl-6 col-lg-7 offset-xl-1 offset-lg-0">
+                <div class="text-center text-lg-left wow fadeInRight">
+                    <div class="fancy-head left-al  mb-10">
+                        <h5 class="line-head mb-10">
+          <span class="line before d-lg-none"></span>
+            About Us
+          <span class="line  after"></span>
+        </h5>
+                        <h1>Our Success Story</h1>
+                    </div>
+                    <p class="big-p blue">
+                        {{about.content1}}
+                        <p class="big-p blue">{{about.content2|truncatewords:12}}</p><a href="{% url 'landing_page:about' %}">Read More</a></p>
+                    <div class="video-play-2 mt-30 mb-md-60 d-flex align-items-center justify-content-center justify-content-lg-start">
+                        <div class="blob blob-md green mr-20">
+                            <a href="https://www.awesomescreenshot.com/video/31552304?key=41bcff7e81eb4e3c8451e77cf22a3710" class="popup-video">
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+                        <p class="mb-0 f-500 green">WATCH OUR VIDEO</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-xl-4 ">
+                <div class="icon-box icon-box-border d-flex justify-content-center align-items-center  wow fadeInUp">
+                    <div class="icon-img mr-20">
+                        <img src="{% static 'assets_landing/img/feature/icon1.png' %}" alt="Icon">
+                    </div>
+                    <div class="icon-text">
+                        <h5 class="f-700">Comprehensive Management Tools</h5>
+                        <p class="mb-0">All tools you need to run your school efficiently</p>
+                    </div>
+                </div>
+                <div class="icon-box icon-box-border d-flex justify-content-center align-items-center wow fadeInUp" data-wow-delay=".2s">
+                    <div class="icon-img mr-20">
+                        <img src="{% static 'assets_landing/img/feature/icon2.png' %}" alt="Icon">
+                    </div>
+                    <div class="icon-text">
+                        <h5 class="f-700">User-Friendly Interface</h5>
+                        <p class="mb-0">Navigate and manage your school effortlessly.</p>
+                    </div>
+                </div>
+                <div class="icon-box icon-box-border mb-0 d-flex justify-content-center  align-items-center wow fadeInUp" data-wow-delay=".4s">
+                    <div class="icon-img mr-20">
+                        <img src="{% static 'assets_landing/img/feature/icon3.png' %}" alt="Icon">
+                    </div>
+                    <div class="icon-text">
+                        <h5 class="f-700">Cloud-Based Convenience</h5>
+                        <p class="mb-0">Access the platform from anywhere, anytime.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About us end -->
+
+<!-- Service start -->
+<section class=" pt-95" data-overlay="9" style="background-image: url('{% static "assets_landing/img/bg/bg_blgng.jpg" %}');">
+    <div class="container">
+        <!-- <div class="row">
+            <div class="col-xl-12">
+                <div class="fancy-head text-center relative z-5 mb-45">
+                    <h5 class="line-head mb-15 ">
+                  <span class="line before "></span>
+                    Key Features
+                  <span class="line after"></span>
+                </h5>
+                    <h1 class="white">System key featutures</h1>
+                </div>
+            </div>
+        </div> -->
+        <div class="row align-items-end  mb-45">
+            <div class="col-lg-7 col-md-12 text-center text-lg-left">
+                <div class="fancy-head left-al relative z-5">
+                    <h5 class="line-head mb-15">
+                        <span class="line before d-lg-none"></span>
+                        Features
+                        <span class="line after"></span>
+                    </h5>
+                    <h1>System key featutures</h1>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12 text-center text-lg-right relative z-5">
+                <a href="{% url 'landing_page:s_features' %}" class="btn btn-round-border mb-15 mt-md-20">View All</a>
+            </div>
+        </div>
+        <div class="row">
+            {% for feature in system_features %}
+            {% if forloop.counter <= 4 %}
+            <div class="col-xl-3 col-md-6 text-center">
+                <div class="service-list-3 shadow-2 transition-4 img-lined z-5">
+                    <div class="icon-bg-white flex-center z-10">
+                        <img src="img/service/2.png" class="" alt="">
+                    </div>
+                    <div class="service-text-3 transition-4 mt-15 z-10">
+                        <h4 class="f-700 mb-10">{{feature.title|title}}</h4>
+                        <p class="mb-20">{{feature.description2|truncatewords:6}}</p>
+                        <a href="{% url 'landing_page:s_feature' feature.id %}" class="btn btn-border-blue mb-30">
+              Readmore<i class="fas fa-long-arrow-alt-right ml-15"></i>
+            </a>
+                        <span class="bg-green undeline-3"></span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <!-- <div class="col-xl-3 col-md-6 text-center">
+                <div class="service-list-3 shadow-2 transition-4 img-lined z-5">
+                    <div class="icon-bg-white flex-center z-10">
+                        <img src="img/service/1.png" class="" alt="">
+                    </div>
+                    <div class="service-text-3 transition-4 mt-15 z-10">
+                        <h4 class="f-700 mb-10">Library Management</h4>
+                        <p class="mb-20">Phasellus tristique gravida consequat Nunc </p>
+                        <a href="services-details.html" class="btn btn-border-blue mb-30">
+              Readmore<i class="fas fa-long-arrow-alt-right ml-15"></i>
+            </a>
+                        <span class="bg-green undeline-3"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 text-center">
+                <div class="service-list-3 shadow-2 transition-4 img-lined z-5">
+                    <div class="icon-bg-white z-10 flex-center">
+                        <img src="img/service/3.png" class="" alt="">
+                    </div>
+                    <div class="service-text-3 mt-15 z-10">
+                        <h4 class="f-700 mb-10">Financial Management</h4>
+                        <p class="mb-20">Quisque vestibulum, elit eget facilisis luctus</p>
+                        <a href="services-details.html" class="btn btn-border-blue mb-30">
+             Readmore<i class="fas fa-long-arrow-alt-right ml-15"></i>
+           </a>
+                        <span class="bg-green undeline-3"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 text-center">
+                <div class="service-list-3 shadow-2 transition-4 img-lined z-5">
+                    <div class="icon-bg-white z-10  flex-center">
+                        <img src="img/service/6.png" class="" alt="">
+                    </div>
+                    <div class="service-text-3 mt-15 z-10">
+                        <h4 class="f-700 mb-10">Payroll Management</h4>
+                        <p class="mb-20">Donec in rhoncus lorem tincidunt neque</p>
+                        <a href="services-details.html" class="btn btn-border-blue mb-30">
+              Readmore<i class="fas fa-long-arrow-alt-right ml-15"></i>
+            </a>
+                        <span class="bg-green undeline-3"></span>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
+<!-- Service end -->
+
+<!-- Count area start -->
+<section class="count-3 pt-100 pb-70">
+    <div class="container">
+        <!-- <div class="row mt-85 mt-lg-00">
+            <div class="col-lg-3 col-sm-6 text-center">
+                <div class="counts-type-3">
+                    <h1 class="green f-900"><span class="counter">5000</span>+</h1>
+                    <p>Happy Clients</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center">
+                <div class="counts-type-3">
+                    <h1 class="green f-900"><span class="counter">333</span>+</h1>
+                    <p>Awards winning</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center">
+                <div class="counts-type-3">
+                    <h1 class="green f-900"><span class="counter">3260</span>+</h1>
+                    <p>Cases completed</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center">
+                <div class="counts-type-3">
+                    <h1 class="green f-900"><span class="counter">500</span>+</h1>
+                    <p>Professionals Employees</p>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</section>
+<!-- Count area end -->
+
+<!-- Request callback start -->
+<section class="callback-area pt-95 pb-85" style="background-image: url('{% static 'assets_landing/img/banner/banner_1.jpg' %}');" data-overlay="9">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="fancy-head text-center relative z-5 mb-40 wow fadeInDown">
+                    <h5 class="line-head mb-15 white">
+              <span class="line before bg-white"></span>
+                Contact Us
+              <span class="line after bg-white"></span>
+            </h5>
+                    <h1 class="white">Request a Call Back</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <form action="#" class="relative z-5  wow fadeInUp">
+                    <div class="row">
+                        <div class="col-xl-10 col-lg-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group relative">
+                                        <input type="text" class="form-control input-white shadow-2" id="name" placeholder="Name">
+                                        <i class="far fa-user transform-v-center"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group relative">
+                                        <input type="email" class="form-control input-white shadow-2" id="email" placeholder="Email">
+                                        <i class="far fa-envelope transform-v-center"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group relative">
+                                        <input type="text" class="form-control input-white shadow-2" id="phone" placeholder="Phone number">
+                                        <i class="fas fa-mobile-alt transform-v-center"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-12">
+                            <button class="btn btn-blue btn-block request-btn uppercase shadow-2">submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Request callback end -->
+
+<!-- Team area start -->
+<section class="team-area-3 pt-95 pb-70">
+    <div class="container">
+        <div class="row align-items-end mb-45">
+            <div class="col-lg-7 col-md-12 text-center text-lg-left">
+                <div class="fancy-head left-al">
+                    <h5 class="line-head mb-15">
+              <span class="line before d-lg-none"></span>
+                Our Team
+              <span class="line after"></span>
+            </h5>
+                    <h1>Meet Our Best Team</h1>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center text-lg-right">
+                <div class="arrow-navigation mb-15 mt-md-20">
+                    <a href="#" class="nav-slide slide-left team-3">
+                        <img src="{% static 'assets_landing/img/icons/ar_lt.png' %}" alt="">
+                    </a>
+                    <a href="#" class="nav-slide slide-right team-3">
+                        <img src="{% static 'assets_landing/img/icons/ar_rt.png' %}" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="owl-carousel team-3-slider owl-theme">
+                    <div class="item">
+                        <div class="each-team-3">
+                            <div class="image-team-3 relative">
+                                <a href="team-2.html"><img src="{% static 'assets_landing/img/team/team2b.jpg' %}" alt=""></a>
+                                <div class="team-detail-3 transition-5" data-overlay="8">
+                                    <div class="team-content z-5">
+                                        <h5 class="green f-700 fs-19 relative"><a href="team-2.html">Jhone Doe</a></h5>
+                                        <p class="designation white fs-13">Co Founder</p>
+                                        <ul class="social-icons boxed-social mb-5">
+                                            <li>
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="each-team-3">
+                            <div class="image-team-3 relative">
+                                <a href="team-2.html"><img src="{% static 'assets_landing/img/team/team3b.jpg' %}" alt=""></a>
+                                <div class="team-detail-3 transition-5" data-overlay="8">
+                                    <div class="team-content z-5">
+                                        <h5 class="green f-700 fs-19 relative"><a href="team-2.html">Jessica David</a></h5>
+                                        <p class="designation white fs-13">Senior Manager</p>
+                                        <ul class="social-icons boxed-social mb-5">
+                                            <li>
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="each-team-3">
+                            <div class="image-team-3 relative">
+                                <a href="team-2.html"><img src="{% static 'assets_landing/img/team/team4b.jpg' %}" alt=""></a>
+                                <div class="team-detail-3 transition-5" data-overlay="8">
+                                    <div class="team-content z-5">
+                                        <h5 class="green f-700 fs-19 relative"><a href="team-2.html">Bill Faley</a></h5>
+                                        <p class="designation white fs-13">Senior Consultant</p>
+                                        <ul class="social-icons boxed-social mb-5">
+                                            <li>
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="each-team-3">
+                            <div class="image-team-3 relative">
+                                <a href="team-2.html"><img src="{% static 'assets_landing/img/team/team1b.jpg' %}" alt=""></a>
+                                <div class="team-detail-3 transition-5" data-overlay="8">
+                                    <div class="team-content z-5">
+                                        <h5 class="green f-700 fs-19 relative"><a href="team-2.html">Jennifer David</a></h5>
+                                        <p class="designation white fs-13">Vice President</p>
+                                        <ul class="social-icons boxed-social mb-5">
+                                            <li>
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="each-team-3">
+                            <div class="image-team-3 relative">
+                                <a href="team-2.html"><img src="{% static 'assets_landing/img/team/team2b.jpg' %}" alt=""></a>
+                                <div class="team-detail-3 transition-5" data-overlay="8">
+                                    <div class="team-content z-5">
+                                        <h5 class="green f-700 fs-19 relative"><a href="team-2.html">Jhone Doe</a></h5>
+                                        <p class="designation white fs-13">Co Founder</p>
+                                        <ul class="social-icons boxed-social mb-5">
+                                            <li>
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="each-team-3">
+                            <div class="image-team-3 relative">
+                                <a href="team-2.html"><img src="{% static 'assets_landing/img/team/team3b.jpg' %}" alt=""></a>
+                                <div class="team-detail-3 transition-5" data-overlay="8">
+                                    <div class="team-content z-5">
+                                        <h5 class="green f-700 fs-19 relative"><a href="team-2.html">Jessica David</a></h5>
+                                        <p class="designation white fs-13">Senior Manager</p>
+                                        <ul class="social-icons boxed-social mb-5">
+                                            <li>
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row mt-35 ">
+            <div class="col-md-8 text-center text-md-left wow fadeInLeft">
+                <h3 class="green f-700 mb-5">Want to Join Our Team?</h3>
+                <p>Pellentesque tempor ornare mal esu.</p>
+            </div>
+            <div class="col-md-4 text-center text-md-right wow fadeInRight">
+                <a href="career.html" class="btn btn-blue wide">
+              CAREER<i class="fas fa-long-arrow-alt-right ml-20"></i>
+            </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Team area end -->
+
+<!-- Pricing area start -->
+<section class="pricong-area bg-light-white pt-95 pb-100">
+    <div class="container">
+        <div class="row mb-60 align-items-end">
+            <div class="col-lg-7 text-center text-lg-left">
+                <div class="fancy-head left-al">
+                    <h5 class="line-head mb-15">
+              <span class="line before d-lg-none"></span>
+                Our Pricing
+              <span class="line after"></span>
+            </h5>
+                    <h1>Our Pricing Plans</h1>
+                </div>
+            </div>
+            <div class="col-lg-5 mt-md-25">
+                <ul class="nav nav-pills price-tabs align-items-center mb-15 justify-content-center float-lg-right">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#monthly">MONTHLY</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#yearly">YEARLY</a>
+                    </li> -->
+                    <a href="{% url 'landing_page:pricing' %}" class="btn btn-round-border mt-md-20">View More</a>
+                </ul>
+            </div>
+        </div>
+        <div class="row price-2-row">
+            <div class="col-xl-12">
+                <div class="tab-content">
+                    <div id="monthly" class=" tab-pane  active">
+                        <div class="row justify-content-md-center align-items-center">
+                            {% for plan in plans %}
+                            <div class="col-lg-4 col-md-6 mb-sm-30">
+                                <div class="price-each relative img-lined text-center">
+                                    <div class="price-head z-8">
+                                        <div class="price-icon relative flex-center">
+                                            <!-- <img src="img/price/price1.png" alt=""> -->
+                                        </div>
+                                        <h4 class="underlined f-700 mt-30 mb-25 pb-25">{{plan.name}}</h4>
+                                    </div>
+                                    <div class="price-text z-8">
+                                        <h3 class="f-500">
+                                            <span>MK</span>{{plan.price}}<span>/mo</span>
+                                        </h3>
+                                        <p>{{plan.description}}</p>
+                                    </div>
+                                    <a href="{% url 'accounts:school_p' %}" class="btn btn-round wide mt-10 z-8">30 days Trial</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                           
+                        </div>
+                    </div>
+                    <div id="yearly" class=" tab-pane fade">
+                        <div class="row justify-content-md-center align-items-center">
+                            {% for plan in plans %}
+                            <div class="col-lg-4 col-md-6 mb-sm-30">
+                                <div class="price-each relative img-lined text-center">
+                                    <div class="price-head z-8">
+                                        <div class="price-icon relative flex-center">
+                                            <img src="img/price/price1.png" alt="">
+                                        </div>
+                                        <h4 class="underlined f-700 mt-30 mb-25 pb-25">{{plan.name}}</h4>
+                                    </div>
+                                    <div class="price-text z-8">
+                                        <h1 class="f-700">
+                                            <span>MK</span>{{plan.yearly_price}}<span>/mo</span>
+                                        </h1>
+                                        <p>Lorem ipsum dolor sit amet, co nsectetur adipiscing elit. Proin eleifend sit amet ligula</p>
+                                    </div>
+                                    <a href="#" class="btn btn-round wide mt-10 z-8">Buy Now</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Pricing area end -->
+
+<!-- Testimonials start -->
+<section class="testimonial-3 pt-95 pb-95" style="background-image: url('img/bg/bg-2.jpg');" data-overlay="9">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 z-5 text-center text-lg-left">
+                <div class="fancy-head left-al">
+                    <h5 class="line-head mb-15">
+                      <span class="line before d-lg-none"></span>
+                        Testimonials
+                      <span class="line after"></span>
+                    </h5>
+                    <h1 class=" white">What Our Clients Say About Us</h1>
+                    <p class="white mt-10 pr-60 pr-md-00">Nullam porttitor nulla et risus tempor, eu aliquet dui scelerisque. Vestibulum quis dignissim velit, ac faucibus ligula. Morbi convallis arcu in lorem.</p>
+                    <div class="quote-icon relative">
+                        <i class="fas fa-quote-right green"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1 mt-md-60">
+                <div class="owl-carousel owl-theme testimonial-3-slide z-5">
+                    <div class="item">
+                        <div class="client-says text-center text-lg-left">
+                            <ul class="stars-rate mb-25" data-starsactive="5">
+                                <li class="text-lg-left text-center">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </li>
+                            </ul>
+                            <h3 class="green mb-15 fs-24 f-700 italic lh-18">“Best Business Service Ever”</h3>
+                            <p class="white mb-45 lh-20 fs-15">Lorem ipsum dolor sit amet, consectetur adip iscing elit. Proin eleifend sit amet ligula et mattis. Morbi al iquam vitae metus at aliquam. Etiam dui felis, tempus id ligula et mattis. Morb</p>
+                            <div class="client-2-img d-flex align-items-center justify-content-lg-start justify-content-center">
+                                <div class="img-div mr-30 pb-10">
+                                    <div class="client-image">
+                                        <img src="img/testimonial/client1.jpg" class=" rounded-circle" alt="">
+                                    </div>
+                                </div>
+                                <div class="client-text-2 text-left mb-10">
+                                    <h6 class="client-name green fs-17 f-700">John Doe</h6>
+                                    <p class="mb-0 fs-13 f-500 white">CEO, Abc Company</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="client-says text-center text-lg-left">
+                            <ul class="stars-rate mb-25" data-starsactive="5">
+                                <li class="text-lg-left text-center">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </li>
+                            </ul>
+                            <h3 class="green mb-15 fs-24 f-700 italic lh-18">“100% Recommended”</h3>
+                            <p class="white fs-15 mb-45 lh-20 fs-15">Lorem ipsum dolor sit amet, consectetur adip iscing elit. Proin eleifend sit amet ligula et mattis. Morbi al iquam vitae metus at aliquam. Etiam dui felis, tempus id ligula et mattis. Morb</p>
+                            <div class="client-2-img d-flex align-items-center justify-content-lg-start justify-content-center">
+                                <div class="img-div mr-30 pb-10">
+                                    <div class="client-image">
+                                        <img src="img/testimonial/client2.jpg" class=" rounded-circle" alt="">
+                                    </div>
+                                </div>
+                                <div class="client-text-2 text-left mb-10">
+                                    <h6 class="client-name green fs-17 f-700">Jessica David</h6>
+                                    <p class="mb-0 fs-13 f-500 white">CEO, Abc Company</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="client-says text-center text-lg-left">
+                            <ul class="stars-rate mb-25" data-starsactive="5">
+                                <li class="text-lg-left text-center">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </li>
+                            </ul>
+                            <h3 class="green mb-15 fs-24 f-700 lh-18 italic">“They're Exactly What I Had in Mind”</h3>
+                            <p class="white fs-15 mb-45 lh-20 fs-15">Lorem ipsum dolor sit amet, consectetur adip iscing elit. Proin eleifend sit amet ligula et mattis. Morbi al iquam vitae metus at aliquam. Etiam dui felis, tempus id ligula et mattis. Morb</p>
+                            <div class="client-2-img d-flex align-items-center justify-content-lg-start justify-content-center">
+                                <div class="img-div mr-30 pb-10">
+                                    <div class="client-image">
+                                        <img src="img/testimonial/client3.jpg" class=" rounded-circle" alt="">
+                                    </div>
+                                </div>
+                                <div class="client-text-2 text-left mb-10">
+                                    <h6 class="client-name green fs-17 f-700">Jessica David</h6>
+                                    <p class="mb-0 fs-13 f-500 white">CEO, Abc Company</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Testimonials Cta end -->
+
+<!-- Blog area start -->
+<!-- <section class="blog-type-3 bg-light-white pt-95 pb-70">
+    <div class="container">
+        <div class="row align-items-end  mb-45">
+            <div class="col-lg-7 col-md-12 text-center text-lg-left">
+                <div class="fancy-head left-al">
+                    <h5 class="line-head mb-15">
+                        <span class="line before d-lg-none"></span>
+                        News & blogs
+                        <span class="line after"></span>
+                    </h5>
+                    <h1>Latest News & Blogs</h1>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12 text-center text-lg-right">
+                <a href="blog-listing-grid.html" class="btn btn-round-border mb-15 mt-md-20">View All</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="blog-3-each mb-30 transition-4">
+                    <div class="blog-date text-left text-sm-center">
+                        <h2 class="green fs-46 f-700 mb-20">25</h2>
+                        <h6 class="black fs-15 f-700">MAR</h6>
+                    </div>
+                    <div class="blog-content">
+                        <h5 class="fs-19 f-700 mb-10">
+                  <a href="blog-details-video.html">Nullam porttitor nulla et risus tempor, eu aliquet dui scel...</a> 
+                </h5>
+                        <ul class="blog-by-detail">
+                            <li><a href="#">By Admin </a></li>
+                            <li><a href="#">Business </a></li>
+                            <li><a href="#">11 Comments </a></li>
+                        </ul>
+                        <div class="hr-1 opacity-1 mt-10 mb-10"></div>
+                        <p class="mb-0">Luisque dapibus lacus non pulvinar lobo rtis. Cras odio dolor, pulvinar id ligula non, congue aliquam velit.. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="blog-3-each mb-30 transition-4">
+                    <div class="blog-date text-left text-sm-center">
+                        <h2 class="green fs-46 f-700 mb-20">05</h2>
+                        <h6 class="black fs-15 f-700">APR</h6>
+                    </div>
+                    <div class="blog-content">
+                        <h5 class="fs-19 f-700 mb-10">
+                  <a href="blog-details-video.html">Maecenas bibendum leo a velit tristique, sed ornare ant...</a> 
+                </h5>
+                        <ul class="blog-by-detail">
+                            <li><a href="#">By Admin </a></li>
+                            <li><a href="#">Business </a></li>
+                            <li><a href="#">20 Comments </a></li>
+                        </ul>
+                        <div class="hr-1 opacity-1 mt-10 mb-10"></div>
+                        <p class="mb-0">Luisque dapibus lacus non pulvinar lobo rtis. Cras odio dolor, pulvinar id ligula non, congue aliquam velit.. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section> -->
+<!-- End blog area start -->
+
+<!-- cta area start -->
+<!-- <section class="cta pt-60 pt-md-45 pb-60" style="background-image: url('img/bg/bg_cta.jpg');" data-overlay="9">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-5 col-lg-5 mb-md-20 text-center text-lg-left">
+                <h3 class="z-5 white f-700 lh-18 wow fadeInLeft">Subscribe Our Newsletter</h3>
+                <p class="white z-5 wow fadeInLeft">Luisque dapibus lacus non pulvinar lobo.</p>
+            </div>
+            <div class="col-xl-7 col-lg-7 text-center text-lg-right z-5">
+                <form action="#" class="newsform d-flex flex-column flex-sm-row z-5 wow fadeInRight">
+                    <input class="form-control input-border mr-20" placeholder="Enter your email" type="email">
+                    <a href="#" class="btn btn-square">subscribe
+                    <i class="fas fa-long-arrow-alt-right ml-15"></i>
+                  </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- cta area end -->
+{% endblock %}

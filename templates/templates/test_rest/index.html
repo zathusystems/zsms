@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .item-form { margin-bottom: 20px; }
+        .item-list { margin-top: 20px; }
+        .item { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Item Management</h1>
+
+    <div class="item-form">
+        <h2>Add New Item</h2>
+        <input type="text" id="item-name" placeholder="Name" />
+        <input type="text" id="item-description" placeholder="Description" />
+        <input type="number" id="item-price" placeholder="Price" step="0.01" />
+        <select id="item-category"></select>
+        <button id="add-item">Add Item</button>
+    </div>
+
+    <div>
+        <label for="filter-category">Filter by Category:</label>
+        <select id="filter-category">
+            <option value="">All Categories</option>
+        </select>
+        <button id="filter-items">Filter</button>
+    </div>
+
+    <div class="item-list">
+        <h2>Items</h2>
+        <div id="items-container"></div>
+    </div>
+
+    <script>
+        const apiUrl = 'http://127.0.0.1:8000/api/items/';
+        const categoryUrl = 'http://127.0.0.1:8000/api/categories/';
+
+        function fetchCategories() {
+            $.get(categoryUrl, function(data) {
+                $('#item-category').empty();
+                $('#filter-category').empty();
+                $('#item-category').append('<option value="">Select Category</option>');
+                $('#filter-category').append('<option value="">All Categories</option>');
+                data.forEach(category => {
+                    $('#item-category').append(`<option value="${category.id}">${category.name}</option>`);
+                    $('#filter-category').append(`<option value="${category.id}">${category.name}</option>`);
+                });
+            });
+        }
+
+        function fetchItems(categoryId = '') {
+            $.get(apiUrl, { category: categoryId }, function(data) {
+                $('#items-container').empty();
+                data.forEach(item => {
+                    $('#items-container').append(`
+                        <div class="item" data-id="${item.id}">
+                            <h3>${item.name}</h3>
+                            <p>${item.description}</p>
+                            <p>Price: $${item.price}</p>
+                            <p>Category: ${item.category.name}</p>
+                            <button class="update-item">Update</button>
+                            <button class="delete-item">Delete</button>
+                        </div>
+                    `);
+                });
+            });
+        }
+
+        function addItem() {
+            const name = $('#item-name').val();
+            const description = $('#item-description').val();
+            const price = $('#item-price').val();
+            const category = $('#item-category').val();
+
+            $.ajax({
+                url: apiUrl,
+                type: 'POST',
+                data: JSON.stringify({ name, description, price, category }),
+                contentType: 'application/json',
+                success: function() {
+                    fetchItems(); // Refresh the list
+                }
+            });
+        }
+
+        function deleteItem(id) {
+            $.ajax({
+                url: `${apiUrl}${id}/`,
+                type: 'DELETE',
+                success: function() {
+                    fetchItems(); // Refresh the list
+                }
+            });
+        }
+
+        function updateItem(id) {
+            const name = prompt("Enter new name:");
+            const description = prompt("Enter new description:");
+            const price = prompt("Enter new price:");
+            const category = prompt("Enter new category ID:");
+
+            $.ajax({
+                url: `${apiUrl}${id}/`,
+                type: 'PUT',
+                data: JSON.stringify({ name, description, price, category }),
+                contentType: 'application/json',
+                success: function() {
+                    fetchItems(); // Refresh the list
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            fetchCategories();
+            fetchItems(); // Fetch all items by default
+
+            $('#add-item').click(function() {
+                addItem();
+            });
+
+            $('#filter-items').click(function() {
+                const categoryId = $('#filter-category').val();
+                fetchItems(categoryId); // Fetch filtered items
+            });
+
+            $('#items-container').on('click', '.delete-item', function() {
+                const id = $(this).closest('.item').data('id');
+                deleteItem(id);
+            });
+
+            $('#items-container').on('click', '.update-item', function() {
+                const id = $(this).closest('.item').data('id');
+                updateItem(id);
+            });
+        });
+    </script>
+</body>
+</html>

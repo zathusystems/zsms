@@ -1,0 +1,73 @@
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+All Teachers
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Book Checkout</h4>
+            <div class="card-header-action">
+              <a href="../" class="btn btn-primary"><i class="fas fa-angle-left"></i>Back</a> 
+              <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add Book Copy
+              </button> -->
+            </div>
+        </div>
+        <div class="card-body">
+            <form id="" method="post" class="">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {{form}}
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                  <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+                  <a href="../" type="button" class="btn btn-secondary">Back</a>
+                </div>
+            </form>
+
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add a Copy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+              {{form}}
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}
+

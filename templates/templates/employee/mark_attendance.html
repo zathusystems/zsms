@@ -1,0 +1,143 @@
+{% extends 'templates/main/base.html' %}
+{% load widget_tweaks %}
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <form method="post" action="">
+        <div class="card-header">
+            <h4 class="d-inline">Mark Employee Attendance</h4>
+            
+            <div class="card-header-action">
+              <button type="submit" class="btn btn-primary">
+                Save Data
+              </button>
+            </div>
+        </div>
+        <div class="card-body"> 
+          {% if already_marked %}
+          <div class="text-center">
+            <h5>Looks like attendance for <span class="mute">{{subject}}</span> has already been marked</h5>
+          </div>
+          {% else %}
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody style="overflow: scroll !important;">
+                {% csrf_token %}
+
+                {% for student in employees %}
+               
+                <tr>
+                  <td>{{student.first_name|title}} {{student.last_name|title}}</td>
+
+                  <td>
+                   
+                    <select name="status" id="id_status" class="form-control select2" style="width: 100%;" required>
+                      <option value="present">Present</option>
+                      <option value="absent">Absent</option>
+                      <option value="late">Late</option>
+                    </select>
+                    <input type="text" value="{{student.id}}" name="employee" hidden>
+                  </td>
+                  <td><a href="{% url 'employee:employee_profile' student.id school_id %}" class="btn btn-primary">View</a></td>
+                </tr>
+                
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Student</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+
+              {{form.as_table}}
+              
+              {{form2.as_table}}
+          
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+      
+      $(document).on('submit', '#student_form', function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'{% url "student:students" school_id %}',
+            data: {
+                fname:$('#id_first_name').val(),
+                lname:$('#id_last_name').val(),
+                gender:$('#id_gender').val(),
+                id_number:$('#id_id_number').val(),
+                phone:$('#id_phone').val(),
+                address:$('#id_address').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                fun: function(){
+                  $('.loader-div>i').addClass('fa fa-gear fa-spin')
+
+                  $("#submit_btn").replaceWith(
+                    `
+                    <button id='submit_btn' type="submit" class="btn btn-primary disabled" disabled="true">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 
+                    </button>
+                    `
+                  );
+
+                }
+            },
+            success: function(status){
+              $("#login_btn").replaceWith(
+                    `
+                    <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+                    `
+                  );
+
+            },
+  
+        });
+    });
+</script>
+{% endblock %}
+

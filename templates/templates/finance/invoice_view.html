@@ -1,0 +1,256 @@
+
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+employees list
+{% endblock %}
+
+{% block content %}
+
+<style>
+  body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+  }
+  .invoice-container {
+      /* max-width: 800px; */
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .header {
+      text-align: center;
+      margin-bottom: 30px;
+  }
+  .header img {
+      max-width: 80px;
+      margin-bottom: 10px;
+  }
+  .header h1 {
+      font-size: 28px;
+      margin: 10px 0;
+      color: #333;
+  }
+  .header p {
+      margin: 5px 0;
+      color: #555;
+      font-size: 14px;
+  }
+  .details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+  }
+  .details .section {
+      font-size: 14px;
+      line-height: 0.5;
+      color: #555;
+  }
+  .details h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #333;
+  }
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+  }
+  table th, table td {
+      padding: 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 14px;
+  }
+  table th {
+      background-color: #f8f8f8;
+      color: #333;
+      font-weight: bold;
+  }
+  table tr:nth-child(even) {
+      background-color: #f9f9f9;
+  }
+  .total {
+      text-align: right;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
+  }
+  .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 12px;
+      color: #666;
+  }
+  @media (max-width: 768px) {
+      .details {
+          flex-direction: column;
+      }
+  }
+</style>
+
+
+
+
+
+<section class="section">
+  <div class="invoice-container">
+    <div class="header">
+        <img src="school-logo.png" alt="School Logo">
+        <h1>{{invoice.school}}</h1>
+        <p>{{invoice.school.contact_details.first.address}}</p>
+        <p>Email: {{invoice.school.contact_details.first.email}} | Phone: {{invoice.school.contact_details.first.phone_number}}</p>
+        <span>{{invoice.academic_year}} {{invoice.term}}</span>
+    </div>
+
+    <div class="details">
+        <div class="section">
+            <h3>Bill To:</h3>
+            {% if invoice.student.parent_access.all %}
+              <p><h6>Parent/Guardian:</h6> <br> {{invoice.student.parent_access.first.parent.title|title}} {{invoice.student.parent_access.first.parent.last_name|title}}</p>
+              <p><h6>Student:</h6> <br> {{invoice.student.first_name|title}} {{invoice.student.last_name|title}} - {{invoice.student.student_class_name|title}}</p>
+              <p><h6>Contact info:</h6> <br> {{invoice.student.parent_access.first.parent.phone|title}} | {{invoice.student.parent_access.first.parent.user.email|title}}</p> 
+            {% elif invoice.student.parent_details.all %}
+              <p><h6>Parent/Guardian:</h6> <br> {{invoice.student.parent_details.first.title|title}} {{invoice.student.parent_details.first.last_name|title}}</p>
+              <p><h6>Student:</h6> <br> {{invoice.student.first_name|title}} {{invoice.student.last_name|title}} - {{invoice.student.student_class_name|title}}</p>
+              <p><h6>Contact info:</h6> <br> {{invoice.student.parent_details.first.phone|title}} | {{invoice.student.parent_details.first.address|title}}</p> 
+            {% endif %}
+        </div>
+        <div class="section">
+            <h3>Invoice Info:</h3>
+            <p>Invoice #: {{invoice.id}}</p>
+            <p>Date: 30-Nov-2024</p>
+            <p>Due Date: 15-Dec-2024</p>
+        </div>
+    </div>
+
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Item</th>
+        <th class="text-center">Price</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-right">Totals</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Tuition Fee</td>
+        <td class="text-center">MK{{invoice.fee.fee_amount}}</td>
+        <td class="text-center">1</td>
+        <td class="text-right">MK{{invoice.fee.fee_amount}}</td>
+      </tr>
+      {% for fee in invoice.other_fee.all %}
+      <tr>
+        <td>2</td>
+        <td>{{fee.fee_title|title}}</td>
+        <td class="text-center">MK{{fee.fee_amount}}</td>
+        <td class="text-center">1</td>
+        <td class="text-right">MK{{fee.fee_amount}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <div class="total">
+        {% if invoice.issue_discount %}
+            Subtotal {% else %} Grand Total  
+        {% endif %}
+        MK{{invoice.total_fees}} 
+
+        {% if invoice.issue_discount %} <br>
+              Discount: %{{invoice.discount_percentage}} <br>
+              Total After Discount: MK{{invoice.after_discount_fee}}
+        {% endif %}
+    </div>
+
+    <div class="text-md-right mt-5">
+      <div class="float-lg-left mb-lg-0 mb-3">
+        <!-- <button id="show_modal" type="button" class="btn btn-primary btn-icon icon-left" data-toggle="modal" data-target="#exampleModal">
+          <i class="fas fa-credit-card"></i> Process
+          Payment
+        </button> -->
+        
+        <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-trash"></i> Delete</button>
+      </div>
+      <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
+      </form>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Process Payment For this Invoice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+            <label for="">Allocate this payment to:</label>
+            <select name="fee" id="" style="width: 100% !important;" class="select2 form-control w-100" multiple="">
+              <option value="{{invoice.fee.id}}">{{invoice.fee}}</option>
+              {% for other in invoice.other_fee.all %}
+              <option class="bg-primary" value="{{invoice.fee.id}}">{{other}}</option>
+              {% endfor %}
+            </select>
+            <label for="">Payment Method</label>
+            <select name="fee" id="" style="width: 100% !important;" class="select2 form-control w-100">
+              <option value="">Select Payment Method</option>
+              <option value="">Cash</option>
+              <option value="">Bank Deposit</option>
+              <option value="">Mobile Money</option>
+              <option value="">Cheque</option>
+              
+            </select>
+            <label for="">Amount Paid</label>
+            <input type="number" name="amount" class="form-control">
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+  $('#id_employee').on('change', function(){
+    $.ajax({
+            type:'POST',
+            url:'{% url "finance:payroll_add" school_id %}',
+            data: {
+                employee:$('#id_employee').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        
+            },
+            success: function(data){
+              $('#id_salary').val(`${data.salary}`);
+              $('#id_allowances').val(`${data.allowance}`);
+              $('#id_dedactions').val(`${data.deductions}`);
+            },
+    });
+  });
+
+</script>
+{% endblock %}

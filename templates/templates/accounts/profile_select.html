@@ -1,0 +1,610 @@
+{% extends 'templates/accounts/base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block tittle %}
+    choose profile to create
+{% endblock %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+      <div class="text-center mb-3">
+        <p class="mb-0 text-white" >Powored by Zathu systems</p>
+        <div class="login-brand mb-2 mt-1">
+          School Management Online 
+        </div>
+      </div>
+      <div class="card card-primary">
+        <div class="row m-0">
+          <div class="col-12 col-md-12 col-lg-6 p-0">
+            
+              
+            <div class="card-body" id="top-8-scroll" tabindex="2" style="height: 450px; overflow: hidden; outline: none;">
+                <h4>Choose profiple to create</h4>
+                
+                 <ul class="nav nav-pills" id="myTab3" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3" role="tab"
+                          aria-controls="home" aria-selected="true">Institution</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#profile3" role="tab"
+                          aria-controls="profile" aria-selected="false">Staff</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact3" role="tab"
+                          aria-controls="contact" aria-selected="false">Student</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact4" role="tab"
+                          aria-controls="contact" aria-selected="false">Parent</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent2">
+                      <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
+                        
+                        <h5>
+                          If you own a school or manage one, create your school's profile now and 
+                          streamline its operations with ease.
+                        </h5>
+                        <div id="alert-box"></div>
+                <form id="institute_form" method="POST">
+                  {% csrf_token %}
+                  
+                  <div class="form-group">
+                   
+                    {% render_field form2.institution_name class='form-control' name='institution_name' type='text' placeholder='institution name' required='true' %}
+
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    {% render_field form2.phone class='form-control' name='phone' type='text' placeholder='Phone number' required='true' %}
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    {% render_field form2.country class='form-control' name='country' type='text' placeholder='Country' required='true' %}
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    {% render_field form2.city class='form-control' name='city' type='text' placeholder='City' required='true' %}
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+                    <div class="form-group">
+                      {% render_field form2.edu_offer class='form-control select2' style='width:100%' name='edu_offer' type='text' placeholder='Enter Phone' required='true' %}
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                    
+                  
+                  <div id="principal_div" class="form-group">
+                      
+                      {% render_field form2.name_of_principal class='form-control' name='name_of_principa' type='text' placeholder='Name of principal' %}
+
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                  
+                  <div id="head_div" class="form-group">
+                      
+                      {% render_field form2.name_of_head class='form-control' name='name_of_head' type='text' placeholder='Name of head' %}
+
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                  
+                  
+                  <div class="form-group" id="registrar_div">
+                      
+                      {% render_field form2.name_of_registrar class='form-control' name='name_of_registrar' type='text' placeholder='Name of registrar' %}
+
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                  
+                  
+                    <div class="form-group">
+                      
+                      
+                    </div>
+                  
+                  
+                  <div id="institute_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      Create Profile <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </form>
+                  
+                      </div>
+                      <div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">
+                      
+                        <h5>
+                          If you are a teacher and your school already has an account on this platform, join now and manage
+                          everyday processes seamlessly!
+                        </h5>
+                         <div id="alert-box"></div>
+                <form id="teacher_form" method="POST">
+                  {% csrf_token %}
+                  
+                  <div class="form-group">
+                    <label for="id_gender">Gender</label>
+                    {% render_field form1.gender class='form-control' type='text' placeholder='Gender' required='true' %}
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                
+                    <label for="id_phone">Title</label>
+                    {% render_field form1.title required='true' %}
+                
+                  
+                      <label for="id_phone">Your Phone Number</label>
+                      {% render_field form1.phone id='id_phone2' required='true' %}
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                   
+                      <label for="id_school">Your Institution</label>
+                      {% render_field form1.school %}
+
+                    
+                      <label for="id_role">Your Role</label>
+                      {% render_field form1.role %}
+                     
+                    
+                      <label for="id_date_started">Date started Working</label>
+                      {% render_field form1.date_started  %}
+
+                    </div>
+                    
+                  <div id="teacher_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      Create Profile <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </form>
+                        
+                        
+                        <!--<div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      <span>Create</span> <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>-->
+                      </div>
+                      <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">
+                        <h5>Coming soon</h5>
+                        <div class="form-group">
+                          <!-- <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                            <span>Create</span> <i class="fa fa-arrow-right"></i>
+                          </button> -->
+                        </div>
+                      </div>
+
+                      <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab3">
+                        
+                        <h5>
+                          If you are a parent looking to monitor your child's perfomance like class
+                          attendance, assignments, exams and more
+                        </h5>
+                        <div class="form-group">
+                          <form action="" method="post">
+                            {% csrf_token %}
+                            {{parent_form}}
+                            <label for="">Search Child by id</label>
+                            <input name="id_number" type="text" class="form-control">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mt-3" tabindex="4">
+                              <span>Create</span> <i class="fa fa-arrow-right"></i>
+                            </button>
+                          </form>
+                          
+                        </div>
+                      </div>
+                    </div>
+              </div>
+              <!-- <div class="card-footer pt-3 d-flex justify-content-center">
+                <div class="budget-price justify-content-center">
+                  <div class="budget-price-square bg-primary" data-width="20" style="width: 20px;"></div>
+                  <div class="budget-price-label">Selling Price</div>
+                </div>
+                <div class="budget-price justify-content-center">
+                  <div class="budget-price-square bg-danger" data-width="20" style="width: 20px;"></div>
+                  <div class="budget-price-label">Product Cost</div>
+                </div>
+              </div> -->
+            
+
+          </div>
+          <div class="col-12 col-md-12 col-lg-6 p-0">
+            <div style="background-image: url('{% static "assets/img/sms_images/img0.jpg" %}'); height: 100%; margin: 0; padding: 0;background-size: cover;background-position: center;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="simple-footer">
+        Copyright &copy; School Management Online {% now 'Y' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+      <!-- <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4>Select Profile to create</h4>
+              </div>
+              
+              <div class="card-body">
+                
+                
+                 <ul class="nav nav-pills" id="myTab3" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3" role="tab"
+                          aria-controls="home" aria-selected="true">Institution</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#profile3" role="tab"
+                          aria-controls="profile" aria-selected="false">Instructor</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact3" role="tab"
+                          aria-controls="contact" aria-selected="false">Student</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent2">
+                      <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
+                        If you are looking to manage your schools operations
+                        seamlessly
+                        
+                        <div id="alert-box"></div>
+                <form id="institute_form" method="POST">
+                  {% csrf_token %}
+                  
+                  <div class="form-group">
+                   
+                    {% render_field form2.institution_name class='form-control' name='institution_name' type='text' placeholder='institution name' required='true' %}
+
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    {% render_field form2.phone class='form-control' name='phone' type='text' placeholder='Phone number' required='true' %}
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    {% render_field form2.country class='form-control' name='country' type='text' placeholder='Country' required='true' %}
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    {% render_field form2.city class='form-control' name='city' type='text' placeholder='City' required='true' %}
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+                    <div class="form-group">
+                      {% render_field form2.edu_offer class='form-control select2' style='width:100%' name='edu_offer' type='text' placeholder='Enter Phone' required='true' %}
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                    
+                  
+                  <div id="principal_div" class="form-group">
+                      
+                      {% render_field form2.name_of_principal class='form-control' name='name_of_principa' type='text' placeholder='Name of principal' %}
+
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                  
+                  <div id="head_div" class="form-group">
+                      
+                      {% render_field form2.name_of_head class='form-control' name='name_of_head' type='text' placeholder='Name of head' %}
+
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                  
+                  
+                  <div class="form-group" id="registrar_div">
+                      
+                      {% render_field form2.name_of_registrar class='form-control' name='name_of_registrar' type='text' placeholder='Name of registrar' %}
+
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                  
+                  
+                    <div class="form-group">
+                      
+                      
+                    </div>
+                  
+                  
+                  <div id="institute_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      Create Profile <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </form>
+                  
+                      </div>
+                      <div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">
+                        If you are a teacher and want to join your institution
+                        which already has an account
+                        
+                         <div id="alert-box"></div>
+                <form id="teacher_form" method="POST">
+                  {% csrf_token %}
+                  
+                  <div class="form-group">
+                    <label for="id_gender">Gender</label>
+                    {% render_field form1.gender class='form-control' type='text' placeholder='Gender' required='true' %}
+                    <div id='err_dv' class="invalid-feedback">
+                    </div>
+                  </div>
+                  
+                    <div class="form-group">
+                      <label for="id_phone">Your Phone Number</label>
+                      {% render_field form1.phone id='id_phone2' required='true' %}
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="is_school">Your Institution</label>
+                      {% render_field form1.school %}
+
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="id_date_started">Date started Working</label>
+                      {% render_field form1.date_started  %}
+
+                    </div>
+                    
+                  <div id="teacher_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      Create Profile <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </form>
+                        
+                        
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      <span>Create</span> <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                      </div>
+                      <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">
+                        If you are a student
+                   <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      <span>Create</span> <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                      </div>
+                    </div>
+                
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>  -->
+{% endblock %}
+
+{% block scripts %}
+<script>
+      $(document).on('submit', '#institute_form', function(e){
+        e.preventDefault();
+        alertBox.innerHTML=''
+        $.ajax({
+            type:'POST',
+            url:'{% url "accounts:profile_select" %}',
+            data: {
+                institution_name:$('#id_institution_name').val(),
+                edu_offer:$('#id_edu_offer').val(),
+                name_of_principal:$('#id_name_of_principal').val(),
+                name_of_head:$('#id_name_of_head').val(),
+                name_of_registrar:$('#id_name_of_registrar').val(),
+                country:$('#id_country').val(),
+                city:$('#id_city').val(),
+                phone:$('#id_phone').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                fun: function(){
+                  $('.loader-div>i').addClass('fa fa-gear fa-spin')
+
+                  $("#institute_btn").replaceWith(
+                    `
+                  <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block disabled" tabindex="4" disabled="true">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> PLEASE WAIT... 
+                    </button>
+                  </div>
+                    `
+                  );
+
+                }
+            },
+            success: function(status){
+              console.log(status.status)
+
+              if(status.status == 'succeed'){
+                console.log(status.next)
+                if(status.next){
+                  $(location).prop('href', `${status.next}`)
+                  $('.loader-div>i').removeClass('fa fa-gear fa-spin')
+
+                }
+                else{
+                  $(location).prop('href', '{% url "accounts:school_p" %}')
+                  $('.loader-div>i').removeClass('fa fa-gear fa-spin')
+
+                }
+                
+              }
+              if(status.status == 'failed'){
+                // $('#login_form').reset()
+                     iziToast.error({
+                       title: 'Oops!',
+                       message: 'Something went wrong',
+                       position: 'topRight'
+                     });
+                  $("#institute_btn").replaceWith(
+                    `
+                <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      <span>LOGIN</span> <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                    `
+                  );
+              }
+              
+
+            },
+            error: function(data){
+              $('.loader-div>i').removeClass('fa fa-gear fa-spin')
+
+                $("#spinner").replaceWith('<span id="sign_btn">Submit</span>');
+            }
+        });
+    });
+
+
+    $(document).on('submit', '#teacher_form', function(e){
+        e.preventDefault();
+        alertBox.innerHTML=''
+        $.ajax({
+            type:'POST',
+            url:'{% url "accounts:create_teacher" %}',
+            data: {
+                gender:$('#id_gender').val(),
+                phone:$('#id_phone2').val(),
+                school:$('#id_school').val(),
+                date_started:$('#id_date_started').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                fun: function(){
+                  $('.loader-div>i').addClass('fa fa-gear fa-spin')
+
+                  $("#teacher_btn").replaceWith(
+                    `
+                  <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block disabled" tabindex="4" disabled="true">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> PLEASE WAIT... 
+                    </button>
+                  </div>
+                    `
+                  );
+
+                }
+            },
+            success: function(status){
+              console.log(status.status)
+
+              if(status.status == 'succeed'){
+                console.log(status.next)
+                if(status.next){
+                  $(location).prop('href', `${status.next}`)
+                  $('.loader-div>i').removeClass('fa fa-gear fa-spin')
+
+                }
+                else{
+                  $(location).prop('href', `{% url "accounts:school_p" %}`)
+                  $('.loader-div>i').removeClass('fa fa-gear fa-spin')
+
+                }
+                
+              }
+              if(status.status == 'failed'){
+                // $('#login_form').reset()
+                
+            
+                     iziToast.error({
+                       title: 'Oops!',
+                       message: 'Something went wrong',
+                       position: 'topRight'
+                     });
+                 
+                  
+
+                  $("#teacher_btn").replaceWith(
+                    `
+                <div id="login_btn" class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      <span>LOGIN</span> <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                
+        
+                    `
+                  );
+              }
+              
+
+            },
+            error: function(data){
+              $('.loader-div>i').removeClass('fa fa-gear fa-spin')
+
+                $("#spinner").replaceWith('<span id="sign_btn">Submit</span>');
+            }
+        });
+    });
+
+
+
+    $('#id_edu_offer').on('change', function(){
+      const edu=$('#id_edu_offer').val();
+      console.log(edu)
+      if(edu=='secondary education'){
+        $('#registrar_div').css({'display':'none'})
+        $('#principal_div').css({'display':'block'})
+        $('#head_div').css({'display':'block'})
+      } else {
+        $('#registrar_div').css({'display':'block'})
+        $('#principal_div').css({'display':'none'})
+        $('#head_div').css({'display':'none'})
+      };
+
+    });
+</script>
+{% endblock %}
+

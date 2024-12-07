@@ -1,0 +1,102 @@
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">{{time_table.title|title}} ({{day|title}})</h4>
+            <div class="card-header-action">
+              <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Create Timetable
+              </button> -->
+              <td><a href="{% url 'timetable:time_table' time_table.id school_id %}" class="btn btn-outline-primary">
+                View timetable
+              </a></td>
+            </div>
+        </div>
+        <div class="card-body">
+          
+          <div class="table-responsive">
+            <table class="table table-striped border table-hover" style="width:100%;">
+              <thead>
+                <tr>
+                  <!-- <th>Day</th> -->
+          
+                        {% for subject in time_table.timetable_subjects.all %}
+                        
+                          {% if subject.day == day %}
+                            <th>{{ subject.start_time }} - {{ subject.end_time }}</th>
+                          {% endif %}
+                        {% endfor %}
+                      
+                   
+                </tr>
+              </thead>
+              <tbody>
+                {% for class in class_rooms %}
+                <tr>
+                  <!-- <td> -->
+                    <!-- <h6>{{day|title}}</h6></td> -->
+                        {% for subject in time_table.timetable_subjects.all %}
+                          {% if subject.day == day %}
+                            <td>
+                              {{ subject.subject }} <br>
+                              <a href="{% url 'attendance:attendance' subject.subject.id class.id school_id %}" class="btn btn-primary mb-2">
+                                Attendance
+                              </a>
+                            </td>
+                          {% endif %}
+                        {% endfor %}
+                      
+                      
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+ 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Create Timetable</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+              {{form.as_table}}
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

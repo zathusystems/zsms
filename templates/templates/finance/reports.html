@@ -1,0 +1,229 @@
+
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+employees list
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Financial Reports</h4>
+            <div class="card-header-action">
+              <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+               <i data-feather="plus-circle"></i>
+              </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="list-group mb-3">
+                <a class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><i class="fas fa-money"></i> Total Revenue: MK{{total_balance}}</h5>
+                    <strong><small>
+                      <form action="">
+                      <div class="form-group">
+                        <div class="input-group">
+                          
+                            <select class="form-control" name="" id="">
+                              <option value="">Academic Year</option>
+                            </select>
+                            <select class="form-control" name="" id="">
+                                <option value="">Term/Semister</option>
+                            </select>
+                            <select class="form-control" name="" id="">
+                              <option value="">Month</option>
+                            </select>
+                          
+                            <button type="submit" class="btn btn-info"><i class="fas fa-search"></i> Filter</button>
+                          
+                        </div>
+                      </div>
+                    </form>
+                
+                    </small></strong>
+                  </div>
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                  <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-selected="false">Today</a>
+                        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-selected="false">This Month</a>
+                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-selected="false">This Term</a>
+                        <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-selected="true">This Year</a>
+                  </div>
+                </div>
+                <div class="col-8 pl-0">
+                  <div class="tab-content" id="nav-tabContent">
+                    
+                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                        <div class="container">
+                            <h6>Termly Reports</h6>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Fee Income
+                                <span class="badge badge-primary badge-pill">MK{{total_fee_term}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Other Income
+                                <span class="badge badge-primary badge-pill">MK{{total_other_income_term}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Expense
+                                <span class="badge badge-primary badge-pill">MK{{total_expense_term}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Balance
+                                <span class="badge badge-primary badge-pill">MK{{total_balance_term}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                        <div class="container">
+                            <h6>Monthly Reports</h6>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Fee Income
+                                <span class="badge badge-primary badge-pill">MK{{total_fee_month}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Other Income
+                                <span class="badge badge-primary badge-pill">MK{{total_other_income_month}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Expense
+                                <span class="badge badge-primary badge-pill">MK{{total_expense_month}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Balance
+                                <span class="badge badge-primary badge-pill">MK{{total_balance_month}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                        <div class="container">
+                            <h6>Daily Reports</h6>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Fee Income
+                                <span class="badge badge-primary badge-pill">MK{{total_fee_today}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Other Income
+                                <span class="badge badge-primary badge-pill">MK{{total_other_income_today}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Expense
+                                <span class="badge badge-primary badge-pill">MK{{total_expense_today}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Balance
+                                <span class="badge badge-primary badge-pill">MK{{total_balance_today}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade active show" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                        <div class="container">
+                            <h6>Academic Yearly Reports</h6>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Fee Income
+                                <span class="badge badge-primary badge-pill">MK{{total_fee_year}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Other Income
+                                <span class="badge badge-primary badge-pill">MK{{total_other_income_year}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Expense
+                                <span class="badge badge-primary badge-pill">MK{{total_expense_year}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Balance
+                                <span class="badge badge-primary badge-pill">MK{{total_balance_year}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Academic year Calendar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+                <div class="input-group">
+                  <form action="">
+                    <select class="input-item form-control" name="" id="">
+                      <option value="">Academic Year</option>
+                    </select>
+                    <select class="input-item form-control" name="" id="">
+                        <option value="">Term/Semister</option>
+                    </select>
+                    <select class="input-item form-control" name="" id="">
+                      <option value="">Month</option>
+                    </select>
+                  
+                    <button class="btn btn-secondary"><i class="fas fa-search"></i> Filter</button>
+                  </form>
+                </div>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+  $('#id_employee').on('change', function(){
+    $.ajax({
+            type:'POST',
+            url:'{% url "finance:payroll_list" school_id %}',
+            data: {
+                employee:$('#id_employee').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        
+            },
+            success: function(data){
+              $('#id_salary').val(`${data.salary}`);
+            },
+    });
+  });
+
+</script>
+{% endblock %}

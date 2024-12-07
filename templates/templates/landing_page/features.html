@@ -1,0 +1,69 @@
+{% extends 'templates/landing_page/base/base.html' %}
+
+{% block content %}
+
+   <!-- immer banner start -->
+   <section class="inner-banner pt-80 pb-95" style="background-image: url('img/banner/inner-banner.jpg');" data-overlay="7">
+    <div class="container">
+        <div class="row z-5 align-items-center">
+            <div class="col-md-8 text-center text-md-left">
+                <h1 class="f-700 green">System Features</h1>
+                <span class="green-line bg-green d-none d-md-inline-block"></span>
+            </div>
+            <div class="col-md-4 text-center text-md-right">
+                <nav aria-label="breadcrumb" class="banner-breadcump">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'landing_page:landing' %}"><i class="fas fa-home fs-12 mr-5"></i>Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Features</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- immer banner end -->
+
+ <!-- Service start -->
+  
+  <section class="service-page pt-95 pb-70 bg-light-white">
+    <div class="container">
+        <div class="row align-items-end  mb-45">
+            <div class="col-lg-7 col-md-12 text-center text-lg-left">
+                <div class="fancy-head left-al relative z-5">
+                    <h5 class="line-head mb-15">
+                        <span class="line before d-lg-none"></span>
+                        Features
+                        <span class="line after"></span>
+                    </h5>
+                    <h1>System key featutures</h1>
+                </div>
+            </div>
+            <!-- <div class="col-lg-5 col-md-12 text-center text-lg-right relative z-5">
+                <a href="{% url 'landing_page:s_features' %}" class="btn btn-round-border mb-15 mt-md-20">View All</a>
+            </div> -->
+        </div>
+
+
+        <div class="row">
+            {% for feature in system_features %}
+            <div class="col-xl-3 col-md-6 text-center">
+
+                <div class="service-list-3 no-mar shadow-5 transition-4 img-lined z-5">
+                    <div class="icon-bg-white flex-center z-10">
+                        <img src="img/service/2.png" class="" alt="">
+                    </div>
+                    <div class="service-text-3 transition-4 mt-15 z-10">
+                        <h4 class="f-700 mb-10">{{feature.title|title}}</h4>
+                        <p class="mb-20">{{feature.description2|truncatewords:6}}</p>
+                        <a href="{% url 'landing_page:s_feature' feature.id %}" class="btn btn-border-blue mb-30">
+              Readmore<i class="fas fa-long-arrow-alt-right ml-15"></i>
+            </a>
+                        <span class="bg-green undeline-3"></span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

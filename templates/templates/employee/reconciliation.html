@@ -1,0 +1,123 @@
+
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+employees list
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Payroll Reconciliation</h4>
+            <div class="card-header-action">
+              <!-- <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add Payroll
+              </button> -->
+              <a href="{% url 'employee:reco_form' school_id %}" class="btn btn-info">Add Reconciliation</a>
+            </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
+              <thead>
+                <tr>
+                    <th>Employee</th>
+                    <!-- <th>Gross Salary</th> -->
+                    <th>Allowance</th>
+                    <th>Deductions</th>
+                    <!-- <th>Net Salary</th>
+                    <th>Paid Date</th> -->
+                    <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for payroll in reconciliation %}
+                <tr>
+                    <td>{{ payroll.employee }}</td>
+                    <!-- <td>{{ payroll.gross_salary }}</td> -->
+                    <td>{{ payroll.allowances }}</td>
+                    <td>{{ payroll.dedactions }}</td>
+                    <!-- <td>{{ payroll.net_salary }}</td>
+                    <td>{{ payroll.payment_date }}</td> -->
+                    <td></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+            <label for="id_employee">Employee</label>
+              <select name="employee" id="id_employee" class="form-control selectric" required>
+                <option value="">Select Employee</option>
+                {% for employee in employees %}
+                  {% if employee.payroll.all %}
+                    {% for payroll in employee.payroll.all %}
+                      {% if payroll.year == year and payroll.month == month %}
+                      {% else %}
+                      <option value="{{employee.id}}">{{payroll}} {{employee.first_name}} - {{employee.position}}</option>
+                      {% endif %}
+                    {% endfor %}
+                  {% else %}
+                  <option value="{{employee.id}}">{{payroll}} {{employee.first_name}} - {{employee.position}}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+              
+              {{form}}
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+  $('#id_employee').on('change', function(){
+    $.ajax({
+            type:'POST',
+            url:'',
+            data: {
+                employee:$('#id_employee').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        
+            },
+            success: function(data){
+              $('#id_salary').val(`${data.salary}`);
+            },
+    });
+  });
+
+</script>
+{% endblock %}
+

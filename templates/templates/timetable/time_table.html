@@ -1,0 +1,150 @@
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">{{data.classi|title}} Time Table</h4>
+            <div class="card-header-action">
+              <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add Subject
+              </button>
+            </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Subjects</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <td><h6>SUNDAY</h6></td>
+                    {% for d in data.timetable_subjects.all %}
+                    {% if d.day == 'sunday' %}
+                    <td class="{% if d.day == today %} border border-success {% endif %}">  
+                          {{d.start_time}} - {{d.end_time}}  <br>
+                          {{d.subject}} 
+                    </td>
+                    {% endif %}
+                    
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>MONDAY</td>
+                    {% for d in data.timetable_subjects.all %}
+                    {% if d.day == 'monday' %}
+                    <td class="{% if d.day == today %} border border-success {% endif %}">
+                          {{d.start_time}} - {{d.end_time}} <br>
+                          {{d.subject}} 
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                  </tr>
+
+                  <tr>
+                    <td>TUESDAY</td>
+                    {% for d in data.timetable_subjects.all %}
+                    {% if d.day == 'tuesday' %}
+                    <td class="{% if d.day == today %} border border-success {% endif %}">
+                          {{d.start_time}} - {{d.end_time}} <br>
+                          {{d.subject}} 
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                  </tr>
+
+                  <tr>
+                    <td>WEDNESDAY</td>
+                    {% for d in data.timetable_subjects.all %}
+                    {% if d.day == 'wednesday' %}
+                    <td class="{% if d.day == today %} border border-success {% endif %}">
+                          {{d.start_time}} - {{d.end_time}} <br>
+                          {{d.subject}} 
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                  </tr>
+                  <tr>
+                    <td>THIRSDAY</td>
+                    {% for d in data.timetable_subjects.all %}
+                    {% if d.day == 'thursday' %}
+                    <td class="{% if d.day == today %} border border-success {% endif %}">
+                          {{d.start_time}} - {{d.end_time}} <br>
+                          {{d.subject}} 
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                  </tr>
+                  <tr>
+                    <td>FRIDAY</td>
+                    {% for d in data.timetable_subjects.all %}
+                    {% if d.day == 'friday' %}
+                    <td class="{% if d.day == today %} border border-success {% endif %}">
+                          {{d.start_time}} - {{d.end_time}} <br>
+                          {{d.subject}} 
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                  </tr>
+                  <tr>
+                    <td>SATURDAY</td>
+                    {% for d in data.timetable_subjects.all %}
+                    {% if d.day == 'saturday' %}
+                    <td class="{% if d.day == today %} border border-success {% endif %}">
+                          {{d.start_time}} - {{d.end_time}} <br>
+                          {{d.subject}} 
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Subject to Timetable</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+              {{form.as_table}}
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

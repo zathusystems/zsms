@@ -1,0 +1,112 @@
+
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+employees list
+{% endblock %}
+
+{% block content %}
+<section class="section">
+<div class="section-body">
+<div class="row">
+    <div class="col-12">
+      
+      <div class="card">
+        <div class="card-header">
+            <h4 class="d-inline">Terms for {{calendar}}</h4>
+            <div class="card-header-action">
+              {% if not calendar.closed %}
+              <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+               <i data-feather="plus-circle"></i>
+              </button>
+              {% endif %}
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="container">
+            {% for term in terms %}
+                <div class="list-group">
+                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start {% if term.closed %}{% else%}active{% endif %}">
+                    <div class="d-flex w-100 justify-content-between">
+                     <h5 class="mb-1"><i class="fas fa-calendar"></i> {{term.title}}</h5>
+                     <strong><small class="">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            
+                            {% if term.closed %}
+                            {% else %}
+                              <input type="text" name="term_id" value="{{term.id}}" hidden> 
+                              <button type="submit" name="close" class="btn btn-sm btn-danger"><i class="fas fa-times-circle"></i></button>
+                            {% endif %}
+                        </form>
+                        
+                    </small></strong>
+                    </div>
+                    <p class="mb-1"><span class="badge badge-success">{{term.start_date}}</span> to <span class="badge badge-success">{{term.end_date}}</span></p>
+                    <small class="text-muted">Added on {{term.date}}</small> 
+                  </a>
+                </div>
+            {% endfor %}
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Term</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% if showform %}
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+            
+              {{form}}
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+      {% else %}
+      <div class="modal-body">
+        <p>Looks like you still have an active Term</p>
+        <p>Close it first</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+  $('#id_employee').on('change', function(){
+    $.ajax({
+            type:'POST',
+            url:'',
+            data: {
+                employee:$('#id_employee').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        
+            },
+            success: function(data){
+              $('#id_salary').val(`${data.salary}`);
+            },
+    });
+  });
+
+</script>
+{% endblock %}

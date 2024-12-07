@@ -1,0 +1,78 @@
+{% extends 'templates/parent/dashboard/base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<div class="card card-warning">
+  <div class="card-header">
+    <h4>Select Your Child</h4>
+    <form class="card-header-form" method="post" action="{% url 'parent:search_id' %}">
+      {% csrf_token %}
+      <div class="input-group">
+        <input type="text" value="{% if stud_id %} {{stu_id}} {% endif %}" name="id_number" class="form-control" placeholder="Student_id number" required>
+        <div class="input-group-btn">
+          <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-body">
+  {% if q %}
+    {% if students %}
+    <p>Not seeing Your Child From the list Bellow? try serching the id again carefully</p>
+      <ul class="list-group">
+        {% for student in students %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{student.first_name}} {{student.last_name}}<br>
+          {{student.school}} <br>
+          {{student.student_class_name}}
+          <form method="post" action="">
+            {% csrf_token %}
+            <input type="hidden" name="student_id" value="{{student.id}}">
+            <button class="btn btn-info" type="submit" name="access">RQ Access</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="container mt-5">
+        <div class="page-error">
+          <div class="page-inner">
+            <h2>No Student Found</h2>
+            <div class="page-description">
+              No Student With provided id was found, 
+              try serching again carefully
+            </div>
+          
+              
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    {% else %}
+    <div class="container mt-5">
+      <div class="page-error">
+        <div class="page-inner">
+          <h2>Connect with your Child</h2>
+          <div class="page-description">
+            Search for your child, connect and start following his/her academic progress. 
+          </div>
+          <a href="#" class="btn btn-primary">Help</a>
+        
+            
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

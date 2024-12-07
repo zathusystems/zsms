@@ -1,0 +1,6 @@
+<h1>Are you sure you want to delete this fee?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm</button>
+        <a href="{% url 'fee_list' %}">Cancel</a>
+    </form>

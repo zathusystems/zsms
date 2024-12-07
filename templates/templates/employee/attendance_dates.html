@@ -1,0 +1,98 @@
+{% extends 'templates/main/base.html' %}
+{% load widget_tweaks %}
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="section-body">
+  <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+              <h4 class="d-inline"> Employee Attendance</h4>
+              <div class="card-header-action">
+                <button id="show_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Mark Attendance
+                </button>
+                
+              </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Attended</th>
+                    <th>Late</th>
+                    <th>Absent</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for d in attendance_dates %}
+                  <tr>
+                  
+                      <td>
+                        {{d.date}}
+                      </td>
+                      <td>
+                        <span class="badge badge-success">{{d.employees_attended}}</span>                         
+                      </td>
+                      <td>
+                        <span class="badge badge-warning">{{d.employees_late}}</span>
+                      </td>
+                      <td>
+                        <span class="badge badge-danger">{{d.employees_absent}}</span>
+                      </td>
+                      <td><a href="{% url 'employee:attendance_list' d.id school_id %}" class="btn btn-primary">Attendance</a></td>
+  
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Attendance Date</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+
+              {{form.as_table}}
+              
+          
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Start Marking</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

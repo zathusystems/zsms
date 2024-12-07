@@ -1,0 +1,34 @@
+{% extends 'templates/main/base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+
+<section class="section">
+  <div class="container mt-3">
+    <div class="page-error">
+      <div class="page-inner">
+        <h1>Oops!</h1>
+        <h2>Your subscription has expired</h2>
+        <div class="page-description">
+            Renew your subscription now to continue enjoying our premium features
+        </div>
+        <div class="page-search">
+          <div class="mt-3">
+            <a href="{% url 'subs:subs' school_id %}" class="btn btn-primary mt-4">Renew Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

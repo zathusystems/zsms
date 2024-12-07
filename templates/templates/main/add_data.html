@@ -1,0 +1,57 @@
+{% extends 'templates/accounts/base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block tittle %}
+    choose profile to create
+{% endblock %}
+
+
+{% block content %}
+    
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4>{{card_title}}</h4>
+              </div>
+              
+              <div class="card-body">
+                
+                
+               
+   
+                        
+                        <div id="alert-box"></div>
+                <form id="" method="POST">
+                  {% csrf_token %}
+                  
+                  {{ form }}
+                  
+                  <div id="" class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      Continue <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </form>
+                  
+ 
+                
+                      </div>
+                    </div>
+                
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

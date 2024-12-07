@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .form-section { margin-bottom: 20px; }
+        .item { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+        .item-form { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Employee Management</h1>
+
+    <div class="form-section">
+        <h2>Add New Employee</h2>
+        <input type="text" id="employee-name" placeholder="Name" />
+        <input type="text" id="employee-position" placeholder="Position" />
+        <input type="number" id="employee-salary" placeholder="Salary" step="0.01" />
+        <select id="employee-school"></select>
+        <button id="add-employee">Add Employee</button>
+    </div>
+
+    <div class="form-section">
+        <label for="filter-school">Filter by School:</label>
+        <select id="filter-school">
+            <option value="">All Schools</option>
+        </select>
+        <button id="filter-employees">Filter</button>
+    </div>
+
+    <div class="employee-list">
+        <h2>Employees</h2>
+        <div id="employees-container"></div>
+    </div>
+
+    <script>
+
+        $.ajax({
+            url: 'http://127.0.0.1:8000/api/current-user',
+            method: 'GET',
+            success: function(data) {
+                console.log(data.username)
+                $('#username').text(data.username);
+                $('#email').text(data.email);
+                $('#first-name').text(data.first_name);
+                $('#last-name').text(data.last_name);
+            },
+            error: function(xhr) {
+                if (xhr.status === 401) {
+                    alert('You need to be logged in to access this information.');
+                    // Optionally redirect to the login page or show a login form
+                    window.location.href = '/login/';
+                } else {
+                    alert('An error occurred while fetching user details kkkkkkkkkkk.');
+                }
+            }
+        });
+
+        const apiUrl = 'http://127.0.0.1:8000/api/employees/';
+        const schoolUrl = 'http://127.0.0.1:8000/api/schools/';
+
+        function fetchSchools() {
+            $.get(schoolUrl, function(data) {
+                $('#employee-school').empty();
+                $('#filter-school').empty();
+                $('#employee-school').append('<option value="">Select School</option>');
+                $('#filter-school').append('<option value="">All Schools</option>');
+                data.forEach(school => {
+                    $('#employee-school').append(`<option value="${school.id}">${school.name}</option>`);
+                    $('#filter-school').append(`<option value="${school.id}">${school.name}</option>`);
+                });
+            });
+        }
+
+        function fetchEmployees(schoolId = '') {
+            $.get(apiUrl, { school: schoolId }, function(data) {
+                $('#employees-container').empty();
+                data.forEach(employee => {
+                    $('#employees-container').append(`
+                        <div class="item" data-id="${employee.id}">
+                            <h3>${employee.name}</h3>
+                            <p>Position: ${employee.position}</p>
+                            <p>Salary: $${employee.salary}</p>
+                            <p>School ID: ${employee.school}</p>
+                            <button class="update-employee">Update</button>
+                            <button class="delete-employee">Delete</button>
+                        </div>
+                    `);
+                });
+            });
+        }
+
+        function addEmployee() {
+            const name = $('#employee-name').val();
+            const position = $('#employee-position').val();
+            const salary = $('#employee-salary').val();
+            const school = $('#employee-school').val();
+
+            $.ajax({
+                url: apiUrl,
+                type: 'POST',
+                data: JSON.stringify({ name, position, salary, school }),
+                contentType: 'application/json',
+                success: function() {
+                    fetchEmployees(); // Refresh the list
+                },
+                error: function(xhr) {
+                    alert('Failed to add employee: ' + xhr.responseJSON.detail);
+                }
+            });
+        }
+
+        function updateEmployee(id) {
+            const name = prompt("Enter new name (leave empty to keep unchanged):");
+            const position = prompt("Enter new position (leave empty to keep unchanged):");
+            const salary = prompt("Enter new salary (leave empty to keep unchanged):");
+            const school = prompt("Enter new school ID (leave empty to keep unchanged):");
+
+            const updatedFields = {};
+            if (name) updatedFields.name = name;
+            if (position) updatedFields.position = position;
+            if (salary) updatedFields.salary = salary;
+            if (school) updatedFields.school = school;
+
+            $.ajax({
+                url: `${apiUrl}${id}/`,
+                type: 'PUT',
+                data: JSON.stringify(updatedFields),
+                contentType: 'application/json',
+                success: function() {
+                    fetchEmployees(); // Refresh the list
+                },
+                error: function(xhr) {
+                    alert('Failed to update employee: ' + xhr.responseJSON.detail);
+                }
+            });
+        }
+
+        function deleteEmployee(id) {
+            $.ajax({
+                url: `${apiUrl}${id}/`,
+                type: 'DELETE',
+                success: function() {
+                    fetchEmployees(); // Refresh the list
+                },
+                error: function(xhr) {
+                    alert('Failed to delete employee: ' + xhr.responseJSON.detail);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            fetchSchools(); // Populate school dropdowns
+            fetchEmployees(); // Fetch all employees by default
+
+            $('#add-employee').click(function() {
+                addEmployee();
+            });
+
+            $('#filter-employees').click(function() {
+                const schoolId = $('#filter-school').val();
+                fetchEmployees(schoolId); // Fetch filtered employees
+            });
+
+            $('#employees-container').on('click', '.update-employee', function() {
+                const id = $(this).closest('.item').data('id');
+                updateEmployee(id);
+            });
+
+            $('#employees-container').on('click', '.delete-employee', function() {
+                const id = $(this).closest('.item').data('id');
+                deleteEmployee(id);
+            });
+        });
+    </script>
+</body>
+</html>

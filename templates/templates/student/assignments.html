@@ -1,0 +1,107 @@
+{% extends 'templates/main/base.html' %}
+{% load widget_tweaks %}
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="section-body">
+  <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+              <h4 class="d-inline"> Assignments Results | {{student.first_name}}</h4>
+              <!-- <div class="card-header-action">
+               <a href="{% url 'student:student' student.id school_id %}" class="btn btn-primary">View Student</a>
+              </div> -->
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Marks</th>
+                      <th>Highest - Lowest</th>
+                      <th>Comment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for ass in assignments %}
+                    
+                    <tr>
+                        <td>
+                          {{ass.title}} 
+                         
+                        </td>
+                        
+                        <td>
+                            {% if ass.students_attended %}
+                                {% if student in ass.students_attended %}
+                                    {% for sub in ass.ass_results.all %}
+                                        {{sub.marks}}/{{ass.total_marks}}
+                                    {% endfor %}
+                                {% else %}
+                                    di not attent
+                                {% endif %}
+                            {% else %}
+                                Results not Out
+                            {% endif %}
+
+                        </td>
+                        <td>
+                            {{ass.highest}} - {{ass.lowest}}
+                        </td>
+                        <td>
+                        {{sub.comment}}
+                        </td>
+
+                    </tr>
+                    
+                    {% endfor %}
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+<!-- Add student modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add class work result</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="" method="post" class="">
+          {% csrf_token %}
+          <div class="modal-body">
+
+              {{form.as_table}}
+              
+          
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button id="submit_btn" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
